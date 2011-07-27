@@ -11,12 +11,19 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DialectConfig {
 
-   final Dialect d;
+   Dialect d;
 
    final Map<DialectConfigKey, Object> config
            = new ConcurrentHashMap<DialectConfigKey, Object>();
 
+   public DialectConfig() {
+   }
+
    public DialectConfig(Dialect d) {
+      this.d = d;
+   }
+
+   public void setDialect(Dialect d) {
       this.d = d;
    }
 

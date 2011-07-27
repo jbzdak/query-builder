@@ -3,10 +3,11 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public final class ConditionType {
+public class BooleanExpressionType {
 
-   private ConditionType() {
-   }
+   public static final String AND = "AND";
+
+   public static final String OR = "OR";
 
    public static final String LIKE = "LIKE";
 
@@ -23,6 +24,5 @@ public final class ConditionType {
    public static final String GTE = ">=";
 
    public static final String IN = "IN";
-
 
 }

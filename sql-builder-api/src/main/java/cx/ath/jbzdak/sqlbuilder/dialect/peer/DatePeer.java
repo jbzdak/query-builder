@@ -16,7 +16,16 @@ public class DatePeer extends AbstractPeer<DateLiteral>{
    }
 
    public StringBuilder toSQL() {
+
+      return new StringBuilder();
+   }
+
+   public void appendTo(StringBuilder stringBuilder) {
       DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-      return new StringBuilder(dialect.getStringQuote()  + dateFormat.format(parent.getLiteralValue()) + dialect.getStringQuote());
+      stringBuilder.append(" ");
+      stringBuilder.append(dialect.getStringQuote());
+      stringBuilder.append(dateFormat.format(parent.getLiteralValue()));
+      stringBuilder.append(dialect.getStringQuote());
+      stringBuilder.append(" ");
    }
 }

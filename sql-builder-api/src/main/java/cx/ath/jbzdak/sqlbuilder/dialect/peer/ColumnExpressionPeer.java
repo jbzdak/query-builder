@@ -15,26 +15,16 @@ public class ColumnExpressionPeer extends AbstractPeer<ColumnExpression>{
 
       IdentifierQuotingStrategy quotingStrategy =
               (IdentifierQuotingStrategy) dialect.getDialectConfig().getConfig(DialectConfigKey.TABLE_EXPRESSION_QUOTING_STRATEGY);
-      String schema = quotingStrategy.quoteIdentifier(dialect, parent.getSchema());
-      String table = quotingStrategy.quoteIdentifier(dialect, parent.getTable());
-      String column = quotingStrategy.quoteIdentifier(dialect, parent.getColumn());
 
 
-      if(schema != null){
-         stringBuilder.append(schema);
-         stringBuilder.append(".");
+      if(parent.getSchema() != null && parent.getTable() == null){
+         throw new IllegalArgumentException("Shema part of TableExpression is present but table is not present");
       }
-      if(column == null){
-         if(stringBuilder.length() == 0){
-            throw new IllegalArgumentException("Shema part of TableExpression is present but table is not present");
-         }
+      if (parent.getColumn() == null){
+         throw new IllegalArgumentException("There is no column specified in column expression");
       }
-      stringBuilder.
 
-   }
-
-   public StringBuilder toSQL() {
-      //TODO do some error checking like if parent.getShema != null thebn parent.getTable != null
+      PeerUtils.appendIdentifier(stringBuilder, dialect, quotingStrategy, parent.getSchema(), parent.getTable(), parent.getColumn(), parent.getAlias());
 
    }
 

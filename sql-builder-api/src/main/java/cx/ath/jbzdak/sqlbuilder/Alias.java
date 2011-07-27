@@ -14,4 +14,10 @@ public class Alias extends SQLObject implements SQLFactory, Identifier{
    public Alias(String alias) {
       this.alias = alias;
    }
+
+   public ColumnExpression column(String column){
+      ColumnExpression columnExpression = new ColumnExpression(alias, column);
+      columnExpression.registerParent(this);
+      return columnExpression;
+   }
 }

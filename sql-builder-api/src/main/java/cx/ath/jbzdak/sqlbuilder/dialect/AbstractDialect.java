@@ -5,6 +5,7 @@ import com.sun.xml.internal.bind.v2.model.core.ID;
 import cx.ath.jbzdak.sqlbuilder.Dialect;
 import cx.ath.jbzdak.sqlbuilder.SQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
+import cx.ath.jbzdak.sqlbuilder.Select;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
@@ -27,6 +28,7 @@ public abstract class AbstractDialect implements Dialect{
 
    protected AbstractDialect(DialectConfig dialectConfig) {
       this.dialectConfig = dialectConfig;
+      dialectConfig.setDialect(this);
    }
 
    public SQLPeer getPeer(SQLFactory sqlFactory) {
@@ -67,5 +69,9 @@ public abstract class AbstractDialect implements Dialect{
 
    public DialectConfig getDialectConfig() {
       return dialectConfig;
+   }
+
+   public Select select(){
+      return new Select(this);
    }
 }

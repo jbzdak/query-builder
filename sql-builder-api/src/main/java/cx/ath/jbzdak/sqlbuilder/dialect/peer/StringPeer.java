@@ -7,7 +7,11 @@ import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
  */
 public class StringPeer extends AbstractPeer<StringLiteral>{
 
-   public StringBuilder toSQL() {
-      return new StringBuilder(dialect.getStringQuote() + parent.getLiteralValue() + dialect.getStringQuote());
+   public void appendTo(StringBuilder stringBuilder) {
+      stringBuilder.append(' ');
+      stringBuilder.append(dialect.getStringQuote());
+      stringBuilder.append(parent.getLiteralValue());
+      stringBuilder.append(dialect.getStringQuote());
+      stringBuilder.append(' ');
    }
 }

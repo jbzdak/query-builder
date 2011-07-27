@@ -37,7 +37,7 @@ public enum IdentifierQuotingStrategy {
          if(identifier == null){
             return null;
          }
-         return d.getStringQuote() + identifier + d.getStringQuote();
+         return d.getIdentifierQuote() + identifier + d.getIdentifierQuote();
       }
    };
 

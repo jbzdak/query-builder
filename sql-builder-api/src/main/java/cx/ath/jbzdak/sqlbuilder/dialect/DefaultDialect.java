@@ -20,6 +20,10 @@ import java.util.Map;
  */
 public class DefaultDialect extends AbstractDialect{
 
+   public DefaultDialect() {
+      super(new DialectConfig());
+   }
+
    public DefaultDialect(DialectConfig dialectConfig) {
       super(dialectConfig);
    }
@@ -33,8 +37,12 @@ public class DefaultDialect extends AbstractDialect{
       put(transformerMap, SQLLiteral.class, UnquotedLiteralPeer.class);
       put(transformerMap, StringLiteral.class, StringPeer.class);
       put(transformerMap, DateLiteral.class, DatePeer.class);
-      put(transformerMap, Condition.class, ConditionPeer.class);
-
+      put(transformerMap, Table.class, TablePeer.class);
+      put(transformerMap, JoinUsing.class, UsingJoinPeer.class);
+      put(transformerMap, JoinOn.class, OnJoinPeer.class);
+      put(transformerMap, Select.class, SelectPeer.class);
+      put(transformerMap, BooleanExpression.class, BooleanExpressionPeer.class);
+      put(transformerMap, RawString.class, RawStringPeer.class);
 
       return transformerMap;
    }

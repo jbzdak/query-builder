@@ -20,6 +20,9 @@ public class ColumnExpression extends SQLObject implements SQLFactory{
    }
 
 
+   public Alias getAlias() {
+      return alias;
+   }
 
    public ColumnExpression(String table, String column) {
       this.table = table;
@@ -30,6 +33,7 @@ public class ColumnExpression extends SQLObject implements SQLFactory{
       this.table = table;
       this.column = column;
       this.alias = alias;
+      alias.registerParent(this);
    }
 
    public ColumnExpression(String schema, String table, String column) {

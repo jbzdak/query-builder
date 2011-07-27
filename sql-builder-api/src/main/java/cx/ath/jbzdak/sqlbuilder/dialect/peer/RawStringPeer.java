@@ -1,15 +1,14 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
-import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
+import cx.ath.jbzdak.sqlbuilder.RawString;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class UnquotedLiteralPeer extends AbstractPeer<SQLLiteral>{
-
+public class RawStringPeer extends AbstractPeer<RawString>{
    public void appendTo(StringBuilder stringBuilder) {
       stringBuilder.append(' ');
-      stringBuilder.append(parent.getLiteralValue().toString());
+      stringBuilder.append(parent.getRawString());
       stringBuilder.append(' ');
    }
 }
