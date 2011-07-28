@@ -1,19 +1,20 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
-import cx.ath.jbzdak.sqlbuilder.BooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.AbstractBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpression;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class BooleanExpressionPeer extends AbstractPeer<BooleanExpression>{
+public class BooleanExpressionPeer extends AbstractPeer<AbstractBooleanExpression>{
 
    public void appendTo(StringBuilder stringBuilder) {
       stringBuilder.append(" (");
-      stringBuilder.append(parent.getLhs().toSQL());
+      parent.getLhs().appendTo(stringBuilder);
       stringBuilder.append(' ');
-      stringBuilder.append(parent.getBooleanExpressionType());
+      stringBuilder.append(parent.getType());
       stringBuilder.append(' ');
-      stringBuilder.append(parent.getRhs().toSQL());
+      parent.getRhs().appendTo(stringBuilder);
       stringBuilder.append(" )");
    }
 }

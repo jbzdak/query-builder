@@ -1,6 +1,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
-import java.lang.reflect.Array;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpression;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

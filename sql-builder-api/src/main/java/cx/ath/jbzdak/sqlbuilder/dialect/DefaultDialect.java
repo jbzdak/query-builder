@@ -1,13 +1,13 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.AbstractBooleanExpression;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.DateLiteral;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 
-import java.io.FileReader;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
@@ -41,7 +41,7 @@ public class DefaultDialect extends AbstractDialect{
       put(transformerMap, JoinUsing.class, UsingJoinPeer.class);
       put(transformerMap, JoinOn.class, OnJoinPeer.class);
       put(transformerMap, Select.class, SelectPeer.class);
-      put(transformerMap, BooleanExpression.class, BooleanExpressionPeer.class);
+      put(transformerMap, AbstractBooleanExpression.class, BooleanExpressionPeer.class);
       put(transformerMap, RawString.class, RawStringPeer.class);
 
       return transformerMap;

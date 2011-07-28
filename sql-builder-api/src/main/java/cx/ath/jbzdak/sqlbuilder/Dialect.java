@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpression;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 
 import java.util.Map;
@@ -21,4 +22,7 @@ public interface Dialect {
 
    DialectConfig getDialectConfig();
 
+   Select select();
+
+   BooleanExpression booleanExpression();
 }

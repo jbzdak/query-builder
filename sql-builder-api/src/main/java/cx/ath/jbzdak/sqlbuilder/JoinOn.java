@@ -1,5 +1,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpression;
+
 /**
  * Created by: Jacek Bzdak
  */

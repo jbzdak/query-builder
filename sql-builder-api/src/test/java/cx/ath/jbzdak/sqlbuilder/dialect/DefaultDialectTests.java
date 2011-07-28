@@ -1,6 +1,10 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionFactory;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.Condition;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.ConditionType;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
@@ -34,10 +38,10 @@ public class DefaultDialectTests {
       select.setLimit(100);
 
       BooleanExpression booleanExpression = new BooleanExpression();
-      booleanExpression.setBooleanExpressionType(BooleanExpressionType.EQUALS);
-      booleanExpression.setLhs(dp.column("POINT_TYPE"));
-      booleanExpression.setRhs(new RawString("4"));
-      select.setWhere(booleanExpression);
+      select.setWhere(
+              BooleanExpressionFactory.and().
+                      lhs(ConditionType.EQUALS, dp.column("POINT_TYPE"), SQLLiteral.create(4)).
+                      rhs(ConditionType.EQUALS, dp.column("DATA_SOURCE"), SQLLiteral.create(1)));
       System.out.println(select.toSQL());
 
    }
