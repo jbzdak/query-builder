@@ -1,5 +1,9 @@
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
+import fakeEnum.FakeEnum;
+
+import java.util.Collection;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -21,4 +25,17 @@ public class ConditionType {
 
    public static final String IN = "IN";
 
+   private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(ConditionType.class);
+
+   public static String nameOf(String value) {
+      return FAKE_ENUM.nameOf(value);
+   }
+
+   public static Collection<? extends String> values() {
+      return FAKE_ENUM.values();
+   }
+
+   public static String valueOf(String s) {
+      return FAKE_ENUM.valueOf(s);
+   }
 }

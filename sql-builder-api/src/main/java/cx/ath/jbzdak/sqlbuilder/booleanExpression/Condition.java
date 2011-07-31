@@ -1,13 +1,12 @@
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class Condition extends AbstractBooleanExpression {
+public class Condition extends AbstractBinaryBooleanExpression {
 
 
    public Condition() {

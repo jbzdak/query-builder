@@ -1,11 +1,15 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.AbstractBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.AbstractBinaryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BetweenCondition;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpression;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.DateLiteral;
+import cx.ath.jbzdak.sqlbuilder.literal.DefaultLiteralFactory;
+import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 
 import java.nio.CharBuffer;
@@ -28,6 +32,8 @@ public class DefaultDialect extends AbstractDialect{
       super(dialectConfig);
    }
 
+   DefaultLiteralFactory defaultLiteralFactory = new DefaultLiteralFactory();
+
    @Override
    protected Map<Class, Transformer<SQLPeer, SQLFactory>> createTransformerMap() {
       Map<Class, Transformer<SQLPeer, SQLFactory>> transformerMap = new HashMap<Class, Transformer<SQLPeer, SQLFactory>>();
@@ -41,8 +47,10 @@ public class DefaultDialect extends AbstractDialect{
       put(transformerMap, JoinUsing.class, UsingJoinPeer.class);
       put(transformerMap, JoinOn.class, OnJoinPeer.class);
       put(transformerMap, Select.class, SelectPeer.class);
-      put(transformerMap, AbstractBooleanExpression.class, BooleanExpressionPeer.class);
+      put(transformerMap, AbstractBinaryBooleanExpression.class, BooleanExpressionPeer.class);
       put(transformerMap, RawString.class, RawStringPeer.class);
+      put(transformerMap, NAryBooleanExpression.class, NAryBooleanExpressionPeer.class);
+      put(transformerMap, BetweenCondition.class, BetweenConditionPeer.class);
 
       return transformerMap;
    }
@@ -59,7 +67,9 @@ public class DefaultDialect extends AbstractDialect{
       return "\"";
    }
 
-
+   public LiteralFactory getLiteralFactory() {
+      return defaultLiteralFactory;
+   }
 
    public boolean identifierNeedsQuoting(String identifier){
       try {

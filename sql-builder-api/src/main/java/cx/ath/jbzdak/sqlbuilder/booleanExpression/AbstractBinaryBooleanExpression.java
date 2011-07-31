@@ -7,7 +7,7 @@ import cx.ath.jbzdak.sqlbuilder.SQLObject;
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class AbstractBooleanExpression extends SQLObject {
+public abstract class AbstractBinaryBooleanExpression extends SQLObject implements BooleanExpressionMarker {
 
    protected String type;
 
@@ -15,10 +15,15 @@ public abstract class AbstractBooleanExpression extends SQLObject {
 
    protected SQLFactory lhs;
 
-   protected AbstractBooleanExpression() {
+   protected AbstractBinaryBooleanExpression() {
    }
 
-   protected AbstractBooleanExpression(String type, SQLFactory rhs, SQLFactory lhs) {
+
+   protected AbstractBinaryBooleanExpression(String type) {
+      this.type = type;
+   }
+
+   protected AbstractBinaryBooleanExpression(String type, SQLFactory rhs, SQLFactory lhs) {
       this.type = type;
       this.rhs = rhs;
       this.lhs = lhs;

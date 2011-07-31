@@ -9,6 +9,9 @@ public abstract class AbstractJoin extends SQLObject{
 
    Table table;
 
+   protected AbstractJoin() {
+   }
+
    public AbstractJoin(String joinType, Table table) {
       this.joinType = joinType;
       this.table = table;

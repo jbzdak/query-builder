@@ -1,20 +1,43 @@
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.*;
 
 /**
  * Created by: Jacek Bzdak
  */
 public class JoinOn extends AbstractJoin{
 
-   private BooleanExpression onCondition;
+   private AbstractBinaryBooleanExpression onCondition;
 
-   public JoinOn(String joinType, Table table, BooleanExpression onCondition) {
+   public JoinOn() {
+   }
+
+   public JoinOn(String joinType, Table table, BinaryBooleanExpression onCondition) {
       super(joinType, table);
       this.onCondition = onCondition;
    }
 
-   public BooleanExpression getOnCondition() {
+   public AbstractBinaryBooleanExpression getOnCondition() {
       return onCondition;
+   }
+
+   public void setOnCondition(AbstractBinaryBooleanExpression onCondition) {
+      this.onCondition = onCondition;
+   }
+
+   public BooleanExpressionA createAndCondition(){
+      return BooleanExpressionFactory.and(dialect, new BooleanExpressionFactoryCallback() {
+         public void expressionBuild(BinaryBooleanExpression expression) {
+            onCondition = expression;
+         }
+      });
+   }
+
+   public BooleanExpressionA createOrCondition(){
+      return BooleanExpressionFactory.or(dialect, new BooleanExpressionFactoryCallback() {
+         public void expressionBuild(BinaryBooleanExpression expression) {
+            onCondition = expression;
+         }
+      });
    }
 }

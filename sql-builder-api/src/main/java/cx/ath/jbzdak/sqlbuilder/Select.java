@@ -1,6 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BinaryBooleanExpression;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ public class Select extends SQLObject{
 
    List<Table> from = new ArrayList<Table>();
 
-   BooleanExpression where;
+   BinaryBooleanExpression where;
 
    Integer limit;
 
@@ -57,7 +57,7 @@ public class Select extends SQLObject{
       this.limit = limit;
    }
 
-   public void setWhere(BooleanExpression where) {
+   public void setWhere(BinaryBooleanExpression where) {
       this.where = where;
       where.registerParent(this);
    }
@@ -71,7 +71,7 @@ public class Select extends SQLObject{
       return from;
    }
 
-   public BooleanExpression getWhere() {
+   public BinaryBooleanExpression getWhere() {
       return where;
    }
 }

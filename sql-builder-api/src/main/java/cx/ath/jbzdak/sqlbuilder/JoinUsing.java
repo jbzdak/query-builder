@@ -9,6 +9,9 @@ public class JoinUsing extends AbstractJoin {
 
    List<String> columns;
 
+   public JoinUsing() {
+   }
+
    public JoinUsing(String joinType, Table table, List<String> columns) {
       super(joinType, table);
       this.columns = columns;

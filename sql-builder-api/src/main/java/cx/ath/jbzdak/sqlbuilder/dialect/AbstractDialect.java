@@ -1,16 +1,15 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
-import com.sun.corba.se.spi.ior.IdentifiableFactory;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import cx.ath.jbzdak.sqlbuilder.Dialect;
 import cx.ath.jbzdak.sqlbuilder.SQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 import cx.ath.jbzdak.sqlbuilder.Select;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionA;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
-import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
+import cx.ath.jbzdak.sqlbuilder.literal.DefaultLiteralFactory;
+import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 
 import java.security.InvalidParameterException;
 import java.util.Map;
@@ -24,6 +23,8 @@ public abstract class AbstractDialect implements Dialect{
    protected volatile Map<Class, Transformer<SQLPeer, SQLFactory>> transformerMap;
 
    protected abstract Map<Class, Transformer<SQLPeer, SQLFactory>> createTransformerMap();
+
+
 
    private final DialectConfig dialectConfig;
 
@@ -42,6 +43,8 @@ public abstract class AbstractDialect implements Dialect{
       }
       return sqlPeer(sqlFactory, sqlFactory.getClass());
    }
+
+
 
    private SQLPeer sqlPeer(SQLFactory sqlFactory, Class<?> clazz){
       Transformer<SQLPeer, SQLFactory> transformer = transformerMap.get(clazz);
@@ -72,11 +75,18 @@ public abstract class AbstractDialect implements Dialect{
       return dialectConfig;
    }
 
+
+
    public Select select(){
       return new Select(this);
    }
 
-   public BooleanExpression booleanExpression(){
-      return new BooleanExpression();
+
+   public BooleanExpressionA or(){
+      return BooleanExpressionFactory.or(this);
+   }
+
+   public BooleanExpressionA and(){
+      return BooleanExpressionFactory.and(this);
    }
 }

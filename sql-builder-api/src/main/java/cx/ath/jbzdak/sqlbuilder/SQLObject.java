@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
 import cx.ath.jbzdak.sqlbuilder.dialect.DefaultDialect;
 
 import java.lang.reflect.Field;
@@ -9,17 +10,17 @@ import java.lang.reflect.Field;
  */
 public class SQLObject implements SQLFactory, DialectAware {
 
-   Dialect dialect = DialectHolder.getDefaultDialect();
+   protected Dialect dialect = DialectHolder.getDefaultDialect();
 
-   boolean dialectUpdatedInChildren;
+   protected boolean dialectUpdatedInChildren;
 
-   SQLPeer sqlPeer;
+   protected SQLPeer sqlPeer;
 
    public SQLObject() {
    }
 
-   public SQLObject(SQLObject sqlObject){
-      dialect = sqlObject.dialect;
+   public SQLObject(SQLObject parent){
+      dialect = parent.dialect;
    }
 
    public SQLObject(Dialect dialect) {

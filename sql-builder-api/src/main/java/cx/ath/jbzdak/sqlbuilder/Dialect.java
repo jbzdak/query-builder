@@ -1,11 +1,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpression;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
-
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.StringTokenizer;
+import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 
 /**
  * Created by: Jacek Bzdak
@@ -24,5 +20,5 @@ public interface Dialect {
 
    Select select();
 
-   BooleanExpression booleanExpression();
+   LiteralFactory getLiteralFactory();
 }
