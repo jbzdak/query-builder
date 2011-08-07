@@ -13,7 +13,7 @@ public class SelectAllPeer extends AbstractPeer<SelectAllExpression> {
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
        IdentifierQuotingStrategy quotingStrategy =
-              (IdentifierQuotingStrategy) renderingContext.getDialect().getDialectConfig().getConfig(DialectConfigKey.TABLE_EXPRESSION_QUOTING_STRATEGY);
+              (IdentifierQuotingStrategy) renderingContext.getDialectConfig().getConfig(DialectConfigKey.TABLE_EXPRESSION_QUOTING_STRATEGY);
 
 
       if(parent.getSchema() != null && parent.getTable() == null){

@@ -19,6 +19,11 @@ public class DialectConfig {
    public DialectConfig() {
    }
 
+   public DialectConfig(DialectConfig dialectConfig) {
+      d = dialectConfig.d;
+      config.putAll(dialectConfig.config);
+   }
+
    public DialectConfig(Dialect d) {
       this.d = d;
    }

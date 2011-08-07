@@ -23,9 +23,13 @@ public enum DialectConfigKey {
       public Object getDefault(Dialect d) {
          return d.getDialectConfig().getConfig(IDENTIFIER_QUOTING_STRATEGY);
       }
-   }
-
-   ;
+   },
+   PRETTIFY_SQL{
+      @Override
+      public Object getDefault(Dialect d) {
+         return PrettifySQLLevel.MINIMAL;
+      }
+   };
 
 
    public abstract Object getDefault(Dialect d);

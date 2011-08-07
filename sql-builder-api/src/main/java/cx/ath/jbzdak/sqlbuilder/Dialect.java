@@ -24,4 +24,5 @@ public interface Dialect {
    LiteralFactory getLiteralFactory();
 
    BooleanFactory getBooleanFactory();
+
 }

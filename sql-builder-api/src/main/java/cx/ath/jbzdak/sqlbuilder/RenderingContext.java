@@ -1,5 +1,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+
 import java.util.*;
 
 /**
@@ -51,6 +53,10 @@ public class RenderingContext{
       return parentExpressions.get(size -2);
    }
 
+   public DialectConfig getDialectConfig() {
+      return expressionContext.getDialectConfig();
+   }
+
    public List<Select> getSelects() {
       return contextInfo.getSelects();
    }
@@ -59,6 +65,19 @@ public class RenderingContext{
       return contextInfo.getParentSelect();
    }
 
+   public String getStringQuote() {
+      return getDialect().getStringQuote();
+   }
+
+   public String getIdentifierQuote() {
+      return getDialect().getIdentifierQuote();
+   }
+
+   @Deprecated()
+   /**
+    * @deprecated You should not use this method, rather use delegates from instances of this class.
+    * For example rather use {@code this.getDialectConfig()} than {@code this.getDialect().getDialectConfig()}
+    */
    public Dialect getDialect() {
       return expressionContext.getDialect();
    }

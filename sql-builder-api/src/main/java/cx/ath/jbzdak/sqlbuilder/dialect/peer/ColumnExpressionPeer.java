@@ -16,8 +16,7 @@ public class ColumnExpressionPeer extends AbstractPeer<ColumnExpression>{
       stringBuilder.append(' ');
 
       IdentifierQuotingStrategy quotingStrategy =
-              (IdentifierQuotingStrategy) renderingContext.getDialect().getDialectConfig().getConfig(DialectConfigKey.TABLE_EXPRESSION_QUOTING_STRATEGY);
-
+              (IdentifierQuotingStrategy) renderingContext.getDialectConfig().getConfig(DialectConfigKey.TABLE_EXPRESSION_QUOTING_STRATEGY);
 
       if(parent.getSchema() != null && parent.getTable() == null){
          throw new IllegalArgumentException("Shema part of TableExpression is present but table is not present");

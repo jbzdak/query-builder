@@ -15,22 +15,6 @@ public abstract class AbstractPeer<T extends IntermediateSQLFactory> implements 
 
    protected abstract void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder);
 
-//   public final void appendTo(StringBuilder stringBuilder) {
-//      appendTo(context.renderingContext(this.parent), stringBuilder);
-//   }
-
-//   public StringBuilder toSQL() {
-//      StringBuilder stringBuilder = new StringBuilder();
-//      appendTo(stringBuilder);
-//      return stringBuilder;
-//   }
-
-//   public StringBuilder toSQL(RenderingContext renderContext) {
-//      StringBuilder stringBuilder = new StringBuilder();
-//      appendTo(renderContext, stringBuilder);
-//      return stringBuilder;
-//   }
-
    public final void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder) {
       renderingContext.push(this.parent);
       try{

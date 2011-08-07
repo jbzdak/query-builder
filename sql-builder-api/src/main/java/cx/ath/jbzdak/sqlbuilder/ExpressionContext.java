@@ -1,11 +1,15 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+
 /**
  * Created by: Jacek Bzdak
  */
 public class ExpressionContext {
 
    final Dialect dialect;
+
+   DialectConfig dialectConfig;
 
    public ExpressionContext() {
       dialect = DialectHolder.getDefaultDialect();
@@ -31,4 +35,13 @@ public class ExpressionContext {
    public Dialect getDialect() {
       return dialect;
    }
+
+   public DialectConfig getDialectConfig() {
+      if (dialectConfig == null) {
+         dialectConfig = new DialectConfig(dialect.getDialectConfig());
+      }
+      return dialectConfig;
+   }
+
+
 }

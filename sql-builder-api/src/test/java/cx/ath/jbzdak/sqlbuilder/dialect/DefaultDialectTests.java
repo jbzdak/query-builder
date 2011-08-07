@@ -6,6 +6,7 @@ import cx.ath.jbzdak.sqlbuilder.booleanExpression.ConditionType;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
+import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
 import org.junit.Test;
 
 import static cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory.BOOLEAN_FACTORY;
@@ -38,6 +39,8 @@ public class DefaultDialectTests {
 
       select.addFrom(new Table("DATA_POINT_DAILY", dp));
       select.setLimit(100);
+
+      defaultDialect.getDialectConfig().setConfig(DialectConfigKey.PRETTIFY_SQL, PrettifySQLLevel.MULTILINE);
 
       select.setWhere(
               BOOLEAN_FACTORY.and(

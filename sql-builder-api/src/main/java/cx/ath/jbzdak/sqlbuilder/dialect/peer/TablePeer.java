@@ -20,7 +20,7 @@ public class TablePeer extends AbstractPeer<Table>{
       }
 
       PeerUtils.appendIdentifier(stringBuilder, renderingContext,
-              (IdentifierQuotingStrategy) renderingContext.getDialect().getDialectConfig().getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY),
+              (IdentifierQuotingStrategy) renderingContext.getDialectConfig().getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY),
               parent.getSchema(), parent.getTable(), null, parent.getAlias());
    }
 }
