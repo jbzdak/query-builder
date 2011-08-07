@@ -3,7 +3,7 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public class Table extends SQLObject{
+public class Table extends IntermediateSQLObject{
 
    private String schema;
    private String table;
@@ -17,7 +17,6 @@ public class Table extends SQLObject{
    public Table(String table, Alias alias) {
       this.table = table;
       this.alias = alias;
-      alias.registerParent(this);
    }
 
    public Table(String schema, String table) {
@@ -29,7 +28,6 @@ public class Table extends SQLObject{
       this.schema = schema;
       this.table = table;
       this.alias = alias;
-      alias.registerParent(this);
    }
 
    public String getSchema() {

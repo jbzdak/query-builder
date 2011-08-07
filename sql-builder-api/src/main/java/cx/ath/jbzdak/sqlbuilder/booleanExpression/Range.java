@@ -18,28 +18,24 @@ public class Range extends SQLObject{
 
    public Range(SQLObject parent, int from, int to) {
       super(parent);
-      LiteralFactory literalFactory = this.dialect.getLiteralFactory();
+      LiteralFactory literalFactory = this.getExpressionContext().getDialect().getLiteralFactory();
       this.from = literalFactory.create(from);
       this.to = literalFactory.create(to);
    }
 
    public Range(SQLObject parent, float from, float to) {
       super(parent);
-      LiteralFactory literalFactory = this.dialect.getLiteralFactory();
+      LiteralFactory literalFactory = this.getExpressionContext().getDialect().getLiteralFactory(); ;
       this.from = literalFactory.create(from);
       this.to = literalFactory.create(to);
    }
 
    public Range(SQLObject parent, double from, double to) {
       super(parent);
-      LiteralFactory literalFactory = this.dialect.getLiteralFactory();
+      LiteralFactory literalFactory = this.getExpressionContext().getDialect().getLiteralFactory();
       this.from = literalFactory.create(from);
       this.to = literalFactory.create(to);
    }
-
-
-
-
 
    public Range(SQLLiteral to, SQLLiteral from) {
       this.to = to;

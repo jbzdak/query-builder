@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 
 /**
@@ -7,11 +8,13 @@ import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
  */
 public class StringPeer extends AbstractPeer<StringLiteral>{
 
-   public void appendTo(StringBuilder stringBuilder) {
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       stringBuilder.append(' ');
-      stringBuilder.append(dialect.getStringQuote());
+      stringBuilder.append(getDialect().getStringQuote());
       stringBuilder.append(parent.getLiteralValue());
-      stringBuilder.append(dialect.getStringQuote());
+      stringBuilder.append(getDialect().getStringQuote());
       stringBuilder.append(' ');
    }
+
 }

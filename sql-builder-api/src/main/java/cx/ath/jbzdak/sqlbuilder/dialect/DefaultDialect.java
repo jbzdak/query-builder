@@ -35,8 +35,8 @@ public class DefaultDialect extends AbstractDialect{
    DefaultLiteralFactory defaultLiteralFactory = new DefaultLiteralFactory();
 
    @Override
-   protected Map<Class, Transformer<SQLPeer, SQLFactory>> createTransformerMap() {
-      Map<Class, Transformer<SQLPeer, SQLFactory>> transformerMap = new HashMap<Class, Transformer<SQLPeer, SQLFactory>>();
+   protected Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap() {
+      Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> transformerMap = new HashMap<Class, Transformer<SQLPeer, IntermediateSQLFactory>>();
 
       put(transformerMap, Alias.class, AliasPeer.class);
       put(transformerMap, ColumnExpression.class, ColumnExpressionPeer.class);
@@ -55,7 +55,7 @@ public class DefaultDialect extends AbstractDialect{
       return transformerMap;
    }
 
-   protected static void put(Map<Class, Transformer<SQLPeer, SQLFactory>> map, Class<? extends SQLFactory> objectClass, Class<? extends SQLPeer> peerClass){
+   protected static void put(Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> map, Class<? extends IntermediateSQLFactory> objectClass, Class<? extends SQLPeer> peerClass){
       map.put(objectClass, new DefaultTransformer(peerClass));
    }
 

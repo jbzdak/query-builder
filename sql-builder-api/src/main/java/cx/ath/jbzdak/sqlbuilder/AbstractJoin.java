@@ -3,7 +3,7 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class AbstractJoin extends SQLObject{
+public abstract class AbstractJoin extends IntermediateSQLObject{
 
    String joinType;
 

@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.Table;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
@@ -11,12 +12,14 @@ import java.security.InvalidParameterException;
  */
 public class TablePeer extends AbstractPeer<Table>{
 
-   public void appendTo(StringBuilder stringBuilder) {
+
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       if(parent.getTable() == null){
          throw new InvalidParameterException();
       }
 
-      PeerUtils.appendIdentifier(stringBuilder, dialect, (IdentifierQuotingStrategy) dialect.getDialectConfig().getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY),
+      PeerUtils.appendIdentifier(stringBuilder, renderingContext, (IdentifierQuotingStrategy) getDialect().getDialectConfig().getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY),
               parent.getSchema(), parent.getTable(), null, parent.getAlias());
    }
 }

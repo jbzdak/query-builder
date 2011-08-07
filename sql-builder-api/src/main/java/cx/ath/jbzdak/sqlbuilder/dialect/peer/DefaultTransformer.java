@@ -1,15 +1,13 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
-
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class DefaultTransformer implements Transformer<SQLPeer, SQLFactory>{
+public class DefaultTransformer implements Transformer<SQLPeer, IntermediateSQLFactory>{
 
    Class<? extends SQLPeer> aClass;
 
@@ -17,10 +15,10 @@ public class DefaultTransformer implements Transformer<SQLPeer, SQLFactory>{
       this.aClass = aClass;
    }
 
-   public SQLPeer transform(SQLFactory source) {
+   public SQLPeer transform(IntermediateSQLFactory source) {
       try {
          SQLPeer peer =  aClass.getConstructor().newInstance();
-         peer.registerParent(source);
+         peer.registerContext;
          return peer;
       } catch (RuntimeException e){
          throw e;

@@ -1,9 +1,13 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import com.sun.org.apache.xalan.internal.extensions.ExpressionContext;
 import cx.ath.jbzdak.sqlbuilder.Alias;
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
+
+import java.awt.image.renderable.RenderContext;
 
 /**
  * Created by: Jacek Bzdak
@@ -11,11 +15,17 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
 public class AliasPeer extends AbstractPeer<Alias> {
 
 
-   public void appendTo(StringBuilder stringBuilder) {
-      stringBuilder.append(' ');
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
+       stringBuilder.append(' ');
       IdentifierQuotingStrategy quotingStrategy =
-              (IdentifierQuotingStrategy) dialect.getDialectConfig().getConfig(DialectConfigKey.ALIAS_QUOTING_STRATEGY);
-      stringBuilder.append(quotingStrategy.quoteIdentifier(dialect, parent.getAlias()));
+              (IdentifierQuotingStrategy) context.getDialect().getDialectConfig().getConfig(DialectConfigKey.ALIAS_QUOTING_STRATEGY);
+      stringBuilder.append(quotingStrategy.quoteIdentifier(context.getDialect(), parent.getAlias()));
       stringBuilder.append(' ');
    }
+
+   public void appendToInternal(StringBuilder stringBuilder) {
+
+   }
+
 }

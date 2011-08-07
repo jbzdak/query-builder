@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.AbstractBinaryBooleanExpression;
 
 /**
@@ -7,13 +8,15 @@ import cx.ath.jbzdak.sqlbuilder.booleanExpression.AbstractBinaryBooleanExpressio
  */
 public class BooleanExpressionPeer extends AbstractPeer<AbstractBinaryBooleanExpression>{
 
-   public void appendTo(StringBuilder stringBuilder) {
+
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       stringBuilder.append(" (");
-      parent.getLhs().appendTo(stringBuilder);
+      parent.getLhs().appendTo(renderingContext, stringBuilder);
       stringBuilder.append(' ');
       stringBuilder.append(parent.getType());
       stringBuilder.append(' ');
-      parent.getRhs().appendTo(stringBuilder);
+      parent.getRhs().appendTo(renderingContext, stringBuilder);
       stringBuilder.append(" )");
    }
 }

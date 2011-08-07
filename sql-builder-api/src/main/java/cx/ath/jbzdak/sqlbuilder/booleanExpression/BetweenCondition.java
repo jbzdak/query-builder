@@ -1,12 +1,13 @@
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
 import cx.ath.jbzdak.sqlbuilder.SQLObject;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class BetweenCondition extends SQLObject implements BooleanExpressionMarker{
+public class BetweenCondition extends IntermediateSQLObject implements BooleanExpressionMarker{
 
    Range range;
 

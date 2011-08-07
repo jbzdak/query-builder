@@ -10,11 +10,11 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
  */
 public class ColumnExpressionPeer extends AbstractPeer<ColumnExpression>{
 
-   public void appendTo(StringBuilder stringBuilder) {
+   public void appendToInternal(StringBuilder stringBuilder) {
       stringBuilder.append(' ');
 
       IdentifierQuotingStrategy quotingStrategy =
-              (IdentifierQuotingStrategy) dialect.getDialectConfig().getConfig(DialectConfigKey.TABLE_EXPRESSION_QUOTING_STRATEGY);
+              (IdentifierQuotingStrategy) context.getDialect().getDialectConfig().getConfig(DialectConfigKey.TABLE_EXPRESSION_QUOTING_STRATEGY);
 
 
       if(parent.getSchema() != null && parent.getTable() == null){
@@ -24,7 +24,7 @@ public class ColumnExpressionPeer extends AbstractPeer<ColumnExpression>{
          throw new IllegalArgumentException("There is no column specified in column expression");
       }
 
-      PeerUtils.appendIdentifier(stringBuilder, dialect, quotingStrategy, parent.getSchema(), parent.getTable(), parent.getColumn(), parent.getAlias());
+      PeerUtils.appendIdentifier(stringBuilder, context.getDialect(), quotingStrategy, parent.getSchema(), parent.getTable(), parent.getColumn(), parent.getAlias());
 
    }
 

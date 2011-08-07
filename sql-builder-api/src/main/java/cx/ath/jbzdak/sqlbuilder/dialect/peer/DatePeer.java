@@ -20,12 +20,12 @@ public class DatePeer extends AbstractPeer<DateLiteral>{
       return new StringBuilder();
    }
 
-   public void appendTo(StringBuilder stringBuilder) {
+   public void appendToInternal(StringBuilder stringBuilder) {
       DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
       stringBuilder.append(" ");
-      stringBuilder.append(dialect.getStringQuote());
+      stringBuilder.append(context.getDialect().getStringQuote());
       stringBuilder.append(dateFormat.format(parent.getLiteralValue()));
-      stringBuilder.append(dialect.getStringQuote());
+      stringBuilder.append(context.getDialect().getStringQuote());
       stringBuilder.append(" ");
    }
 }

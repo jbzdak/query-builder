@@ -1,16 +1,13 @@
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
-import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
-import cx.ath.jbzdak.sqlbuilder.SQLObject;
-import cx.ath.jbzdak.sqlbuilder.Select;
+import cx.ath.jbzdak.sqlbuilder.*;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class UnaryBooleanExpresson extends SQLObject implements BooleanExpressionMarker {
+public class UnaryBooleanExpresson extends IntermediateSQLObject implements BooleanExpressionMarker {
 
-   SQLFactory expression;
+   IntermediateSQLFactory expression;
 
    String expressionType;
 
@@ -21,7 +18,7 @@ public class UnaryBooleanExpresson extends SQLObject implements BooleanExpressio
       this.expressionType = expressionType;
    }
 
-   public SQLFactory getExpression() {
+   public IntermediateSQLFactory getExpression() {
       return expression;
    }
 

@@ -1,6 +1,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.BinaryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,11 +12,11 @@ import java.util.List;
  */
 public class Select extends SQLObject{
 
-   List<SQLFactory> columnExpressions = new ArrayList<SQLFactory>();
+   List<IntermediateSQLFactory> columnExpressions = new ArrayList<IntermediateSQLFactory>();
 
    List<Table> from = new ArrayList<Table>();
 
-   BinaryBooleanExpression where;
+   BooleanExpressionMarker where;
 
    Integer limit;
 
@@ -26,22 +27,18 @@ public class Select extends SQLObject{
       super(sqlObject);
    }
 
-   public Select(Dialect dialect) {
-      super(dialect);
+   public Select(ExpressionContext expressionContext) {
+      super(expressionContext);
    }
 
    public void addColumnExpression(ColumnExpression... columnExpression){
       columnExpressions.addAll(Arrays.asList(columnExpression));
-      for (ColumnExpression expression : columnExpression) {
-         expression.registerParent(this);
-      }
    }
 
 
 
    public void addFrom(Table table){
       from.add(table);
-      table.registerParent(this);
    }
 
    public void addFrom(String table){
@@ -57,13 +54,12 @@ public class Select extends SQLObject{
       this.limit = limit;
    }
 
-   public void setWhere(BinaryBooleanExpression where) {
+   public void setWhere(BooleanExpressionMarker where) {
       this.where = where;
-      where.registerParent(this);
    }
 
 
-   public List<SQLFactory> getColumnExpressions() {
+   public List<IntermediateSQLFactory> getColumnExpressions() {
       return columnExpressions;
    }
 
@@ -71,7 +67,7 @@ public class Select extends SQLObject{
       return from;
    }
 
-   public BinaryBooleanExpression getWhere() {
+   public BooleanExpressionMarker getWhere() {
       return where;
    }
 }

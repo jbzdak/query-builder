@@ -10,7 +10,7 @@ public class ConditionPeer extends AbstractPeer<Condition>{
    public ConditionPeer() {
    }
 
-   public void appendTo(StringBuilder stringBuilder) {
+   public void appendToInternal(StringBuilder stringBuilder) {
 
    }
 }

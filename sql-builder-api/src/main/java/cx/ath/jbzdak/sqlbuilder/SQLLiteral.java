@@ -3,7 +3,7 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public class SQLLiteral<T> extends SQLObject implements SQLFactory{
+public class SQLLiteral<T> extends SQLObject implements SQLFactory {
 
    private String literalType;
 

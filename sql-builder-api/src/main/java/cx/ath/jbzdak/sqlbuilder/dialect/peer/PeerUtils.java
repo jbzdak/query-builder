@@ -1,10 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
-import cx.ath.jbzdak.sqlbuilder.AbstractJoin;
-import cx.ath.jbzdak.sqlbuilder.Alias;
-import cx.ath.jbzdak.sqlbuilder.Dialect;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
+import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
 
 import java.util.Collection;
@@ -15,11 +11,11 @@ import java.util.Iterator;
  */
 class PeerUtils {
 
-   static void appendIdentifier(StringBuilder stringBuilder, Dialect d, IdentifierQuotingStrategy strategy, String schema,  String table, String column, Alias alias){
+   static void appendIdentifier(StringBuilder stringBuilder, RenderingContext renderingContext, IdentifierQuotingStrategy strategy, String schema,  String table, String column, Alias alias){
 
-      schema = strategy.quoteIdentifier(d, schema);
-      table = strategy.quoteIdentifier(d, table);
-      column = strategy.quoteIdentifier(d, column);
+      schema = strategy.quoteIdentifier(renderingContext.getDialect(), schema);
+      table = strategy.quoteIdentifier(renderingContext.getDialect(), table);
+      column = strategy.quoteIdentifier(renderingContext.getDialect(), column);
 
       stringBuilder.append(' ');
 
@@ -41,14 +37,14 @@ class PeerUtils {
 
       if(alias != null){
          stringBuilder.append(" AS ");
-         stringBuilder.append(alias.toSQL());
+         alias.appendTo(renderingContext, stringBuilder);
       }
 
       stringBuilder.append(' ');
 
    }
 
-   static void appendJoinBegining(StringBuilder stringBuilder, Dialect d, AbstractJoin abstractJoin){
+   static void appendJoinBegining(StringBuilder stringBuilder, RenderingContext renderingContext, AbstractJoin abstractJoin){
       stringBuilder.append(abstractJoin.getJoinType());
       stringBuilder.append(" JOIN ");
       abstractJoin.getTable().appendTo(stringBuilder);
@@ -66,14 +62,14 @@ class PeerUtils {
       }
    }
 
-   static void joinSqls(StringBuilder stringBuilder, String delimiter, Collection<? extends SQLFactory> sqls){
-      Iterator<? extends SQLFactory> iterator = sqls.iterator();
+   static void joinSqls(RenderingContext renderingContext, StringBuilder stringBuilder, String delimiter, Collection<? extends IntermediateSQLFactory> sqls){
+      Iterator<? extends IntermediateSQLFactory> iterator = sqls.iterator();
       if(iterator.hasNext()){
-         iterator.next().appendTo(stringBuilder);
+         iterator.next().appendTo(renderingContext, stringBuilder);
       }
       while (iterator.hasNext()){
          stringBuilder.append(delimiter);
-         iterator.next().appendTo(stringBuilder);
+         iterator.next().appendTo(renderingContext, stringBuilder);
       }
    }
 }

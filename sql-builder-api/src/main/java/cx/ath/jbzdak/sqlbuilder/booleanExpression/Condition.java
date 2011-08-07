@@ -24,8 +24,6 @@ public class Condition extends AbstractBinaryBooleanExpression {
        super(type, rhs, lhs);
    }
 
-
-
    public void setLhs(ColumnExpression lhs){
       this.lhs = lhs;
    }

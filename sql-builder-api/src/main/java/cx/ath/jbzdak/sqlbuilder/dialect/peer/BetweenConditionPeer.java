@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.BetweenCondition;
 
 /**
@@ -7,11 +8,16 @@ import cx.ath.jbzdak.sqlbuilder.booleanExpression.BetweenCondition;
  */
 public class BetweenConditionPeer extends AbstractPeer<BetweenCondition>{
 
-   public void appendTo(StringBuilder stringBuilder) {
-      stringBuilder.append(parent.getExpression());
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
+      stringBuilder.append(parent.getExpression().toSQL(renderingContext));
       stringBuilder.append(" BETWEEN ");
-      stringBuilder.append(parent.getRange().getFrom());
+      stringBuilder.append(parent.getRange().getFrom().toSQL(renderingContext));
       stringBuilder.append(" AND ");
-      stringBuilder.append(parent.getRange().getTo());
+      stringBuilder.append(parent.getRange().getTo().toSQL(renderingContext));
+   }
+
+   public void appendToInternal(StringBuilder stringBuilder) {
+
    }
 }

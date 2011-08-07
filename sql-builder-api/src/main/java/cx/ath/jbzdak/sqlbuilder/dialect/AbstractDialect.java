@@ -1,15 +1,10 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
-import cx.ath.jbzdak.sqlbuilder.Dialect;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
-import cx.ath.jbzdak.sqlbuilder.SQLPeer;
-import cx.ath.jbzdak.sqlbuilder.Select;
+import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionA;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
-import cx.ath.jbzdak.sqlbuilder.literal.DefaultLiteralFactory;
-import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 
 import java.security.InvalidParameterException;
 import java.util.Map;
@@ -20,9 +15,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class AbstractDialect implements Dialect{
 
-   protected volatile Map<Class, Transformer<SQLPeer, SQLFactory>> transformerMap;
+   protected volatile Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> transformerMap;
 
-   protected abstract Map<Class, Transformer<SQLPeer, SQLFactory>> createTransformerMap();
+   protected abstract Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap();
 
 
 
@@ -37,7 +32,7 @@ public abstract class AbstractDialect implements Dialect{
       if(transformerMap == null){
          synchronized (this){
             if(transformerMap == null){
-               transformerMap = new ConcurrentHashMap<Class, Transformer<SQLPeer, SQLFactory>>(createTransformerMap());
+               transformerMap = new ConcurrentHashMap<Class, Transformer<SQLPeer, IntermediateSQLFactory>>(createTransformerMap());
             }
          }
       }
@@ -47,7 +42,7 @@ public abstract class AbstractDialect implements Dialect{
 
 
    private SQLPeer sqlPeer(SQLFactory sqlFactory, Class<?> clazz){
-      Transformer<SQLPeer, SQLFactory> transformer = transformerMap.get(clazz);
+      Transformer<SQLPeer, IntermediateSQLFactory> transformer = transformerMap.get(clazz);
       if(transformer != null){
          if(!sqlFactory.getClass().equals(clazz)){
             transformerMap.put(sqlFactory.getClass(), transformer);

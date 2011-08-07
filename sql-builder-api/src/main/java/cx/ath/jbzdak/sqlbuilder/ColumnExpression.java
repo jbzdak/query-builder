@@ -3,7 +3,7 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public class ColumnExpression extends SQLObject implements SQLFactory{
+public class ColumnExpression extends IntermediateSQLObject implements Identifier {
 
    private String schema;
 
@@ -33,7 +33,6 @@ public class ColumnExpression extends SQLObject implements SQLFactory{
       this.table = table;
       this.column = column;
       this.alias = alias;
-      alias.registerParent(this);
    }
 
    public ColumnExpression(String schema, String table, String column) {

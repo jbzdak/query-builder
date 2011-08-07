@@ -11,7 +11,7 @@ public class UnaryBooleanExpressionType {
 
    public static final String IS_NULL = "IS NULL";
    public static final String IS_NON_NULL = "IS NULL";
-   public static final String NOT = "NOTL";
+   public static final String NOT = "NOT";
 
 
    private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(UnaryBooleanExpressionType.class);

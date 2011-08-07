@@ -1,6 +1,8 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.config;
 
 import cx.ath.jbzdak.sqlbuilder.Dialect;
+import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 
 /**
  * Created by: Jacek Bzdak
@@ -48,4 +50,12 @@ public enum IdentifierQuotingStrategy {
     * @return NULL when identifier is null, quoted string otherwise (other code depend on this assumption)
     */
    public abstract String quoteIdentifier(Dialect d, String identifier);
+
+   public String quoteIdentifier(ExpressionContext d, String identifier){
+      return quoteIdentifier(d.getDialect(), identifier);
+   }
+
+   public String quoteIdentifier(RenderingContext d, String identifier){
+      return quoteIdentifier(d.getDialect(), identifier);
+   }
 }

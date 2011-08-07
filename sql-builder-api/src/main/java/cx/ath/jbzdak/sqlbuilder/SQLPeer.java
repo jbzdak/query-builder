@@ -3,11 +3,14 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public interface SQLPeer<T> extends SQLFactory{
+public interface SQLPeer<T extends IntermediateSQLFactory>{
 
+//   StringBuilder toSQL();
 
-   void registerParent(T t);
+   void appendTo(StringBuilder stringBuilder);
 
-   void registerDialect(Dialect d);
+//   StringBuilder toSQL(RenderingContext renderContext);
+//
+   void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder);
 
 }
