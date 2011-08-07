@@ -7,7 +7,6 @@ public class Table extends IntermediateSQLObject{
 
    private String schema;
    private String table;
-
    private Alias alias;
 
    public Table(String table) {

@@ -11,9 +11,9 @@ public class StringPeer extends AbstractPeer<StringLiteral>{
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       stringBuilder.append(' ');
-      stringBuilder.append(getDialect().getStringQuote());
+      stringBuilder.append(renderingContext.getDialect().getStringQuote());
       stringBuilder.append(parent.getLiteralValue());
-      stringBuilder.append(getDialect().getStringQuote());
+      stringBuilder.append(renderingContext.getDialect().getStringQuote());
       stringBuilder.append(' ');
    }
 

@@ -10,9 +10,9 @@ public class OnJoinPeer extends AbstractPeer<JoinOn>{
 
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      PeerUtils.appendJoinBegining(stringBuilder, getDialect(), parent);
+      PeerUtils.appendJoinBegining(stringBuilder, renderingContext, parent);
       stringBuilder.append(" ON ");
-      parent.getOnCondition().appendTo(stringBuilder);
+      parent.getOnCondition().appendTo(renderingContext, stringBuilder);
    }
 
 

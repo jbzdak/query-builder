@@ -18,7 +18,6 @@ public class DefaultTransformer implements Transformer<SQLPeer, IntermediateSQLF
    public SQLPeer transform(IntermediateSQLFactory source) {
       try {
          SQLPeer peer =  aClass.getConstructor().newInstance();
-         peer.registerContext;
          return peer;
       } catch (RuntimeException e){
          throw e;

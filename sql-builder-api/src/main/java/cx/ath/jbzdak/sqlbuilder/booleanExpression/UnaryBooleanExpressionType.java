@@ -10,11 +10,11 @@ import java.util.Collection;
 public class UnaryBooleanExpressionType {
 
    public static final String IS_NULL = "IS NULL";
-   public static final String IS_NON_NULL = "IS NULL";
-   public static final String NOT = "NOT";
+   public static final String IS_NON_NULL = "IS NOT NULL";
 
+//   public static final String NOT = "NOT";
 
-   private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(UnaryBooleanExpressionType.class);
+   private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(UnaryBooleanExpressionType.class, String.class);
 
    public static String nameOf(String value) {
       return FAKE_ENUM.nameOf(value);

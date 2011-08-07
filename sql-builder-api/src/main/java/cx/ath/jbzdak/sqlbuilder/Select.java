@@ -1,6 +1,5 @@
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BinaryBooleanExpression;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
 
 import java.util.ArrayList;
@@ -30,6 +29,8 @@ public class Select extends SQLObject{
    public Select(ExpressionContext expressionContext) {
       super(expressionContext);
    }
+
+
 
    public void addColumnExpression(ColumnExpression... columnExpression){
       columnExpressions.addAll(Arrays.asList(columnExpression));

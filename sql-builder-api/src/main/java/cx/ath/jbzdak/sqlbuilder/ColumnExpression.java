@@ -5,6 +5,8 @@ package cx.ath.jbzdak.sqlbuilder;
  */
 public class ColumnExpression extends IntermediateSQLObject implements Identifier {
 
+   public static final SelectAllExpression STAR = new SelectAllExpression();
+
    private String schema;
 
    private String table;
@@ -12,8 +14,6 @@ public class ColumnExpression extends IntermediateSQLObject implements Identifie
    private String column;
 
    private Alias alias;
-
-
 
    public ColumnExpression(String column) {
       this.column = column;

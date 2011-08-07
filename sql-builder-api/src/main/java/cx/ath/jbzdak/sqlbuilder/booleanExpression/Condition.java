@@ -12,7 +12,7 @@ public class Condition extends AbstractBinaryBooleanExpression {
    public Condition() {
    }
 
-   Condition(String type, ColumnExpression rhs, SQLLiteral lhs) {
+   Condition(String type, ColumnExpression lhs, SQLLiteral rhs) {
        super(type, rhs, lhs);
    }
 

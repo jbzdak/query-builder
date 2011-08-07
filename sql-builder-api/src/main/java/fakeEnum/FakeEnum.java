@@ -41,23 +41,23 @@ public class FakeEnum<E> {
 
    List<? extends E> constantList = new ArrayList<E>();
 
-   static List<Field> findConstants(Class clazz){     
+   List<Field> findConstants(){
       List<Field> fields = new ArrayList<Field>();
       for (Field field : clazz.getDeclaredFields()){
          final int mod = field.getModifiers();
          if (
             Modifier.isStatic(mod) &&
-            Modifier.isFinal(mod) &&
-            Modifier.isPublic(mod) &&
-            clazz.isAssignableFrom(field.getType()) &&
-            field.getAnnotation(FakeEnumIgnore.class) == null){
+               Modifier.isFinal(mod) &&
+               Modifier.isPublic(mod) &&
+               (targetClazz == null || targetClazz.isAssignableFrom(field.getType())) &&
+               field.getAnnotation(FakeEnumIgnore.class) == null){
             fields.add(field);
          }
       }
       return fields;
    }
 
-   private static Map<String, Object> makeConstansts(Class clazz, List<Field> fields){
+   private Map<String, Object> makeConstansts(List<Field> fields){
       Map<String, Object> constants = new HashMap<String, Object>();
       for (Field f : fields){
          boolean isAccesible = f.isAccessible();
@@ -73,15 +73,20 @@ public class FakeEnum<E> {
       return constants;
    }
 
-   private Map<String, E> makeConstansts (Class clazz){
+   private Map<String, E> makeConstansts (){
       Map<String, Object> result =
-              makeConstansts(clazz, findConstants(clazz));
+              makeConstansts(findConstants());
       return (Map<String,E>) result;
    }
 
-   public FakeEnum(Class<?> sourceClazz, Class<?> targetClazz) {
+   public FakeEnum(Class<E> sourceClazz) {
+      this(sourceClazz, sourceClazz);
+   }
+
+   public FakeEnum(Class<?> sourceClazz, Class<E> targetClazz) {
       this.clazz = sourceClazz;
-      this.constants = makeConstansts(clazz);
+      this.targetClazz = targetClazz;
+      this.constants = makeConstansts();
       Map<E, String> constantsReversed = new HashMap<E, String>();
       for (Map.Entry<String, ? extends E> stringEntry : constants.entrySet()) {
          constantsReversed.put(stringEntry.getValue(), stringEntry.getKey());

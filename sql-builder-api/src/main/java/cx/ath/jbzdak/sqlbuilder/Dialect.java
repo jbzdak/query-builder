@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 
@@ -8,7 +9,7 @@ import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
  */
 public interface Dialect {
 
-   SQLPeer getPeer(SQLFactory sqlFactory);
+   SQLPeer getPeer(IntermediateSQLFactory sqlFactory);
 
    String getStringQuote();
 
@@ -21,4 +22,6 @@ public interface Dialect {
    Select select();
 
    LiteralFactory getLiteralFactory();
+
+   BooleanFactory getBooleanFactory();
 }

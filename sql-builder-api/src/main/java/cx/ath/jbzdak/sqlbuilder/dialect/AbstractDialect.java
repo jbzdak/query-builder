@@ -1,8 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionA;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 
@@ -28,7 +26,7 @@ public abstract class AbstractDialect implements Dialect{
       dialectConfig.setDialect(this);
    }
 
-   public SQLPeer getPeer(SQLFactory sqlFactory) {
+   public SQLPeer getPeer(IntermediateSQLFactory sqlFactory) {
       if(transformerMap == null){
          synchronized (this){
             if(transformerMap == null){
@@ -39,16 +37,14 @@ public abstract class AbstractDialect implements Dialect{
       return sqlPeer(sqlFactory, sqlFactory.getClass());
    }
 
-
-
-   private SQLPeer sqlPeer(SQLFactory sqlFactory, Class<?> clazz){
+   private SQLPeer sqlPeer(IntermediateSQLFactory sqlFactory, Class<?> clazz){
       Transformer<SQLPeer, IntermediateSQLFactory> transformer = transformerMap.get(clazz);
       if(transformer != null){
          if(!sqlFactory.getClass().equals(clazz)){
             transformerMap.put(sqlFactory.getClass(), transformer);
          }
          SQLPeer peer = transformer.transform(sqlFactory);
-         peer.registerDialect(this);
+         peer.registerParent(sqlFactory);
          return peer;
       }
 
@@ -70,18 +66,8 @@ public abstract class AbstractDialect implements Dialect{
       return dialectConfig;
    }
 
-
-
    public Select select(){
-      return new Select(this);
+      return new Select(new ExpressionContext(this));
    }
 
-
-   public BooleanExpressionA or(){
-      return BooleanExpressionFactory.or(this);
-   }
-
-   public BooleanExpressionA and(){
-      return BooleanExpressionFactory.and(this);
-   }
 }

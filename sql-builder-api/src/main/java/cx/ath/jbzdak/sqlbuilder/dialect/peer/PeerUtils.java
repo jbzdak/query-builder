@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
 
@@ -47,7 +48,7 @@ class PeerUtils {
    static void appendJoinBegining(StringBuilder stringBuilder, RenderingContext renderingContext, AbstractJoin abstractJoin){
       stringBuilder.append(abstractJoin.getJoinType());
       stringBuilder.append(" JOIN ");
-      abstractJoin.getTable().appendTo(stringBuilder);
+      abstractJoin.getTable().appendTo(renderingContext, stringBuilder);
       stringBuilder.append(' ');
    }
 
@@ -71,6 +72,16 @@ class PeerUtils {
          stringBuilder.append(delimiter);
          iterator.next().appendTo(renderingContext, stringBuilder);
       }
+   }
+
+   public static void appendInBrackets(StringBuilder stringBuilder, Appender appender){
+      stringBuilder.append(" ( ");
+      appender.appendTo(stringBuilder);
+      stringBuilder.append(" ) ");
+   }
+
+   public static interface Appender{
+      public void appendTo(StringBuilder stringBuilder);
    }
 }
 

@@ -19,8 +19,8 @@ public class AliasPeer extends AbstractPeer<Alias> {
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
        stringBuilder.append(' ');
       IdentifierQuotingStrategy quotingStrategy =
-              (IdentifierQuotingStrategy) context.getDialect().getDialectConfig().getConfig(DialectConfigKey.ALIAS_QUOTING_STRATEGY);
-      stringBuilder.append(quotingStrategy.quoteIdentifier(context.getDialect(), parent.getAlias()));
+              (IdentifierQuotingStrategy) renderingContext.getDialect().getDialectConfig().getConfig(DialectConfigKey.ALIAS_QUOTING_STRATEGY);
+      stringBuilder.append(quotingStrategy.quoteIdentifier(renderingContext.getDialect(), parent.getAlias()));
       stringBuilder.append(' ');
    }
 

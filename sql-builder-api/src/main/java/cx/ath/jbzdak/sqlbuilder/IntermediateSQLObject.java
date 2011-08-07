@@ -3,17 +3,18 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public class IntermediateSQLObject {
-
-   private ExpressionContext expressionContext = new ExpressionContext();
+public class IntermediateSQLObject implements IntermediateSQLFactory{
 
    protected SQLPeer sqlPeer;
 
+   private Dialect lastPeerGenerationDialect;
+
    protected void maybeRefreshPeer(ExpressionContext expressionContext){
-
+      if(!expressionContext.getDialect().equals(lastPeerGenerationDialect)){
+         sqlPeer = expressionContext.getDialect().getPeer(this);
+         lastPeerGenerationDialect = expressionContext.getDialect();
+      }
    }
-
-
 
    public void setContext(ExpressionContext expressionContext) {
       sqlPeer = null;
@@ -27,6 +28,7 @@ public class IntermediateSQLObject {
 
 
    public void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder) {
+      maybeRefreshPeer(renderingContext.getExpressionContext());
       sqlPeer.appendTo(renderingContext, stringBuilder);
    }
 }

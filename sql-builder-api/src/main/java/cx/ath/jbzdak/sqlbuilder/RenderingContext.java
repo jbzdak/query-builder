@@ -11,14 +11,18 @@ public class RenderingContext{
 
    ContextInfo contextInfo;
 
-   final Dialect dialect;
+   final ExpressionContext expressionContext;
 
    public RenderingContext(Dialect dialect) {
-      this.dialect = dialect;
+      this.expressionContext = new ExpressionContext(dialect);
+   }
+
+   public RenderingContext(ExpressionContext expressionContext) {
+      this.expressionContext = expressionContext;
    }
 
    public RenderingContext(SQLObject sqlObject) {
-      this.dialect = sqlObject.expressionContext.getDialect();
+      this.expressionContext = sqlObject.expressionContext;
    }
 
    public List<IntermediateSQLFactory> getParentExpressions() {
@@ -56,7 +60,11 @@ public class RenderingContext{
    }
 
    public Dialect getDialect() {
-      return dialect;
+      return expressionContext.getDialect();
+   }
+
+   public ExpressionContext getExpressionContext() {
+      return expressionContext;
    }
 
    private class ContextInfo{

@@ -1,16 +1,22 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
-import java.util.concurrent.locks.Condition;
+
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.Condition;
 
 /**
  * Created by: Jacek Bzdak
  */
 public class ConditionPeer extends AbstractPeer<Condition>{
 
-   public ConditionPeer() {
-   }
-
-   public void appendToInternal(StringBuilder stringBuilder) {
-
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
+      stringBuilder.append(" (");
+      parent.getLhs().appendTo(renderingContext, stringBuilder);
+      stringBuilder.append(" ");
+      stringBuilder.append(parent.getType());
+      stringBuilder.append(" ");
+      parent.getRhs().appendTo(renderingContext, stringBuilder);
+      stringBuilder.append(")");
    }
 }

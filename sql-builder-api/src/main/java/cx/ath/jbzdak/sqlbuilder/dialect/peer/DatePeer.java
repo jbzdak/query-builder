@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 import cx.ath.jbzdak.sqlbuilder.literal.DateLiteral;
 
@@ -20,12 +21,15 @@ public class DatePeer extends AbstractPeer<DateLiteral>{
       return new StringBuilder();
    }
 
-   public void appendToInternal(StringBuilder stringBuilder) {
+
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
       stringBuilder.append(" ");
-      stringBuilder.append(context.getDialect().getStringQuote());
+      stringBuilder.append(renderingContext.getDialect().getStringQuote());
       stringBuilder.append(dateFormat.format(parent.getLiteralValue()));
-      stringBuilder.append(context.getDialect().getStringQuote());
+      stringBuilder.append(renderingContext.getDialect().getStringQuote());
       stringBuilder.append(" ");
    }
+
 }

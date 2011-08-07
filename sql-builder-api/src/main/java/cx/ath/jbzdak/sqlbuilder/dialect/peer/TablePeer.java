@@ -19,7 +19,8 @@ public class TablePeer extends AbstractPeer<Table>{
          throw new InvalidParameterException();
       }
 
-      PeerUtils.appendIdentifier(stringBuilder, renderingContext, (IdentifierQuotingStrategy) getDialect().getDialectConfig().getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY),
+      PeerUtils.appendIdentifier(stringBuilder, renderingContext,
+              (IdentifierQuotingStrategy) renderingContext.getDialect().getDialectConfig().getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY),
               parent.getSchema(), parent.getTable(), null, parent.getAlias());
    }
 }

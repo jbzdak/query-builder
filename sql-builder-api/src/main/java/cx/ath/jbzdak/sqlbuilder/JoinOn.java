@@ -12,4 +12,15 @@ public class JoinOn extends AbstractJoin{
    public JoinOn() {
    }
 
+   public JoinOn(AbstractBinaryBooleanExpression onCondition) {
+      this.onCondition = onCondition;
+   }
+
+   public AbstractBinaryBooleanExpression getOnCondition() {
+      return onCondition;
+   }
+
+   public void setOnCondition(AbstractBinaryBooleanExpression onCondition) {
+      this.onCondition = onCondition;
+   }
 }

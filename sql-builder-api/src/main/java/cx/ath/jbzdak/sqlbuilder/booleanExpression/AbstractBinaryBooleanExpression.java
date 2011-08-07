@@ -37,11 +37,11 @@ public abstract class AbstractBinaryBooleanExpression extends IntermediateSQLObj
       this.type = type;
    }
 
-   public SQLFactory getRhs() {
+   public IntermediateSQLObject getRhs() {
       return rhs;
    }
 
-   public SQLFactory getLhs() {
+   public IntermediateSQLObject getLhs() {
       return lhs;
    }
 

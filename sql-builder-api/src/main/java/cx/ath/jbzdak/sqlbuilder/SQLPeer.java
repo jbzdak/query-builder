@@ -5,12 +5,7 @@ package cx.ath.jbzdak.sqlbuilder;
  */
 public interface SQLPeer<T extends IntermediateSQLFactory>{
 
-//   StringBuilder toSQL();
-
-   void appendTo(StringBuilder stringBuilder);
-
-//   StringBuilder toSQL(RenderingContext renderContext);
-//
    void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder);
 
+   void registerParent(T t);
 }

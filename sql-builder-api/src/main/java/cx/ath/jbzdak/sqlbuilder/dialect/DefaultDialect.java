@@ -1,9 +1,7 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.AbstractBinaryBooleanExpression;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BetweenCondition;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
@@ -34,6 +32,8 @@ public class DefaultDialect extends AbstractDialect{
 
    DefaultLiteralFactory defaultLiteralFactory = new DefaultLiteralFactory();
 
+   DefaultBooleanFactory defaultBooleanFactory = new DefaultBooleanFactory();
+
    @Override
    protected Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap() {
       Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> transformerMap = new HashMap<Class, Transformer<SQLPeer, IntermediateSQLFactory>>();
@@ -51,6 +51,9 @@ public class DefaultDialect extends AbstractDialect{
       put(transformerMap, RawString.class, RawStringPeer.class);
       put(transformerMap, NAryBooleanExpression.class, NAryBooleanExpressionPeer.class);
       put(transformerMap, BetweenCondition.class, BetweenConditionPeer.class);
+      put(transformerMap, UnaryBooleanExpresson.class, UnaryBooleanExpressionPeer.class);
+      put(transformerMap, Not.class, NotPeer.class);
+      put(transformerMap, SelectAllExpression.class, SelectAllPeer.class);
 
       return transformerMap;
    }
@@ -69,6 +72,10 @@ public class DefaultDialect extends AbstractDialect{
 
    public LiteralFactory getLiteralFactory() {
       return defaultLiteralFactory;
+   }
+
+   public DefaultBooleanFactory getBooleanFactory() {
+      return defaultBooleanFactory;
    }
 
    public boolean identifierNeedsQuoting(String identifier){

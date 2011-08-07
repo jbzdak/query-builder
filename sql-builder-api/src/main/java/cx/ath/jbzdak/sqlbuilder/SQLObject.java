@@ -1,9 +1,16 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+
 /**
  * Created by: Jacek Bzdak
  */
 public class SQLObject extends IntermediateSQLObject implements SQLFactory {
+
+
+   ExpressionContext expressionContext;
+
+
 
    public SQLObject() {
    }
@@ -16,17 +23,24 @@ public class SQLObject extends IntermediateSQLObject implements SQLFactory {
       this.expressionContext = expressionContext;
    }
 
-   public StringBuilder toSQL() {
-      StringBuilder stringBuilder = new StringBuilder();
-      appendTo(stringBuilder);
-      return stringBuilder;
+   public ExpressionContext getExpressionContext() {
+      return expressionContext;
    }
 
-   public void appendTo(StringBuilder stringBuilder) {
-      if(sqlPeer == null){
-         sqlPeer = expressionContext.getDialect().getPeer(this);
-      }
-      sqlPeer.appendTo(stringBuilder);
+   public Dialect getDialect() {
+      return expressionContext.getDialect();
+   }
+
+   public DialectConfig getDialectConfig() {
+      return getDialect().getDialectConfig();
+   }
+
+   public StringBuilder toSQL() {
+      StringBuilder stringBuilder = new StringBuilder();
+      RenderingContext renderingContext = expressionContext.renderingContext();
+      appendTo(renderingContext, stringBuilder);
+
+      return stringBuilder;
    }
 
 }
