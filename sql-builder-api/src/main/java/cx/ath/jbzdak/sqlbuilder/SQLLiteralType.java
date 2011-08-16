@@ -7,6 +7,8 @@ public final class SQLLiteralType {
 
    private SQLLiteralType() {   }
 
+   public static final String PARAMETER = "parameter";
+
    public static final String STRING = "string";
 
    public static final String INTEGER = "integer";

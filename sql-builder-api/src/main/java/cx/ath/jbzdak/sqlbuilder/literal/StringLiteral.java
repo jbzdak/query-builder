@@ -8,6 +8,9 @@ import cx.ath.jbzdak.sqlbuilder.SQLLiteralType;
  */
 public class StringLiteral extends SQLLiteral<String>{
 
+   public StringLiteral() {
+   }
+
    public StringLiteral(String literalValue) {
       super(SQLLiteralType.STRING, literalValue);
    }

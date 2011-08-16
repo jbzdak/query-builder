@@ -1,8 +1,12 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
+import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by: Jacek Bzdak
@@ -84,6 +88,18 @@ public class RenderingContext{
 
    public ExpressionContext getExpressionContext() {
       return expressionContext;
+   }
+
+   public String replaceParams(CharSequence queryPart){
+      Pattern pattern = (Pattern) expressionContext.expressionConfig.get(ExpressionConfigKey.PARAMETER_REGEXP_PATTERN);
+      Matcher matcher = pattern.matcher(queryPart);
+      StringBuffer stringBuffer = new StringBuffer();
+      while (matcher.find()){
+         BoundParameter boundParameter = expressionContext.getBoundParameters().get(matcher.group(1));
+         matcher.appendReplacement(stringBuffer, MiscUtils.toSQL(this, boundParameter));
+      }
+      matcher.appendTail(stringBuffer);
+      return stringBuffer.toString();
    }
 
    private class ContextInfo{

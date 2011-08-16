@@ -1,5 +1,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import java.util.Set;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -60,6 +62,9 @@ public class ColumnExpression extends IntermediateSQLObject implements Identifie
       return column;
    }
 
+   public Set<String> collectParameterNames() {
+      return this.expressionContext.collectParameterNames(table, column, alias, schema);
+   }
 }
 
 

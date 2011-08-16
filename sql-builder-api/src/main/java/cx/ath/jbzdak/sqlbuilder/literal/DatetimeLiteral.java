@@ -10,6 +10,9 @@ import java.util.Date;
  */
 public class DatetimeLiteral extends SQLLiteral<Date>{
 
+   public DatetimeLiteral() {
+   }
+
    public DatetimeLiteral(Date literalValue) {
       super(SQLLiteralType.DATETIME, literalValue);
    }

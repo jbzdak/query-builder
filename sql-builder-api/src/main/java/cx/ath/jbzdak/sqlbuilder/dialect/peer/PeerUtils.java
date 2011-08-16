@@ -1,6 +1,5 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
 
@@ -38,7 +37,7 @@ class PeerUtils {
 
       if(alias != null){
          stringBuilder.append(" AS ");
-         alias.appendTo(renderingContext, stringBuilder);
+         alias.appendToInternal(renderingContext, stringBuilder);
       }
 
       stringBuilder.append(' ');
@@ -48,7 +47,7 @@ class PeerUtils {
    static void appendJoinBegining(StringBuilder stringBuilder, RenderingContext renderingContext, AbstractJoin abstractJoin){
       stringBuilder.append(abstractJoin.getJoinType());
       stringBuilder.append(" JOIN ");
-      abstractJoin.getTable().appendTo(renderingContext, stringBuilder);
+      abstractJoin.getTable().appendToInternal(renderingContext, stringBuilder);
       stringBuilder.append(' ');
    }
 
@@ -66,11 +65,11 @@ class PeerUtils {
    static void joinSqls(RenderingContext renderingContext, StringBuilder stringBuilder, String delimiter, Collection<? extends IntermediateSQLFactory> sqls){
       Iterator<? extends IntermediateSQLFactory> iterator = sqls.iterator();
       if(iterator.hasNext()){
-         iterator.next().appendTo(renderingContext, stringBuilder);
+         iterator.next().appendToInternal(renderingContext, stringBuilder);
       }
       while (iterator.hasNext()){
          stringBuilder.append(delimiter);
-         iterator.next().appendTo(renderingContext, stringBuilder);
+         iterator.next().appendToInternal(renderingContext, stringBuilder);
       }
    }
 

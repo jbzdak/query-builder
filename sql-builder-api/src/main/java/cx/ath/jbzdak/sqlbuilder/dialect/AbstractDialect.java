@@ -5,8 +5,13 @@ import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.DefaultTransformer;
+import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
+import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
+import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 import java.security.InvalidParameterException;
 import java.util.Map;
@@ -17,29 +22,55 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class AbstractDialect implements Dialect{
 
-   protected volatile Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> transformerMap;
+   private volatile Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> transformerMap;
+
+   protected final Transformer<BoundParameter, Parameter> parameterFactory;
 
    protected abstract Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap();
-
-
 
    private final DialectConfig dialectConfig;
 
    protected AbstractDialect(DialectConfig dialectConfig) {
       this.dialectConfig = dialectConfig;
       dialectConfig.setDialect(this);
+      if(dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY) == null){
+         parameterFactory = createDefaultParameterFactory();
+      }else{
+         parameterFactory =  (Transformer<BoundParameter, Parameter>) dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY);
+      }
    }
 
-   public SQLPeer getPeer(IntermediateSQLFactory sqlFactory) {
+   public <T> BoundParameter bindParameter(Parameter<T> source, T value) {
+      BoundParameter boundParameter = parameterFactory.transform(source);
+      boundParameter.setValue(value);
+      return boundParameter;
+   }
+
+   /**
+    * Creates parameter factory if it was not passed via DialectConfig.
+    *
+    * Will be called iff {@link DialectConfigKey.PARAMETER_FACTORY} was not set in dialectConfig.
+    * @return
+    */
+   protected abstract Transformer<BoundParameter, Parameter> createDefaultParameterFactory();
+
+   public synchronized SQLPeer getPeer(IntermediateSQLFactory sqlFactory) {
       if(transformerMap == null){
-         synchronized (this){
-            if(transformerMap == null){
-               transformerMap = new ConcurrentHashMap<Class, Transformer<SQLPeer, IntermediateSQLFactory>>(createTransformerMap());
-            }
+         transformerMap = new ConcurrentHashMap<Class, Transformer<SQLPeer, IntermediateSQLFactory>>(createTransformerMap());
+         Map<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>> additional =
+                 (Map<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>>) dialectConfig.getConfig(DialectConfigKey.ADDITIONAL_PEERS);
+         for (Map.Entry<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>> e : additional.entrySet()) {
+            putPeer(transformerMap, e.getKey(), e.getValue());
          }
       }
       return sqlPeer(sqlFactory, sqlFactory.getClass());
    }
+
+   protected static void putPeer(Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> map,
+                                 Class<? extends IntermediateSQLFactory> objectClass, Class<? extends SQLPeer> peerClass){
+      map.put(objectClass, new DefaultTransformer(peerClass));
+   }
+
 
    private SQLPeer sqlPeer(IntermediateSQLFactory sqlFactory, Class<?> clazz){
       Transformer<SQLPeer, IntermediateSQLFactory> transformer = transformerMap.get(clazz);
@@ -74,4 +105,7 @@ public abstract class AbstractDialect implements Dialect{
       return new Select(new ExpressionContext(this));
    }
 
+   public ExpressionConfig getDefaultExpressionConfig() {
+      return new ExpressionConfig();
+   }
 }

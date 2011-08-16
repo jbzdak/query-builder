@@ -8,6 +8,9 @@ import cx.ath.jbzdak.sqlbuilder.SQLLiteralType;
  */
 public class DoubleLiteral extends SQLLiteral<Double>{
 
+   public DoubleLiteral() {
+   }
+
    public DoubleLiteral(Double literalValue) {
       super(SQLLiteralType.DOUBLE, literalValue);
    }
@@ -15,3 +18,5 @@ public class DoubleLiteral extends SQLLiteral<Double>{
 
 
 }
+
+

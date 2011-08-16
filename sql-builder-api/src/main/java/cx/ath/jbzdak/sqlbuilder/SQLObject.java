@@ -4,15 +4,14 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
 
+import java.util.Set;
+
 /**
  * Created by: Jacek Bzdak
  */
-public class SQLObject extends IntermediateSQLObject implements SQLFactory {
-
+public abstract class SQLObject extends IntermediateSQLObject implements SQLFactory {
 
    ExpressionContext expressionContext;
-
-
 
    public SQLObject() {
    }
@@ -37,12 +36,7 @@ public class SQLObject extends IntermediateSQLObject implements SQLFactory {
       return getDialect().getDialectConfig();
    }
 
-   protected void postprocessSQL(StringBuilder sql){
-      prettifySQL(sql);
-   }
-
-   protected void prettifySQL(StringBuilder sql){
-      String sqlString = sql.toString();
+   protected String prettifySQL(String sqlString){
       switch ((PrettifySQLLevel) getDialectConfig().getConfig(DialectConfigKey.PRETTIFY_SQL)){
          case MULTILINE:
             sqlString = sqlString.replaceAll("WHERE", "\n\tWHERE");
@@ -59,19 +53,25 @@ public class SQLObject extends IntermediateSQLObject implements SQLFactory {
             sqlString = sqlString.replaceAll("\\)[ ]+\\)", "))");
             break;
          case NONE:
-            return;
+            break;
          default:
             throw new IllegalStateException();
       }
-      sql.delete(0, sql.length());
-      sql.append(sqlString);
+      return sqlString;
    }
 
    public StringBuilder toSQL() {
-      StringBuilder stringBuilder = new StringBuilder();
       RenderingContext renderingContext = expressionContext.renderingContext();
-      appendTo(renderingContext, stringBuilder);
-      postprocessSQL(stringBuilder);
+      String sql = toSQLInternal(renderingContext).toString();
+      sql = renderingContext.replaceParams(sql);
+      sql = prettifySQL(sql);
+      return new StringBuilder(sql);
+   }
+
+
+   public StringBuilder toSQLInternal(RenderingContext renderingContext) {
+      StringBuilder stringBuilder = new StringBuilder();
+      appendToInternal(renderingContext, stringBuilder);
       return stringBuilder;
    }
 

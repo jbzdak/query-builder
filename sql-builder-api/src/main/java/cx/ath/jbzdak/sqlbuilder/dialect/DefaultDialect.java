@@ -38,29 +38,26 @@ public class DefaultDialect extends AbstractDialect{
    protected Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap() {
       Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> transformerMap = new HashMap<Class, Transformer<SQLPeer, IntermediateSQLFactory>>();
 
-      put(transformerMap, Alias.class, AliasPeer.class);
-      put(transformerMap, ColumnExpression.class, ColumnExpressionPeer.class);
-      put(transformerMap, SQLLiteral.class, UnquotedLiteralPeer.class);
-      put(transformerMap, StringLiteral.class, StringPeer.class);
-      put(transformerMap, DateLiteral.class, DatePeer.class);
-      put(transformerMap, Table.class, TablePeer.class);
-      put(transformerMap, JoinUsing.class, UsingJoinPeer.class);
-      put(transformerMap, JoinOn.class, OnJoinPeer.class);
-      put(transformerMap, Select.class, SelectPeer.class);
-      put(transformerMap, AbstractBinaryBooleanExpression.class, BooleanExpressionPeer.class);
-      put(transformerMap, RawString.class, RawStringPeer.class);
-      put(transformerMap, NAryBooleanExpression.class, NAryBooleanExpressionPeer.class);
-      put(transformerMap, BetweenCondition.class, BetweenConditionPeer.class);
-      put(transformerMap, UnaryBooleanExpresson.class, UnaryBooleanExpressionPeer.class);
-      put(transformerMap, Not.class, NotPeer.class);
-      put(transformerMap, SelectAllExpression.class, SelectAllPeer.class);
+      putPeer(transformerMap, Alias.class, AliasPeer.class);
+      putPeer(transformerMap, ColumnExpression.class, ColumnExpressionPeer.class);
+      putPeer(transformerMap, SQLLiteral.class, UnquotedLiteralPeer.class);
+      putPeer(transformerMap, StringLiteral.class, StringPeer.class);
+      putPeer(transformerMap, DateLiteral.class, DatePeer.class);
+      putPeer(transformerMap, Table.class, TablePeer.class);
+      putPeer(transformerMap, JoinUsing.class, UsingJoinPeer.class);
+      putPeer(transformerMap, JoinOn.class, OnJoinPeer.class);
+      putPeer(transformerMap, Select.class, SelectPeer.class);
+      putPeer(transformerMap, AbstractBinaryBooleanExpression.class, BooleanExpressionPeer.class);
+      putPeer(transformerMap, RawString.class, RawStringPeer.class);
+      putPeer(transformerMap, NAryBooleanExpression.class, NAryBooleanExpressionPeer.class);
+      putPeer(transformerMap, BetweenCondition.class, BetweenConditionPeer.class);
+      putPeer(transformerMap, UnaryBooleanExpresson.class, UnaryBooleanExpressionPeer.class);
+      putPeer(transformerMap, Not.class, NotPeer.class);
+      putPeer(transformerMap, SelectAllExpression.class, SelectAllPeer.class);
 
       return transformerMap;
    }
 
-   protected static void put(Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> map, Class<? extends IntermediateSQLFactory> objectClass, Class<? extends SQLPeer> peerClass){
-      map.put(objectClass, new DefaultTransformer(peerClass));
-   }
 
    public String getStringQuote() {
       return "'";

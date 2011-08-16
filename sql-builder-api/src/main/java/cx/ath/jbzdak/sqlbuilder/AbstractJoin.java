@@ -1,5 +1,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import java.util.Set;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -23,5 +25,9 @@ public abstract class AbstractJoin extends IntermediateSQLObject{
 
    public Table getTable() {
       return table;
+   }
+
+   protected Set<String> collectParameterNamesParant() {
+      return expressionContext.collectParameterNames(joinType, table);
    }
 }

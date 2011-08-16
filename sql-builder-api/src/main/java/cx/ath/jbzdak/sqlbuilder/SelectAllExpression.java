@@ -19,4 +19,6 @@ public class SelectAllExpression extends ColumnExpression{
       super(schema, table, "*");
    }
 
+
+
 }

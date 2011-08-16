@@ -1,24 +1,20 @@
 package cx.ath.jbzdak.sqlbuilder;
 
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * Created by: Jacek Bzdak
  */
-public class SQLLiteral<T> extends SQLObject implements SQLFactory {
+public abstract class SQLLiteral<T> extends SQLObject implements SQLFactory {
 
-   private String literalType;
+   protected String literalType;
 
-   private T literalValue;
+   protected T literalValue;
 
 
    public SQLLiteral() {
    }
-
-   public static SQLLiteral<Integer> create(Integer value){
-      return new SQLLiteral<Integer>(SQLLiteralType.INTEGER, value);
-
-   }
-
-
 
    public SQLLiteral(String literalType, T literalValue) {
       this.literalType = literalType;
@@ -31,5 +27,17 @@ public class SQLLiteral<T> extends SQLObject implements SQLFactory {
 
    public T getLiteralValue() {
       return literalValue;
+   }
+
+   public void setLiteralType(String literalType) {
+      this.literalType = literalType;
+   }
+
+   public void setLiteralValue(T literalValue) {
+      this.literalValue = literalValue;
+   }
+
+   public Set<String> collectParameterNames() {
+      return Collections.emptySet();
    }
 }

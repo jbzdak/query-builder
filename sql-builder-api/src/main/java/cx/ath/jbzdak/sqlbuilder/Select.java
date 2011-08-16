@@ -5,6 +5,7 @@ import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by: Jacek Bzdak
@@ -35,8 +36,6 @@ public class Select extends SQLObject{
    public void addColumnExpression(ColumnExpression... columnExpression){
       columnExpressions.addAll(Arrays.asList(columnExpression));
    }
-
-
 
    public void addFrom(Table table){
       from.add(table);
@@ -70,5 +69,9 @@ public class Select extends SQLObject{
 
    public BooleanExpressionMarker getWhere() {
       return where;
+   }
+
+   public Set<String> collectParameterNames() {
+      return expressionContext.collectParameterNames(columnExpressions, where, from);
    }
 }

@@ -12,7 +12,7 @@ public class UnaryBooleanExpressionPeer extends AbstractPeer<UnaryBooleanExpress
    protected void appendToInternal(final RenderingContext renderingContext, StringBuilder stringBuilder) {
       PeerUtils.appendInBrackets(stringBuilder, new PeerUtils.Appender() {
          public void appendTo(StringBuilder stringBuilder) {
-            parent.getExpression().appendTo(renderingContext, stringBuilder);
+            parent.getExpression().appendToInternal(renderingContext, stringBuilder);
             stringBuilder.append(" ");
             stringBuilder.append(parent.getExpressionType());
          }

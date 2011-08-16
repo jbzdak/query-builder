@@ -1,6 +1,9 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.config;
 
 import cx.ath.jbzdak.sqlbuilder.Dialect;
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
+import cx.ath.jbzdak.sqlbuilder.SQLFactory;
+import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -42,6 +45,15 @@ public class DialectConfig {
 
    public void setConfig(DialectConfigKey dialectConfigKey, Object value){
       config.put(dialectConfigKey, value);
+   }
+
+
+   public void addNewPeerMapping(Class<? extends SQLFactory> clazz, Class<? extends SQLPeer> peerClazz){
+      if(!config.containsKey(DialectConfigKey.ADDITIONAL_PEERS)){
+          config.put(DialectConfigKey.ADDITIONAL_PEERS, DialectConfigKey.ADDITIONAL_PEERS.getDefault(d));
+      }
+      Map<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>> additional =  (Map<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>>) config.get(DialectConfigKey.ADDITIONAL_PEERS);
+      additional.put(clazz, peerClazz);
    }
 
 

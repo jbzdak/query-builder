@@ -1,7 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.ConditionType;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
@@ -48,7 +47,7 @@ public class DefaultDialectTests {
                       BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("DATA_SOURCE"), SQLLiteral.create(1)),
                       BOOLEAN_FACTORY.isNotNull(dp.column("VALUE"))
                       ));
-      System.out.println(select.toSQL());
+      System.out.println(select.toSQLInternal());
 
    }
 }

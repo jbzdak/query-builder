@@ -1,6 +1,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by: Jacek Bzdak
@@ -19,5 +20,9 @@ public class JoinUsing extends AbstractJoin {
 
    public List<String> getColumns() {
       return columns;
+   }
+
+    public Set<String> collectParameterNames() {
+      return expressionContext.collectParameterNames(collectParameterNamesParant(), columns.toArray());
    }
 }
