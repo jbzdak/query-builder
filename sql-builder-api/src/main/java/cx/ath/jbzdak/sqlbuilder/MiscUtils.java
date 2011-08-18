@@ -19,6 +19,10 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
+import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -26,7 +30,33 @@ public class MiscUtils {
 
    public static String toSQL(RenderingContext renderingContext, IntermediateSQLFactory intermediateSQLFactory){
       StringBuilder builder = new StringBuilder();
-      intermediateSQLFactory.appendToInternal(renderingContext, builder);
+      intermediateSQLFactory.appendTo(renderingContext, builder);
       return builder.toString();
+   }
+
+    public static String prettifySQL(String sqlString, ExpressionContext expressionContext){
+      DialectConfig dialectConfig = expressionContext.getDialect().getDialectConfig();
+      Object config = dialectConfig.getConfig(DialectConfigKey.PRETTIFY_SQL);
+      switch ((PrettifySQLLevel) config){
+         case MULTILINE:
+            sqlString = sqlString.replaceAll("WHERE", "\n\tWHERE");
+            sqlString = sqlString.replaceAll("JOIN", "\n\tJOIN");
+            sqlString = sqlString.replaceAll("LIMIT", "\n\tLIMIT");
+         case PRETTY:
+            sqlString = sqlString.replaceAll("\\([ ]+", "(");
+            sqlString = sqlString.replaceAll("[ ]+\\)", ")");
+         case MINIMAL:
+            sqlString = sqlString.replaceAll("[ ]+", " ");
+            sqlString = sqlString.replaceAll("^\\s+", "");
+            sqlString = sqlString.replaceAll("\\s+$", "");
+            sqlString = sqlString.replaceAll("\\([ ]+\\(", "((");
+            sqlString = sqlString.replaceAll("\\)[ ]+\\)", "))");
+            break;
+         case NONE:
+            break;
+         default:
+            throw new IllegalStateException();
+      }
+      return sqlString;
    }
 }

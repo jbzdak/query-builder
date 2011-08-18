@@ -26,6 +26,8 @@ public interface SQLFactory extends IntermediateSQLFactory {
 
    StringBuilder toSQL();
 
+
+
 //   void appendToInternal(StringBuilder stringBuilder);
 
 

@@ -44,6 +44,7 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
       this.expressionContext = expressionContext;
    }
 
+
    public StringBuilder toSQL(RenderingContext renderContext) {
       StringBuilder stringBuilder = new StringBuilder();
       appendToInternal(renderContext, stringBuilder);

@@ -29,6 +29,8 @@ public interface IntermediateSQLFactory {
 
    void setContext(ExpressionContext expressionContext);
 
+   ExpressionContext getContext();
+
    StringBuilder toSQL(RenderingContext renderContext);
 
    void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder);
