@@ -82,7 +82,7 @@ public class ColumnExpression extends IntermediateSQLObject implements Identifie
    }
 
    public Set<String> collectParameterNames() {
-      return this.expressionContext.collectParameterNames(table, column, alias, schema);
+      return this.context.collectParameterNames(table, column, alias, schema);
    }
 }
 

@@ -22,6 +22,7 @@ package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 import cx.ath.jbzdak.sqlbuilder.*;
 
 import java.security.InvalidParameterException;
+import java.util.Set;
 
 /**
  * Created by: Jacek Bzdak
@@ -52,19 +53,27 @@ public class UnaryBooleanExpresson extends IntermediateSQLObject implements Bool
    }
 
    public void setExpression(ColumnExpression expression) {
+      IntermediateSQLFactory oldExpression = this.expression;
       this.expression = expression;
+      propertyChangeSupport.firePropertyChange("expression", oldExpression, this.expression);
    }
 
    public void setExpression(SQLLiteral expression) {
+      IntermediateSQLFactory oldExpression = this.expression;
       this.expression = expression;
-   }
-
-   public void setExpression(BooleanExpressionMarker expression) {
-      this.expression = expression;
+      propertyChangeSupport.firePropertyChange("expression", oldExpression, this.expression);
    }
 
    public void setExpression(Select expression) {
+      IntermediateSQLFactory oldExpression = this.expression;
       this.expression = expression;
+      propertyChangeSupport.firePropertyChange("expression", oldExpression, this.expression);
+   }
+
+   public void setExpression(BooleanExpressionMarker expression) {
+      IntermediateSQLFactory oldExpression = this.expression;
+      this.expression = expression;
+      propertyChangeSupport.firePropertyChange("expression", oldExpression, this.expression);
    }
 
    public String getExpressionType() {
@@ -73,5 +82,9 @@ public class UnaryBooleanExpresson extends IntermediateSQLObject implements Bool
 
    public void setExpressionType(String expressionType) {
       this.expressionType = expressionType;
+   }
+
+   public Set<String> collectParameterNames() {
+      return getContext().collectParameterNames(expression);
    }
 }

@@ -58,6 +58,7 @@ public class DefaultLiteralFactory implements LiteralFactory {
       SQLLiteral lit = literals.get(type).create();
       lit.setLiteralValue(value);
       lit.setLiteralType(type);
+
       return lit;
    }
 

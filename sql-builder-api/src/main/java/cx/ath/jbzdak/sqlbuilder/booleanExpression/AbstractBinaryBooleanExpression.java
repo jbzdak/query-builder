@@ -23,6 +23,8 @@ import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
 import cx.ath.jbzdak.sqlbuilder.SQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLObject;
 
+import java.util.Set;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -64,4 +66,7 @@ public abstract class AbstractBinaryBooleanExpression extends IntermediateSQLObj
       return lhs;
    }
 
+   public Set<String> collectParameterNames() {
+      return getContext().collectParameterNames(rhs, lhs);
+   }
 }

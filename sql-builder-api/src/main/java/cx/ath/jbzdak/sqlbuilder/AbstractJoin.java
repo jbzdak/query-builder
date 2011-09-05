@@ -47,6 +47,6 @@ public abstract class AbstractJoin extends IntermediateSQLObject{
    }
 
    protected Set<String> collectParameterNamesParant() {
-      return expressionContext.collectParameterNames(joinType, table);
+      return context.collectParameterNames(joinType, table);
    }
 }

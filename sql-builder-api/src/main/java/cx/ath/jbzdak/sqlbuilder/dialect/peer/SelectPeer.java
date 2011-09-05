@@ -35,7 +35,7 @@ public class SelectPeer extends AbstractPeer<Select>{
       PeerUtils.joinSqls(renderingContext, stringBuilder, ", ", parent.getFrom());
       if(parent.getWhere() != null){
          stringBuilder.append(" WHERE ");
-         parent.getWhere().appendToInternal(renderingContext, stringBuilder);
+         parent.getWhere().appendTo(renderingContext, stringBuilder);
       }
       if(parent.getLimit() != null){
          stringBuilder.append(" LIMIT ");

@@ -58,10 +58,10 @@ public class ExpressionContext {
    }
 
    public Set<String> collectParameterNames(Object... objects){
-      return collectParameterNamesI(Arrays.asList(objects));
+      return collectParameterNames(Arrays.asList(objects));
    }
 
-   public Set<String> collectParameterNamesI(Iterable objects){
+   public Set<String> collectParameterNames(Iterable objects){
       return collectParameterNames(Collections.<Object>emptySet(), objects);
    }
 
@@ -79,7 +79,7 @@ public class ExpressionContext {
             IntermediateSQLFactory o = (IntermediateSQLFactory) object;
             parameterNames.addAll(o.collectParameterNames());
          } else if (object instanceof Collection){
-            parameterNames.addAll(collectParameterNamesI((Iterable) object));
+            parameterNames.addAll(collectParameterNames((Iterable) object));
          } else{
             throw new InvalidParameterException();
          }

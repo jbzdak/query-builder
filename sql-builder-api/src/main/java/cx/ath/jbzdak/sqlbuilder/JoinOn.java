@@ -42,10 +42,12 @@ public class JoinOn extends AbstractJoin{
    }
 
    public void setOnCondition(AbstractBinaryBooleanExpression onCondition) {
+      AbstractBinaryBooleanExpression oldOnCondition = this.onCondition;
       this.onCondition = onCondition;
+      propertyChangeSupport.firePropertyChange("onCondition", oldOnCondition, this.onCondition);
    }
 
    public Set<String> collectParameterNames() {
-      return expressionContext.collectParameterNames(collectParameterNamesParant(), onCondition);
+      return context.collectParameterNames(collectParameterNamesParant(), onCondition);
    }
 }

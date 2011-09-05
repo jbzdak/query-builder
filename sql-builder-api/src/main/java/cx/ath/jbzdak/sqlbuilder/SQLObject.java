@@ -59,8 +59,7 @@ public abstract class SQLObject extends IntermediateSQLObject implements SQLFact
       return new StringBuilder(sql);
    }
 
-
-   public StringBuilder toSQLInternal(RenderingContext renderingContext) {
+   protected StringBuilder toSQLInternal(RenderingContext renderingContext) {
       StringBuilder stringBuilder = new StringBuilder();
       appendToInternal(renderingContext, stringBuilder);
       return stringBuilder;

@@ -20,7 +20,6 @@
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 
 import java.util.Collections;
 import java.util.Set;
@@ -46,7 +45,9 @@ public class BoundParameter<T> extends IntermediateSQLObject{
    }
 
    public void setValue(T value) {
+      T oldValue = this.getValue();
       this.value = value;
+      propertyChangeSupport.firePropertyChange("value", oldValue, this.getValue());
    }
 
    public void setValueFromObject(String value) {
@@ -62,12 +63,10 @@ public class BoundParameter<T> extends IntermediateSQLObject{
       if(!isBound()){
          throw new IllegalStateException("Parameter " + parent.getName() + "is nod bound but expression tries to render it") ;
       }
-
       super.appendTo(renderingContext, stringBuilder);
    }
 
    public Set<String> collectParameterNames() {
       return Collections.emptySet();
    }
-
 }

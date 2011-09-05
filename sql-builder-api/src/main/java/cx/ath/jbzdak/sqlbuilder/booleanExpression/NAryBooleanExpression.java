@@ -22,10 +22,7 @@ package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 import cx.ath.jbzdak.sqlbuilder.SQLObject;
 
 import java.security.InvalidParameterException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by: Jacek Bzdak
@@ -65,8 +62,9 @@ public class NAryBooleanExpression extends SQLObject implements BooleanExpressio
       this.expressions = new ArrayList<BooleanExpressionMarker>(expressions);
    }
 
-
-
+   public Set<String> collectParameterNames() {
+      return getContext().collectParameterNames(expressions);
+   }
 }
 
 

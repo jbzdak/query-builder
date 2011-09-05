@@ -20,7 +20,9 @@
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
+import cx.ath.jbzdak.sqlbuilder.Select;
 
 /**
  * Created by: Jacek Bzdak
@@ -43,19 +45,40 @@ public class Condition extends AbstractBinaryBooleanExpression {
        super(type, rhs, lhs);
    }
 
-   public void setLhs(ColumnExpression lhs){
+   public void setRhs(ColumnExpression rhs) {
+      IntermediateSQLObject oldRhs = this.rhs;
+      this.rhs = rhs;
+      propertyChangeSupport.firePropertyChange("rhs", oldRhs, this.rhs);
+   }
+
+
+   public void setRhs(SQLLiteral rhs) {
+      IntermediateSQLObject oldRhs = this.rhs;
+      this.rhs = rhs;
+      propertyChangeSupport.firePropertyChange("rhs", oldRhs, this.rhs);
+   }
+
+   public void setRhs(Select rhs) {
+      IntermediateSQLObject oldRhs = this.rhs;
+      this.rhs = rhs;
+      propertyChangeSupport.firePropertyChange("rhs", oldRhs, this.rhs);
+   }
+
+   public void setLhs(ColumnExpression lhs) {
+      IntermediateSQLObject oldLhs = this.lhs;
       this.lhs = lhs;
+      propertyChangeSupport.firePropertyChange("lhs", oldLhs, this.lhs);
    }
 
-   public void setLhs(SQLLiteral lhs){
+   public void setLhs(SQLLiteral lhs) {
+      IntermediateSQLObject oldLhs = this.lhs;
       this.lhs = lhs;
+      propertyChangeSupport.firePropertyChange("lhs", oldLhs, this.lhs);
    }
 
-    public void setRhs(ColumnExpression rhs){
-      this.rhs = lhs;
-   }
-
-   public void setRhs(SQLLiteral rhs){
-      this.rhs = lhs;
+   public void setLhs(Select lhs) {
+      IntermediateSQLObject oldLhs = this.lhs;
+      this.lhs = lhs;
+      propertyChangeSupport.firePropertyChange("lhs", oldLhs, this.lhs);
    }
 }

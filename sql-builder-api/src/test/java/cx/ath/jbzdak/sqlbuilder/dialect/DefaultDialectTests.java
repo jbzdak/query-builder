@@ -25,6 +25,7 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
+import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 import org.junit.Test;
 
 import static cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory.BOOLEAN_FACTORY;
@@ -60,13 +61,15 @@ public class DefaultDialectTests {
 
       defaultDialect.getDialectConfig().setConfig(DialectConfigKey.PRETTIFY_SQL, PrettifySQLLevel.MULTILINE);
 
+      LiteralFactory factory = defaultDialect.getLiteralFactory();
+
       select.setWhere(
               BOOLEAN_FACTORY.and(
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("POINT_TYPE"), SQLLiteral.create(4)),
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("DATA_SOURCE"), SQLLiteral.create(1)),
+                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("POINT_TYPE"), factory.create(4)),
+                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("DATA_SOURCE"), factory.create(1)),
                       BOOLEAN_FACTORY.isNotNull(dp.column("VALUE"))
                       ));
-      System.out.println(select.toSQLInternal());
+      System.out.println(select.toSQL());
 
    }
 }

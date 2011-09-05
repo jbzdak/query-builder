@@ -23,6 +23,8 @@ import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
 import cx.ath.jbzdak.sqlbuilder.SQLObject;
 
+import java.util.Set;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -40,12 +42,16 @@ public class BetweenCondition extends IntermediateSQLObject implements BooleanEx
       this.expression = expression;
    }
 
-   public void setExpression(ColumnExpression expression) {
-      this.expression = expression;
+   public void setRange(Range range) {
+      Range oldRange = this.range;
+      this.range = range;
+      propertyChangeSupport.firePropertyChange("range", oldRange, this.range);
    }
 
-   public void setRange(Range range){
-      this.range = range;
+   public void setExpression(ColumnExpression expression) {
+      ColumnExpression oldExpression = this.expression;
+      this.expression = expression;
+      propertyChangeSupport.firePropertyChange("expression", oldExpression, this.expression);
    }
 
    public Range getRange() {
@@ -55,4 +61,9 @@ public class BetweenCondition extends IntermediateSQLObject implements BooleanEx
    public ColumnExpression getExpression() {
       return expression;
    }
+
+   public Set<String> collectParameterNames() {
+      return getContext().collectParameterNames(range, expression);
+   }
 }
+

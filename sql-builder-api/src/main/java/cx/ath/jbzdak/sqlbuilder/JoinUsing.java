@@ -42,6 +42,6 @@ public class JoinUsing extends AbstractJoin {
    }
 
     public Set<String> collectParameterNames() {
-      return expressionContext.collectParameterNames(collectParameterNamesParant(), columns.toArray());
+      return context.collectParameterNames(collectParameterNamesParant(), columns.toArray());
    }
 }

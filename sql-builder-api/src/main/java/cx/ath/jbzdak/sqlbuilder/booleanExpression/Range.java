@@ -23,14 +23,16 @@ import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.SQLObject;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 
+import java.util.Set;
+
 /**
  * Created by: Jacek Bzdak
  */
 public class Range extends SQLObject{
 
-   SQLLiteral from;
+   private SQLLiteral from;
 
-   SQLLiteral to;
+   private SQLLiteral to;
 
    public Range() {
    }
@@ -38,27 +40,27 @@ public class Range extends SQLObject{
    public Range(SQLObject parent, int from, int to) {
       super(parent);
       LiteralFactory literalFactory = this.getExpressionContext().getDialect().getLiteralFactory();
-      this.from = literalFactory.create(from);
-      this.to = literalFactory.create(to);
+      this.setFrom(literalFactory.create(from));
+      this.setTo(literalFactory.create(to));
    }
 
    public Range(SQLObject parent, float from, float to) {
       super(parent);
       LiteralFactory literalFactory = this.getExpressionContext().getDialect().getLiteralFactory(); ;
-      this.from = literalFactory.create(from);
-      this.to = literalFactory.create(to);
+      this.setFrom(literalFactory.create(from));
+      this.setTo(literalFactory.create(to));
    }
 
    public Range(SQLObject parent, double from, double to) {
       super(parent);
       LiteralFactory literalFactory = this.getExpressionContext().getDialect().getLiteralFactory();
-      this.from = literalFactory.create(from);
-      this.to = literalFactory.create(to);
+      this.setFrom(literalFactory.create(from));
+      this.setTo(literalFactory.create(to));
    }
 
    public Range(SQLLiteral to, SQLLiteral from) {
-      this.to = to;
-      this.from = from;
+      this.setTo(to);
+      this.setFrom(from);
    }
 
 
@@ -66,15 +68,25 @@ public class Range extends SQLObject{
       return from;
    }
 
-   public void setFrom(SQLLiteral from) {
-      this.from = from;
-   }
+
 
    public SQLLiteral getTo() {
       return to;
    }
 
+   public void setFrom(SQLLiteral from) {
+      SQLLiteral oldFrom = this.from;
+      this.from = from;
+      propertyChangeSupport.firePropertyChange("from", oldFrom, this.from);
+   }
+
    public void setTo(SQLLiteral to) {
+      SQLLiteral oldTo = this.to;
       this.to = to;
+      propertyChangeSupport.firePropertyChange("to", oldTo, this.to);
+   }
+
+   public Set<String> collectParameterNames() {
+      return getContext().collectParameterNames(to, from);
    }
 }

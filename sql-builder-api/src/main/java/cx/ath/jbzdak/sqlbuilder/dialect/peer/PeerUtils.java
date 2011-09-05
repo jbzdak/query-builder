@@ -84,11 +84,11 @@ class PeerUtils {
    static void joinSqls(RenderingContext renderingContext, StringBuilder stringBuilder, String delimiter, Collection<? extends IntermediateSQLFactory> sqls){
       Iterator<? extends IntermediateSQLFactory> iterator = sqls.iterator();
       if(iterator.hasNext()){
-         iterator.next().appendToInternal(renderingContext, stringBuilder);
+         iterator.next().appendTo(renderingContext, stringBuilder);
       }
       while (iterator.hasNext()){
          stringBuilder.append(delimiter);
-         iterator.next().appendToInternal(renderingContext, stringBuilder);
+         iterator.next().appendTo(renderingContext, stringBuilder);
       }
    }
 

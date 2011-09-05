@@ -74,7 +74,9 @@ public class Select extends SQLObject{
    }
 
    public void setWhere(BooleanExpressionMarker where) {
+      BooleanExpressionMarker oldWhere = this.where;
       this.where = where;
+      propertyChangeSupport.firePropertyChange("where", oldWhere, this.where);
    }
 
 
