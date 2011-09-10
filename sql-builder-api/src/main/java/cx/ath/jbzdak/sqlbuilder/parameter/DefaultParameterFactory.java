@@ -17,7 +17,7 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect;
+package cx.ath.jbzdak.sqlbuilder.parameter;
 
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
@@ -25,8 +25,10 @@ import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
 
 import javax.management.monitor.StringMonitor;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -34,7 +36,19 @@ import java.util.Map;
  */
 public class DefaultParameterFactory  implements Transformer<BoundParameter, Parameter> {
 
-   Map<String, Factory<? extends BoundParameter>> typeMap;
+   protected Map<String, Factory<? extends BoundParameter>> typeMap = new HashMap<String, Factory<? extends BoundParameter>>();
+
+   public DefaultParameterFactory() {
+      registerDefaultMappings();
+   }
+
+   public DefaultParameterFactory(Map<String, Factory<? extends BoundParameter>> typeMap) {
+      this.typeMap = typeMap;
+   }
+
+   protected void registerDefaultMappings(){
+      registerType(ParameterType.TABLE_PARAMETER, BoundTableParameter.class);
+   }
 
    public void registerType(String type, final Class<? extends BoundParameter> boundParameter){
       typeMap.put(type, new Factory<BoundParameter>() {
@@ -51,7 +65,13 @@ public class DefaultParameterFactory  implements Transformer<BoundParameter, Par
    }
 
    public BoundParameter transform(Parameter source) {
-      BoundParameter bound = typeMap.get(source.getType()).create();
+      Factory<? extends BoundParameter> factory = typeMap.get(source.getType());
+      BoundParameter bound;
+      if(factory == null){
+         bound = new BoundParameter();
+      }else{
+         bound = factory.create();
+      }
       bound.setParent(source);
       return bound;
    }

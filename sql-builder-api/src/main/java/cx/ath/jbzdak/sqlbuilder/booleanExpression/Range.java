@@ -39,21 +39,21 @@ public class Range extends SQLObject{
 
    public Range(SQLObject parent, int from, int to) {
       super(parent);
-      LiteralFactory literalFactory = this.getExpressionContext().getDialect().getLiteralFactory();
+      LiteralFactory literalFactory = this.getContext().getDialect().getLiteralFactory();
       this.setFrom(literalFactory.create(from));
       this.setTo(literalFactory.create(to));
    }
 
    public Range(SQLObject parent, float from, float to) {
       super(parent);
-      LiteralFactory literalFactory = this.getExpressionContext().getDialect().getLiteralFactory(); ;
+      LiteralFactory literalFactory = this.getContext().getDialect().getLiteralFactory(); ;
       this.setFrom(literalFactory.create(from));
       this.setTo(literalFactory.create(to));
    }
 
    public Range(SQLObject parent, double from, double to) {
       super(parent);
-      LiteralFactory literalFactory = this.getExpressionContext().getDialect().getLiteralFactory();
+      LiteralFactory literalFactory = this.getContext().getDialect().getLiteralFactory();
       this.setFrom(literalFactory.create(from));
       this.setTo(literalFactory.create(to));
    }
@@ -86,7 +86,5 @@ public class Range extends SQLObject{
       propertyChangeSupport.firePropertyChange("to", oldTo, this.to);
    }
 
-   public Set<String> collectParameterNames() {
-      return getContext().collectParameterNames(to, from);
-   }
+
 }

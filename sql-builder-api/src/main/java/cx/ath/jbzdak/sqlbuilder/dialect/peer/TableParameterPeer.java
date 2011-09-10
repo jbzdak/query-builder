@@ -19,28 +19,21 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
-import cx.ath.jbzdak.sqlbuilder.Alias;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
+import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class AliasPeer extends AbstractPeer<Alias> {
+public class TableParameterPeer extends AbstractPeer<BoundTableParameter>{
 
+   public TableParameterPeer() {
+   }
 
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-       stringBuilder.append(' ');
-      IdentifierQuotingStrategy quotingStrategy =
-              (IdentifierQuotingStrategy) renderingContext.getDialect().getDialectConfig().getConfig(DialectConfigKey.ALIAS_QUOTING_STRATEGY);
-      stringBuilder.append(renderingContext.quoteIdentifier(parent.getAlias(), quotingStrategy));
-      stringBuilder.append(' ');
+//      String quoted = renderingContext.quoteIdentifier(parent.getValue());
+      stringBuilder.append(parent.getValue());
    }
-
-   public void appendToInternal(StringBuilder stringBuilder) {
-
-   }
-
 }

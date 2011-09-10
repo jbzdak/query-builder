@@ -22,6 +22,8 @@ package cx.ath.jbzdak.sqlbuilder.dialect;
 import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
+import cx.ath.jbzdak.sqlbuilder.dialect.config.InvalidConfigurationException;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.DateLiteral;
@@ -29,7 +31,9 @@ import cx.ath.jbzdak.sqlbuilder.literal.DefaultLiteralFactory;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameterFactory;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
 
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
@@ -75,6 +79,7 @@ public class DefaultDialect extends AbstractDialect{
       putPeer(transformerMap, UnaryBooleanExpresson.class, UnaryBooleanExpressionPeer.class);
       putPeer(transformerMap, Not.class, NotPeer.class);
       putPeer(transformerMap, SelectAllExpression.class, SelectAllPeer.class);
+      putPeer(transformerMap, BoundTableParameter.class, TableParameterPeer.class);
 
       return transformerMap;
    }
@@ -109,5 +114,39 @@ public class DefaultDialect extends AbstractDialect{
          return true;
       }
    }
+
+
+   public String quoteIdentifier(String ident, IdentifierQuotingStrategy strategy) {
+      if(strategy == null){
+         throw  new NullPointerException("strategy parameter of Dialect.quoteIdentifier must not be null  (and is null)");
+      }
+      if(ident == null){
+         return null;
+      }
+
+      switch (strategy){
+         case NEVER:
+            return ident;
+         case WHEN_NEEDED:
+            if(!identifierNeedsQuoting(ident)){
+               return ident;
+            }
+         case ALWAYS:
+            return getIdentifierQuote() + ident + getIdentifierQuote();
+         case DEFAULT:
+            strategy =
+                    (IdentifierQuotingStrategy) getDialectConfig().getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY);
+            if(strategy == null){
+               throw new InvalidConfigurationException("Default IdentifierQuotingStrategy is null in DialectConfig");
+            }
+            if(strategy == IdentifierQuotingStrategy.DEFAULT){
+               strategy = IdentifierQuotingStrategy.WHEN_NEEDED;
+            }
+            return quoteIdentifier(ident, strategy);
+         default:
+            throw new IllegalStateException();
+      }
+   }
+
 }
 

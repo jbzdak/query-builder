@@ -84,7 +84,4 @@ public class UnaryBooleanExpresson extends IntermediateSQLObject implements Bool
       this.expressionType = expressionType;
    }
 
-   public Set<String> collectParameterNames() {
-      return getContext().collectParameterNames(expression);
-   }
 }

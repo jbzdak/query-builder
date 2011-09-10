@@ -20,6 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory;
+import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
@@ -35,9 +36,13 @@ public interface Dialect {
 
    String getStringQuote();
 
-   String getIdentifierQuote();
+//   String getIdentifierQuote();
+//
+//   boolean identifierNeedsQuoting(String identifier);
 
-   boolean identifierNeedsQuoting(String identifier);
+   String quoteIdentifier(String ident, IdentifierQuotingStrategy strategy);
+
+   String quoteIdentifier(String ident);
 
    DialectConfig getDialectConfig();
 

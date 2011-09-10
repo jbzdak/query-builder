@@ -58,15 +58,4 @@ public class BoundParameter<T> extends IntermediateSQLObject{
       return getValue() !=null;
    }
 
-   @Override
-   public void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      if(!isBound()){
-         throw new IllegalStateException("Parameter " + parent.getName() + "is nod bound but expression tries to render it") ;
-      }
-      super.appendTo(renderingContext, stringBuilder);
-   }
-
-   public Set<String> collectParameterNames() {
-      return Collections.emptySet();
-   }
 }

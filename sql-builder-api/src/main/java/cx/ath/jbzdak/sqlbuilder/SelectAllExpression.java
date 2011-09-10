@@ -24,8 +24,6 @@ package cx.ath.jbzdak.sqlbuilder;
  */
 public class SelectAllExpression extends ColumnExpression{
 
-   public static final SelectAllExpression STAR = new SelectAllExpression();
-
    public SelectAllExpression() {
       super("*");
    }

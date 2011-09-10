@@ -31,11 +31,11 @@ public class BooleanExpressionPeer extends AbstractPeer<AbstractBinaryBooleanExp
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       stringBuilder.append(" (");
-      parent.getLhs().appendToInternal(renderingContext, stringBuilder);
+      parent.getLhs().appendTo(renderingContext, stringBuilder);
       stringBuilder.append(' ');
       stringBuilder.append(parent.getType());
       stringBuilder.append(' ');
-      parent.getRhs().appendToInternal(renderingContext, stringBuilder);
+      parent.getRhs().appendTo(renderingContext, stringBuilder);
       stringBuilder.append(" )");
    }
 }

@@ -17,22 +17,15 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.expressionConfig;
-
-import java.util.regex.Pattern;
+package cx.ath.jbzdak.sqlbuilder.util;
 
 /**
- * Created by: Jacek Bzdak
+ *
+ * @param <ET> EventType  --- type of an event
+ * @param <SRC> Source --- object this event is originating from
  */
-public enum ExpressionConfigKey {
-   PARAMETER_REGEXP_PATTERN(){
-      @Override
-      public Object getDefault(ExpressionConfig config) {
-         return Pattern.compile(":([\\w\\d\\-_]+)");
-      }
-   }
-   ;
+public interface EventListener<ET, SRC> {
 
-   public abstract Object getDefault(ExpressionConfig config);
+   void onEvent(Event<? extends ET, ? extends SRC> event);
 
 }

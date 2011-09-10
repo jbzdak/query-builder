@@ -42,7 +42,4 @@ public class Alias extends IntermediateSQLObject implements Identifier{
       return columnExpression;
    }
 
-   public Set<String> collectParameterNames() {
-      return Collections.emptySet();
-   }
 }

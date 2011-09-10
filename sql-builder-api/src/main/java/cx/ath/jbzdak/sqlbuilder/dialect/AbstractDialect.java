@@ -23,6 +23,7 @@ import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
+import cx.ath.jbzdak.sqlbuilder.dialect.config.InvalidConfigurationException;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.DefaultTransformer;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
@@ -127,4 +128,13 @@ public abstract class AbstractDialect implements Dialect{
    public ExpressionConfig getDefaultExpressionConfig() {
       return new ExpressionConfig();
    }
+
+
+
+   public String quoteIdentifier(String ident) {
+      return quoteIdentifier(ident, IdentifierQuotingStrategy.DEFAULT);
+   }
+
+
+
 }

@@ -19,6 +19,9 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.util.EventListener;
+
+import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Set;
 
@@ -35,8 +38,52 @@ public interface IntermediateSQLFactory {
 
    void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder);
 
-   Set<String> collectParameterNames();
+   void collectParameters();
 
+   public void collectChildren();
+
+   Set<IntermediateSQLFactory> getChildren();
+
+   Set<String> getSqlParts();
+
+
+   /* ************************************************************
+    *  PropertyChange metohods.
+    * ************************************************************
+    */
+
+   void addPropertyChangeListener(PropertyChangeListener listener);
+
+   void removePropertyChangeListener(PropertyChangeListener listener);
+
+   PropertyChangeListener[] getPropertyChangeListeners();
+
+   void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
+
+   void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
+
+   PropertyChangeListener[] getPropertyChangeListeners(String propertyName);
+
+   boolean hasListeners(String propertyName);
+
+
+   /*
+    * Event methods od SQL objects
+    *
+    */
+   void addListener(EventListener<? super String, ? super IntermediateSQLObject> eventListener);
+
+   void addListener(String eventType, EventListener<? super String, ? super IntermediateSQLObject> eventListener);
+
+   boolean removeListener(EventListener listener);
+
+   boolean removeListener(String eventType, EventListener eventListener);
+
+   void fireEvent(String eventType);
+
+
+
+   void fireEvent(String eventType, Object additional);
 
 
 }

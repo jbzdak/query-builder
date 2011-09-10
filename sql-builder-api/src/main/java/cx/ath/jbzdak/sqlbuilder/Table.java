@@ -62,7 +62,4 @@ public class Table extends IntermediateSQLObject{
       return alias;
    }
 
-   public Set<String> collectParameterNames() {
-      return null;  //To change body of implemented methods use File | Settings | File Templates.
-   }
 }

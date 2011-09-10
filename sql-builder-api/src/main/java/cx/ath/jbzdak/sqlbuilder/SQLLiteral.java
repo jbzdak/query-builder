@@ -31,7 +31,6 @@ public abstract class SQLLiteral<T> extends SQLObject implements SQLFactory {
 
    protected T literalValue;
 
-
    public SQLLiteral() {
    }
 
@@ -58,7 +57,4 @@ public abstract class SQLLiteral<T> extends SQLObject implements SQLFactory {
       propertyChangeSupport.firePropertyChange("literalValue", oldLiteralValue, this.literalValue);
    }
 
-   public Set<String> collectParameterNames() {
-      return Collections.emptySet();
-   }
 }

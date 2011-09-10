@@ -61,9 +61,5 @@ public class BetweenCondition extends IntermediateSQLObject implements BooleanEx
    public ColumnExpression getExpression() {
       return expression;
    }
-
-   public Set<String> collectParameterNames() {
-      return getContext().collectParameterNames(range, expression);
-   }
 }
 

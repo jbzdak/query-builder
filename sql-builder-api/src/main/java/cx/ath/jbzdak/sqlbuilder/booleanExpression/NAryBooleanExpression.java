@@ -62,9 +62,6 @@ public class NAryBooleanExpression extends SQLObject implements BooleanExpressio
       this.expressions = new ArrayList<BooleanExpressionMarker>(expressions);
    }
 
-   public Set<String> collectParameterNames() {
-      return getContext().collectParameterNames(expressions);
-   }
 }
 
 

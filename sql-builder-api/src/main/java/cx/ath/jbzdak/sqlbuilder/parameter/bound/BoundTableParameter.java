@@ -17,22 +17,11 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.expressionConfig;
+package cx.ath.jbzdak.sqlbuilder.parameter.bound;
 
-import java.util.regex.Pattern;
+import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 
 /**
  * Created by: Jacek Bzdak
  */
-public enum ExpressionConfigKey {
-   PARAMETER_REGEXP_PATTERN(){
-      @Override
-      public Object getDefault(ExpressionConfig config) {
-         return Pattern.compile(":([\\w\\d\\-_]+)");
-      }
-   }
-   ;
-
-   public abstract Object getDefault(ExpressionConfig config);
-
-}
+public class BoundTableParameter extends BoundParameter<String>{ }

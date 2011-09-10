@@ -42,9 +42,9 @@ public class ExpressionContext {
 
    ExpressionConfig expressionConfig;
 
-   Map<String, Object> parameterValues;
+   Map<String, Object> parameterValues = new HashMap<String, Object>();
 
-   Map<String, Parameter> parameters;
+   Map<String, Parameter> parameters = new HashMap<String, Parameter>();
 
    Map<String, BoundParameter> boundParameters;
 
@@ -57,86 +57,53 @@ public class ExpressionContext {
       expressionConfig = new ExpressionConfig(this.getDialect().getDefaultExpressionConfig());
    }
 
-   public Set<String> collectParameterNames(Object... objects){
-      return collectParameterNames(Arrays.asList(objects));
-   }
-
-   public Set<String> collectParameterNames(Iterable objects){
-      return collectParameterNames(Collections.<Object>emptySet(), objects);
-   }
-
-   public Set<String> collectParameterNames(Collection<String> namesToAdd, Object... objects){
-      return collectParameterNamesI(namesToAdd, Arrays.asList(objects));
-   }
-
-   public Set<String> collectParameterNamesI(Collection<String> namesToAdd, Iterable objects){
-      Set<String> parameterNames = new HashSet<String>(namesToAdd);
-      for (Object object : objects) {
-         if (object instanceof String) {
-            String s = (String) object;
-            parameterNames.addAll(collectParametersFromString(s));
-         } else if (object instanceof IntermediateSQLFactory) {
-            IntermediateSQLFactory o = (IntermediateSQLFactory) object;
-            parameterNames.addAll(o.collectParameterNames());
-         } else if (object instanceof Collection){
-            parameterNames.addAll(collectParameterNames((Iterable) object));
-         } else{
-            throw new InvalidParameterException();
-         }
-      }
-      return parameterNames;
-   }
-
-
-
    public Map<String, BoundParameter> getBoundParameters() {
       if (boundParameters == null) {
          boundParameters = new HashMap<String, BoundParameter>();
-         for (Parameter s : parameters.values()) {
-            boundParameters.put(s.getName(), dialect.bindParameter(s, parameterValues.get(s.getName())));
+         for (String name : parameterValues.keySet()) {
+            Parameter p = parameters.get(name);
+            BoundParameter boundParameter = dialect.bindParameter(p, parameterValues.get(name));
+            boundParameter.setContext(this);
+            boundParameters.put(name, boundParameter);
          }
+         boundParameters = Collections.unmodifiableMap(boundParameters);
       }
       return boundParameters;
    }
-
-   /**
-    * List of {@link String} and {@link IntermediateSQLFactory}.
-    * @param objects
-    */
-   public Map<String, Parameter> collectParameters(Object... objects){
-
-      Map<String, Parameter> parameters = new HashMap<String, Parameter>();
-      for (String parameterName : collectParameterNames(objects)) {
-         if(this.parameters.containsKey(parameterName)){
-           parameters.put(parameterName, this.parameters.get(parameterName));
-         }else{
-            parameters.put(parameterName, new DefaultParameter(parameterName));
+   
+   public void collectParameters(Collection<?> objects){
+      for (Object object : objects) {
+         if (object instanceof IntermediateSQLFactory) {
+            IntermediateSQLFactory intermediateSQLFactory = (IntermediateSQLFactory) object;
+            intermediateSQLFactory.collectParameters();
          }
-      }
-      return parameters;
-   }
-
-   public void collectAndUpdateParameters(SQLFactory parent){
-      Map<String, Parameter> collectParameters = collectParameters(parent);
-      boundParameters = null;
-      for (Map.Entry<String, Parameter> entry : collectParameters.entrySet()) {
-         if(!parameters.containsKey(entry.getKey())){
-            parameters.put(entry.getKey(), entry.getValue());
+         if (object instanceof String) {
+            String s = (String) object;
+            Set<String> params = collectParametersFromString(s);
+            for (String param : params) {
+               if(!parameters.containsKey(param)){
+                  addParameter(new DefaultParameter(param));
+               }
+            }
          }
       }
    }
 
    public Object setParameterValue(String parameterName, Object value) {
-      if(!parameters.containsKey(parameterName)){
-         throw new InvalidParameterException("Unknown parameter name '" + parameterName + "'");
+      try {
+         if(!parameters.containsKey(parameterName)){
+            throw new InvalidParameterException("Unknown parameter name '" + parameterName + "'");
+         }
+         return parameterValues.put(parameterName, value);
+      } finally {
+         boundParameters = null;
       }
-      return parameterValues.put(parameterName, value);
    }
 
-   private List<String> collectParametersFromString(String s){
+   private Set<String> collectParametersFromString(String s){
       Pattern pattern = (Pattern) expressionConfig.get(ExpressionConfigKey.PARAMETER_REGEXP_PATTERN);
       Matcher matcher = pattern.matcher(s);
-      List<String> parameters = new ArrayList<String>();
+      Set<String> parameters = new HashSet<String>();
       while (matcher.find()){
          parameters.add(matcher.group(1));
       }
@@ -148,17 +115,17 @@ public class ExpressionContext {
    }
 
    public ExpressionContext(SQLObject sqlObject) {
-      this(sqlObject.getExpressionContext().getDialect());
+      this(sqlObject.getContext().getDialect());
    }
 
    public RenderingContext renderingContext(){
-      return new RenderingContext(dialect);
+      return new RenderingContext(this);
    }
 
-   public RenderingContext renderingContext(IntermediateSQLFactory sqlFactory){
-      RenderingContext context = new RenderingContext(dialect);
-      return context;
-   }
+//   public RenderingContext renderingContext(IntermediateSQLFactory sqlFactory){
+//      RenderingContext context = new RenderingContext(dialect);
+//      return context;
+//   }
 
    public ExpressionConfig getExpressionConfig() {
       return expressionConfig;

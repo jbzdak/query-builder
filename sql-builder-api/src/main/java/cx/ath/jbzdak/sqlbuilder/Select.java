@@ -50,8 +50,6 @@ public class Select extends SQLObject{
       super(expressionContext);
    }
 
-
-
    public void addColumnExpression(ColumnExpression... columnExpression){
       columnExpressions.addAll(Arrays.asList(columnExpression));
    }
@@ -92,7 +90,4 @@ public class Select extends SQLObject{
       return where;
    }
 
-   public Set<String> collectParameterNames() {
-      return expressionContext.collectParameterNames(columnExpressions, where, from);
-   }
 }

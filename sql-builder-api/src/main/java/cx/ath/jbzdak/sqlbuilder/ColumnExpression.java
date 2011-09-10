@@ -26,7 +26,9 @@ import java.util.Set;
  */
 public class ColumnExpression extends IntermediateSQLObject implements Identifier {
 
-   public static final SelectAllExpression STAR = new SelectAllExpression();
+   public static SelectAllExpression STAR(){
+      return new SelectAllExpression();
+   }
 
    private String schema;
 
@@ -81,9 +83,6 @@ public class ColumnExpression extends IntermediateSQLObject implements Identifie
       return column;
    }
 
-   public Set<String> collectParameterNames() {
-      return this.context.collectParameterNames(table, column, alias, schema);
-   }
 }
 
 

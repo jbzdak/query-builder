@@ -19,58 +19,94 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import javax.management.RuntimeErrorException;
+import cx.ath.jbzdak.sqlbuilder.events.ChildEventPropagator;
+import cx.ath.jbzdak.sqlbuilder.util.EventListener;
+import cx.ath.jbzdak.sqlbuilder.util.EventSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Collection;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 /**
  * Created by: Jacek Bzdak
  */
 public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
 
+   private static final Logger LOGGER = LoggerFactory.getLogger(IntermediateSQLObject.class);
+
    protected SQLPeer sqlPeer;
 
    private Dialect lastPeerGenerationDialect;
 
-   protected ExpressionContext context;
+   private ExpressionContext context;
 
    protected PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
-   protected IntermediateSQLObject() {
-      propertyChangeSupport.addPropertyChangeListener("context", new PropertyChangeListener() {
-         public void propertyChange(PropertyChangeEvent evt) {
-            setSqlPeer(null);
-            updateContext();
-         }
-      });
+   protected EventSupport<String, IntermediateSQLObject> eventSupport
+           = new EventSupport<String, IntermediateSQLObject>(this);
 
-      propertyChangeSupport.addPropertyChangeListener(new PropertyChangeListener() {
-         public void propertyChange(PropertyChangeEvent evt) {
-            if (evt instanceof IntermediateSQLFactory) {
-               IntermediateSQLFactory factory = (IntermediateSQLFactory) evt;
-               factory.setContext(context);
-            }
-         }
-      });
+   protected Set<IntermediateSQLFactory> children = new HashSet<IntermediateSQLFactory>();
+
+   protected Set<String> sqlParts = new HashSet<String>();
+
+   protected IntermediateSQLObject() {
+      installDefaultPropertyChangeListeners();
    }
 
-   protected void updateContext(){
-      for (Field field : getClass().getFields()) {
-         updateSingleField(field);
+   protected IntermediateSQLObject(ExpressionContext context) {
+      this();
+      this.context = context;
+   }
+
+   protected IntermediateSQLObject(IntermediateSQLFactory parent) {
+      this();
+      this.context = parent.getContext();
+   }
+
+   protected void installDefaultPropertyChangeListeners(){
+      propertyChangeSupport.addPropertyChangeListener("context", new OnContextChangePCL());
+      propertyChangeSupport.addPropertyChangeListener(new PropagateContextPCL());
+   }
+
+   protected void installDefaultEventListeners(){
+      eventSupport.addListener(new ChildEventPropagator());
+   }
+
+   public void collectChildren() {
+      children.clear();
+      sqlParts.clear();
+      for (Field field : getClass().getDeclaredFields()) {
+         if(!Modifier.isStatic(field.getModifiers())){
+            collectSingleField(field);
+         }
       }
    }
 
-   private void updateSingleField(Field f){
+   protected void updateContext(){
+      collectChildren();
+      for (IntermediateSQLFactory child : children) {
+         child.setContext(context);
+      }
+   }
+
+   public void collectParameters() {
+      collectChildren();
+      updateContext();
+      context.collectParameters(children);
+      context.collectParameters(sqlParts);
+   }
+
+   private void collectSingleField(Field f){
       boolean b = f.isAccessible();
       try{
          f.setAccessible(true);
-         updateObject(f.get(this));
+         collectObject(f.get(this));
       } catch (IllegalAccessException e) {
          throw new RuntimeException(e);
       } finally {
@@ -78,23 +114,26 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
       }
    }
 
-   private void updateObject(Object o){
+   private void collectObject(Object o){
       if(o == null) return;
       if (o instanceof IntermediateSQLFactory) {
-         IntermediateSQLFactory factory = (IntermediateSQLFactory) o;
-         factory.setContext(context);
+         children.add((IntermediateSQLFactory) o);
+         return;
+      }
+      if (o instanceof String) {
+         sqlParts.add((String) o);
          return;
       }
       if (o instanceof Collection) {
          Collection collection = (Collection) o;
          for (Object c : collection) {
-            updateObject(c);
+            collectObject(c);
          }
          return;
       }
       if(o.getClass().isArray()){
          for(int ii = 0; ii < Array.getLength(o); ii++){
-            updateObject(Array.get(o, ii));
+            collectObject(Array.get(o, ii));
          }
          return;
       }
@@ -108,9 +147,12 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
    }
 
    public void setContext(ExpressionContext expressionContext) {
-      ExpressionContext oldExpressionContext = this.context;
-      this.context = expressionContext;
-      propertyChangeSupport.firePropertyChange("context", oldExpressionContext, this.context);
+      if(expressionContext != this.context){
+         LOGGER.info("Expression context of {} set from {} to {}", Arrays.asList(this, expressionContext, this.context));
+         ExpressionContext oldExpressionContext = this.context;
+         this.context = expressionContext;
+         propertyChangeSupport.firePropertyChange("context", oldExpressionContext, this.context);
+      }
    }
 
    public ExpressionContext getContext() {
@@ -123,21 +165,36 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
       propertyChangeSupport.firePropertyChange("sqlPeer", oldSqlPeer, this.sqlPeer);
    }
 
-
    public StringBuilder toSQL(RenderingContext renderContext) {
       StringBuilder stringBuilder = new StringBuilder();
-      appendToInternal(renderContext, stringBuilder);
+      appendTo(renderContext, stringBuilder);
       return stringBuilder;
    }
 
-
    public void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      appendToInternal(renderingContext, stringBuilder);
-   }
-
-   public void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
+//      eventSupport.fireEvent(ObjectLifecycle.PARAMETER_GATHERING);
+//      eventSupport.fireEvent(ObjectLifecycle.PRE_RENDERING);
+      collectChildren();
+      updateContext();
+      collectParameters();
       maybeRefreshPeer(renderingContext.getExpressionContext());
       sqlPeer.appendTo(renderingContext, stringBuilder);
+   }
+
+   public Set<IntermediateSQLFactory> getChildren() {
+      return Collections.unmodifiableSet(children);
+   }
+
+   public Set<String> getSqlParts() {
+      return Collections.unmodifiableSet(sqlParts);
+   }
+
+   public void fireEvent(String eventType) {
+      eventSupport.fireEvent(eventType);
+   }
+
+   public void fireEvent(String eventType, Object additional) {
+      eventSupport.fireEvent(eventType, additional);
    }
 
    public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -160,11 +217,49 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
       propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
    }
 
+   public void addListener(EventListener<? super String, ? super IntermediateSQLObject> eventListener) {
+      eventSupport.addListener(eventListener);
+   }
+
+   public void addListener(String eventType, EventListener<? super String, ? super IntermediateSQLObject> eventListener) {
+      eventSupport.addListener(eventType, eventListener);
+   }
+
+   public boolean removeListener(EventListener listener) {
+      return eventSupport.removeListener(listener);
+   }
+
+   public boolean removeListener(String eventType, EventListener eventListener) {
+      return eventSupport.removeListener(eventType, eventListener);
+   }
+
    public PropertyChangeListener[] getPropertyChangeListeners(String propertyName) {
       return propertyChangeSupport.getPropertyChangeListeners(propertyName);
    }
 
    public boolean hasListeners(String propertyName) {
       return propertyChangeSupport.hasListeners(propertyName);
+   }
+
+   /**
+    * Property change listener that propeagates changed context tto children.
+    */
+   protected class OnContextChangePCL implements PropertyChangeListener {
+      public void propertyChange(PropertyChangeEvent evt) {
+         setSqlPeer(null);
+         updateContext();
+      }
+   }
+
+   /**
+    * Property change listener that updates the context of any children set via setter with enables PropertyChangeEvent
+    */
+   protected class PropagateContextPCL implements PropertyChangeListener {
+      public void propertyChange(PropertyChangeEvent evt) {
+         if (evt instanceof IntermediateSQLFactory) {
+            IntermediateSQLFactory factory = (IntermediateSQLFactory) evt;
+            factory.setContext(context);
+         }
+      }
    }
 }

@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
@@ -38,16 +39,12 @@ public class RenderingContext{
 
    final ExpressionContext expressionContext;
 
-   public RenderingContext(Dialect dialect) {
-      this.expressionContext = new ExpressionContext(dialect);
-   }
-
    public RenderingContext(ExpressionContext expressionContext) {
       this.expressionContext = expressionContext;
    }
 
    public RenderingContext(SQLObject sqlObject) {
-      this.expressionContext = sqlObject.expressionContext;
+      this.expressionContext = sqlObject.getContext();
    }
 
    public List<IntermediateSQLFactory> getParentExpressions() {
@@ -62,6 +59,14 @@ public class RenderingContext{
    public void push(IntermediateSQLFactory sqlFactory) {
       contextInfo = new ContextInfo();
       parentExpressions.push(sqlFactory);
+   }
+
+   public String quoteIdentifier(String ident) {
+      return getDialect().quoteIdentifier(ident);
+   }
+
+   public String quoteIdentifier(String ident, IdentifierQuotingStrategy strategy) {
+      return getDialect().quoteIdentifier(ident, strategy);
    }
 
    public IntermediateSQLFactory getRootExpression(){
@@ -92,9 +97,6 @@ public class RenderingContext{
       return getDialect().getStringQuote();
    }
 
-   public String getIdentifierQuote() {
-      return getDialect().getIdentifierQuote();
-   }
 
    @Deprecated()
    /**
@@ -105,6 +107,8 @@ public class RenderingContext{
       return expressionContext.getDialect();
    }
 
+
+
    public ExpressionContext getExpressionContext() {
       return expressionContext;
    }
@@ -114,7 +118,11 @@ public class RenderingContext{
       Matcher matcher = pattern.matcher(queryPart);
       StringBuffer stringBuffer = new StringBuffer();
       while (matcher.find()){
-         BoundParameter boundParameter = expressionContext.getBoundParameters().get(matcher.group(1));
+         Map<String, BoundParameter> boundParameters = expressionContext.getBoundParameters();
+         BoundParameter boundParameter = boundParameters.get(matcher.group(1));
+         if(boundParameter == null){
+            throw new UnvaluedParameter("No value set for parameter '" + matcher.group(1) + "'");
+         }
          matcher.appendReplacement(stringBuffer, MiscUtils.toSQL(this, boundParameter));
       }
       matcher.appendTail(stringBuffer);

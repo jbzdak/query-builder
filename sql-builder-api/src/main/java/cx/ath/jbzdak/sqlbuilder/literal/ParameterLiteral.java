@@ -39,8 +39,4 @@ public class ParameterLiteral extends SQLLiteral<Parameter>{
       super(SQLLiteralType.PARAMETER, literalValue);
    }
 
-   @Override
-   public Set<String> collectParameterNames() {
-      return new HashSet<String>(Arrays.asList(this.getLiteralValue().getName()));
-   }
 }

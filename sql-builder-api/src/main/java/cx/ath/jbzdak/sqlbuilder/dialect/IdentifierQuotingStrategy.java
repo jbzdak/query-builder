@@ -17,30 +17,20 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+package cx.ath.jbzdak.sqlbuilder.dialect;
 
-import cx.ath.jbzdak.sqlbuilder.Alias;
+import cx.ath.jbzdak.sqlbuilder.Dialect;
+import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class AliasPeer extends AbstractPeer<Alias> {
-
-
-   @Override
-   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-       stringBuilder.append(' ');
-      IdentifierQuotingStrategy quotingStrategy =
-              (IdentifierQuotingStrategy) renderingContext.getDialect().getDialectConfig().getConfig(DialectConfigKey.ALIAS_QUOTING_STRATEGY);
-      stringBuilder.append(renderingContext.quoteIdentifier(parent.getAlias(), quotingStrategy));
-      stringBuilder.append(' ');
-   }
-
-   public void appendToInternal(StringBuilder stringBuilder) {
-
-   }
-
+public enum IdentifierQuotingStrategy {
+   NEVER,
+   WHEN_NEEDED,
+   DEFAULT,
+   ALWAYS
 }
+
+

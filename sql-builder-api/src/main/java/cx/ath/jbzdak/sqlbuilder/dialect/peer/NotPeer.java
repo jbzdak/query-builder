@@ -32,7 +32,7 @@ public class NotPeer extends AbstractPeer<Not>{
       PeerUtils.appendInBrackets(stringBuilder, new PeerUtils.Appender() {
          public void appendTo(StringBuilder stringBuilder) {
             stringBuilder.append("NOT ");
-            parent.appendToInternal(renderingContext, stringBuilder);
+            parent.appendTo(renderingContext, stringBuilder);
          }
       });
    }

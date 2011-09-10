@@ -17,22 +17,28 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.expressionConfig;
-
-import java.util.regex.Pattern;
+package cx.ath.jbzdak.sqlbuilder.dialect.config;
 
 /**
  * Created by: Jacek Bzdak
  */
-public enum ExpressionConfigKey {
-   PARAMETER_REGEXP_PATTERN(){
-      @Override
-      public Object getDefault(ExpressionConfig config) {
-         return Pattern.compile(":([\\w\\d\\-_]+)");
-      }
+public class InvalidConfigurationException extends RuntimeException{
+
+
+   private static final long serialVersionUID = -8365326212692573989L;
+
+   public InvalidConfigurationException() {
    }
-   ;
 
-   public abstract Object getDefault(ExpressionConfig config);
+   public InvalidConfigurationException(String message) {
+      super(message);
+   }
 
+   public InvalidConfigurationException(String message, Throwable cause) {
+      super(message, cause);
+   }
+
+   public InvalidConfigurationException(Throwable cause) {
+      super(cause);
+   }
 }

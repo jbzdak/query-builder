@@ -26,25 +26,21 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
  */
 public abstract class SQLObject extends IntermediateSQLObject implements SQLFactory {
 
-   ExpressionContext expressionContext;
 
    public SQLObject() {
    }
 
-   public SQLObject(SQLObject parent){
-      expressionContext = parent.expressionContext;
+   protected SQLObject(ExpressionContext context) {
+      super(context);
    }
 
-   public SQLObject(ExpressionContext expressionContext) {
-      this.expressionContext = expressionContext;
+   protected SQLObject(IntermediateSQLFactory parent) {
+      super(parent);
    }
 
-   public ExpressionContext getExpressionContext() {
-      return expressionContext;
-   }
 
    public Dialect getDialect() {
-      return expressionContext.getDialect();
+      return getContext().getDialect();
    }
 
    public DialectConfig getDialectConfig() {
@@ -52,16 +48,16 @@ public abstract class SQLObject extends IntermediateSQLObject implements SQLFact
    }
 
    public StringBuilder toSQL() {
-      RenderingContext renderingContext = expressionContext.renderingContext();
+      RenderingContext renderingContext = getContext().renderingContext();
       String sql = toSQLInternal(renderingContext).toString();
       sql = renderingContext.replaceParams(sql);
-      sql = MiscUtils.prettifySQL(sql, expressionContext);
+      sql = MiscUtils.prettifySQL(sql, getContext());
       return new StringBuilder(sql);
    }
 
    protected StringBuilder toSQLInternal(RenderingContext renderingContext) {
       StringBuilder stringBuilder = new StringBuilder();
-      appendToInternal(renderingContext, stringBuilder);
+      appendTo(renderingContext, stringBuilder);
       return stringBuilder;
    }
 

@@ -66,7 +66,10 @@ public abstract class AbstractBinaryBooleanExpression extends IntermediateSQLObj
       return lhs;
    }
 
-   public Set<String> collectParameterNames() {
-      return getContext().collectParameterNames(rhs, lhs);
+   @Override
+   public void collectChildren() {
+      children.add(this.lhs);
+      children.add(this.rhs);
+      sqlParts.add(this.type);
    }
 }

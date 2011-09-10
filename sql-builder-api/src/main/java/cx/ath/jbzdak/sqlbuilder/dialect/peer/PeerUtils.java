@@ -20,7 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
+import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -32,9 +32,9 @@ class PeerUtils {
 
    static void appendIdentifier(StringBuilder stringBuilder, RenderingContext renderingContext, IdentifierQuotingStrategy strategy, String schema,  String table, String column, Alias alias){
 
-      schema = strategy.quoteIdentifier(renderingContext.getDialect(), schema);
-      table = strategy.quoteIdentifier(renderingContext.getDialect(), table);
-      column = strategy.quoteIdentifier(renderingContext.getDialect(), column);
+      schema = renderingContext.quoteIdentifier(schema, strategy);
+      table = renderingContext.quoteIdentifier(table, strategy);
+      column =  renderingContext.quoteIdentifier(column, strategy);
 
       stringBuilder.append(' ');
 
@@ -56,7 +56,7 @@ class PeerUtils {
 
       if(alias != null){
          stringBuilder.append(" AS ");
-         alias.appendToInternal(renderingContext, stringBuilder);
+         alias.appendTo(renderingContext, stringBuilder);
       }
 
       stringBuilder.append(' ');
@@ -66,7 +66,7 @@ class PeerUtils {
    static void appendJoinBegining(StringBuilder stringBuilder, RenderingContext renderingContext, AbstractJoin abstractJoin){
       stringBuilder.append(abstractJoin.getJoinType());
       stringBuilder.append(" JOIN ");
-      abstractJoin.getTable().appendToInternal(renderingContext, stringBuilder);
+      abstractJoin.getTable().appendTo(renderingContext, stringBuilder);
       stringBuilder.append(' ');
    }
 

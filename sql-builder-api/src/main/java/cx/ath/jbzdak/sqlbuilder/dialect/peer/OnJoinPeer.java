@@ -31,7 +31,7 @@ public class OnJoinPeer extends AbstractPeer<JoinOn>{
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       PeerUtils.appendJoinBegining(stringBuilder, renderingContext, parent);
       stringBuilder.append(" ON ");
-      parent.getOnCondition().appendToInternal(renderingContext, stringBuilder);
+      parent.getOnCondition().appendTo(renderingContext, stringBuilder);
    }
 
 

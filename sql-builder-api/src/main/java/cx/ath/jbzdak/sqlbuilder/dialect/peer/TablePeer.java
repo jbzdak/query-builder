@@ -21,8 +21,8 @@ package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.Table;
+import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
 
 import java.security.InvalidParameterException;
 

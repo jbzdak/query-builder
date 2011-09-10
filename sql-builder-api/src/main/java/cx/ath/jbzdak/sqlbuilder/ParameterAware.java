@@ -20,6 +20,10 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 /**
+ * Interface that represents a {@link IntermediateSQLFactory} that can modify performance of self based
+ * on passed parameters. If such modification is not needed parameters will be vowen into SQL after query
+ * compilation.
+ *
  * Created by: Jacek Bzdak
  */
 public interface ParameterAware {

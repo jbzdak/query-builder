@@ -37,7 +37,4 @@ public class RawString extends SQLObject{
       return rawString;
    }
 
-   public Set<String> collectParameterNames() {
-      return expressionContext.collectParameterNames(rawString);
-   }
 }

@@ -19,14 +19,12 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect.config;
 
-import com.sun.org.apache.bcel.internal.util.ClassSet;
 import cx.ath.jbzdak.sqlbuilder.Dialect;
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
+import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by: Jacek Bzdak

@@ -21,9 +21,8 @@ package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.SQLPeer;
+import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.IdentifierQuotingStrategy;
 
 /**
  * Created by: Jacek Bzdak

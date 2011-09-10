@@ -47,7 +47,4 @@ public class JoinOn extends AbstractJoin{
       propertyChangeSupport.firePropertyChange("onCondition", oldOnCondition, this.onCondition);
    }
 
-   public Set<String> collectParameterNames() {
-      return context.collectParameterNames(collectParameterNamesParant(), onCondition);
-   }
 }
