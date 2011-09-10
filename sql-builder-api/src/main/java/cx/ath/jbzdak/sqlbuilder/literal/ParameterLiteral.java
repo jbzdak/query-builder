@@ -32,6 +32,8 @@ import java.util.Set;
  * Created by: Jacek Bzdak
  */
 public class ParameterLiteral extends SQLLiteral<Parameter>{
+
+
    public ParameterLiteral() {
    }
 
@@ -39,4 +41,9 @@ public class ParameterLiteral extends SQLLiteral<Parameter>{
       super(SQLLiteralType.PARAMETER, literalValue);
    }
 
+
+   @Override
+   public void collectParameters() {
+      getContext().addParameter(getLiteralValue());
+   }
 }

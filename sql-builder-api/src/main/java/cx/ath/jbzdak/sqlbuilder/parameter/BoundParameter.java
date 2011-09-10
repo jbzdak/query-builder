@@ -44,6 +44,11 @@ public class BoundParameter<T> extends IntermediateSQLObject{
       return value;
    }
 
+
+   public String getType() {
+      return parent.getType();
+   }
+
    public void setValue(T value) {
       T oldValue = this.getValue();
       this.value = value;

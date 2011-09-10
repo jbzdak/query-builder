@@ -20,6 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder.literal;
 
 import com.sun.org.apache.bcel.internal.generic.ObjectType;
+import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteralType;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
@@ -27,7 +28,7 @@ import cx.ath.jbzdak.sqlbuilder.generic.NewInstanceFactory;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,6 +102,11 @@ public class DefaultLiteralFactory implements LiteralFactory {
    public SQLLiteral<Integer> create(Integer value) {
       return create(value.intValue());
    }
+
+   public SQLLiteral<Integer> create(Long value) {
+        return create(value.intValue());
+   }
+
 
    public SQLLiteral<Double> create(Number value) {
       return create(value.doubleValue());

@@ -20,6 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 /**
  * Created by: Jacek Bzdak
@@ -34,10 +35,18 @@ public abstract class SQLObject extends IntermediateSQLObject implements SQLFact
       super(context);
    }
 
-   protected SQLObject(IntermediateSQLFactory parent) {
+   protected SQLObject(IntermediateSQLObject parent) {
       super(parent);
    }
 
+   public Object setParameterValue(String parameterName, Object value) {
+      collectParameters();
+      return getContext().setParameterValue(parameterName, value);
+   }
+
+   public void addParameter(Parameter p) {
+      getContext().addParameter(p);
+   }
 
    public Dialect getDialect() {
       return getContext().getDialect();

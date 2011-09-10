@@ -20,12 +20,15 @@
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
+import cx.ath.jbzdak.sqlbuilder.UnvaluedParameter;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundDefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundUnquotedParameter;
 
 import javax.management.monitor.StringMonitor;
 import java.util.HashMap;
@@ -48,6 +51,8 @@ public class DefaultParameterFactory  implements Transformer<BoundParameter, Par
 
    protected void registerDefaultMappings(){
       registerType(ParameterType.TABLE_PARAMETER, BoundTableParameter.class);
+      registerType(ParameterType.UNQUOTED_STRING_PARAMETER, BoundUnquotedParameter.class);
+      registerType(ParameterType.DEFAULTT_PARAMETER, BoundDefaultParameter.class);
    }
 
    public void registerType(String type, final Class<? extends BoundParameter> boundParameter){

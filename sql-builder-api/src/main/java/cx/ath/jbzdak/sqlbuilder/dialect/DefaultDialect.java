@@ -26,14 +26,14 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.InvalidConfigurationException;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
-import cx.ath.jbzdak.sqlbuilder.literal.DateLiteral;
-import cx.ath.jbzdak.sqlbuilder.literal.DefaultLiteralFactory;
-import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
-import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
+import cx.ath.jbzdak.sqlbuilder.literal.*;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameterFactory;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundDefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundUnquotedParameter;
 
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
@@ -79,7 +79,12 @@ public class DefaultDialect extends AbstractDialect{
       putPeer(transformerMap, UnaryBooleanExpresson.class, UnaryBooleanExpressionPeer.class);
       putPeer(transformerMap, Not.class, NotPeer.class);
       putPeer(transformerMap, SelectAllExpression.class, SelectAllPeer.class);
-      putPeer(transformerMap, BoundTableParameter.class, TableParameterPeer.class);
+      putPeer(transformerMap, BoundTableParameter.class, UnquotedParameterPeer.class);
+      putPeer(transformerMap, BoundUnquotedParameter.class, UnquotedParameterPeer.class);
+      putPeer(transformerMap, BoundParameter.class, ParameterPeer.class);
+      putPeer(transformerMap, ParameterLiteral.class, ParameterLiteralPeer.class);
+      putPeer(transformerMap, BoundDefaultParameter.class, DefaultParameterPeer.class);
+      putPeer(transformerMap, IntegerLiteral.class, IntegerPeer.class);
 
       return transformerMap;
    }

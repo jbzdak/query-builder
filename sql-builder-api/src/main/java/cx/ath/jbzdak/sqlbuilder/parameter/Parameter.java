@@ -40,6 +40,9 @@ public abstract class Parameter<T>{
    public abstract T fromObject(Object o);
 
    protected Parameter(String type, String name) {
+      if(name.startsWith(":")){
+         name = name.substring(1);
+      }
       this.name = name;
       this.type = type;
    }

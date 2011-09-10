@@ -17,36 +17,20 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.literal;
+package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
-
-import java.util.Date;
 
 /**
  * Created by: Jacek Bzdak
  */
-public interface LiteralFactory {
-
-   SQLLiteral<Integer> create(int value);
-
-   SQLLiteral<Float> create(float value);
-
-   SQLLiteral<Double> create(double value);
-
-   SQLLiteral<Integer> create(Integer value);
-
-   SQLLiteral<Integer> create(Long value);
-
-   SQLLiteral<Double> create(Number value);
-
-   SQLLiteral<Date> create(Date date);
-
-   SQLLiteral<Date> createDatetime(Date date);
-
-   SQLLiteral<Date> createDate(Date date);
-
-   SQLLiteral<String> create(String s);
-
-   SQLLiteral create(String literalType, Object value);
+public class IntegerPeer extends AbstractPeer<SQLLiteral>{
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
+      stringBuilder.append(' ');
+      Number number = (Number) parent.getLiteralValue();
+      stringBuilder.append(number.longValue());
+      stringBuilder.append(' ');
+   }
 }

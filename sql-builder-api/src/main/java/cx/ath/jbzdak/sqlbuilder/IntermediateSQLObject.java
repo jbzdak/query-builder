@@ -61,12 +61,12 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
 
    protected IntermediateSQLObject(ExpressionContext context) {
       this();
-      this.context = context;
+      setContext(context);
    }
 
-   protected IntermediateSQLObject(IntermediateSQLFactory parent) {
+   protected IntermediateSQLObject(IntermediateSQLObject parent) {
       this();
-      this.context = parent.getContext();
+      setContext(parent.getContext());
    }
 
    protected void installDefaultPropertyChangeListeners(){
@@ -148,14 +148,14 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
 
    public void setContext(ExpressionContext expressionContext) {
       if(expressionContext != this.context){
-         LOGGER.info("Expression context of {} set from {} to {}", Arrays.asList(this, expressionContext, this.context));
+         LOGGER.debug("Expression context of {} set from {} to {}", Arrays.asList(this, expressionContext, this.context));
          ExpressionContext oldExpressionContext = this.context;
          this.context = expressionContext;
          propertyChangeSupport.firePropertyChange("context", oldExpressionContext, this.context);
       }
    }
 
-   public ExpressionContext getContext() {
+   protected ExpressionContext getContext() {
       return context;
    }
 

@@ -20,20 +20,18 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
+import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class TableParameterPeer extends AbstractPeer<BoundTableParameter>{
-
-   public TableParameterPeer() {
-   }
+public class ParameterLiteralPeer  extends AbstractPeer<ParameterLiteral>{
 
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-//      String quoted = renderingContext.quoteIdentifier(parent.getValue());
-      stringBuilder.append(parent.getValue());
+      stringBuilder.append(":");
+      stringBuilder.append(parent.getLiteralValue().getName());
+      stringBuilder.append(" ");
    }
 }

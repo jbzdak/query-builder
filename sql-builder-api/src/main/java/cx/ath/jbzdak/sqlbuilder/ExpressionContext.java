@@ -42,6 +42,8 @@ public class ExpressionContext {
 
    ExpressionConfig expressionConfig;
 
+   IntermediateSQLFactory rootExpression;
+
    Map<String, Object> parameterValues = new HashMap<String, Object>();
 
    Map<String, Parameter> parameters = new HashMap<String, Parameter>();
@@ -55,6 +57,10 @@ public class ExpressionContext {
    public ExpressionContext(Dialect dialect) {
       this.dialect = dialect;
       expressionConfig = new ExpressionConfig(this.getDialect().getDefaultExpressionConfig());
+   }
+
+   public void setRootExpression(IntermediateSQLFactory rootExpression) {
+      this.rootExpression = rootExpression;
    }
 
    public Map<String, BoundParameter> getBoundParameters() {

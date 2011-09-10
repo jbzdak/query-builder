@@ -32,7 +32,7 @@ public interface IntermediateSQLFactory {
 
    void setContext(ExpressionContext expressionContext);
 
-   ExpressionContext getContext();
+//   ExpressionContext getContext();
 
    StringBuilder toSQL(RenderingContext renderContext);
 
