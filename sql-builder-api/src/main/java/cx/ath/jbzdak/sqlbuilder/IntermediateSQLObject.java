@@ -19,9 +19,6 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.events.ChildEventPropagator;
-import cx.ath.jbzdak.sqlbuilder.util.EventListener;
-import cx.ath.jbzdak.sqlbuilder.util.EventSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,8 +45,6 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
 
    protected PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
-   protected EventSupport<String, IntermediateSQLObject> eventSupport
-           = new EventSupport<String, IntermediateSQLObject>(this);
 
    protected Set<IntermediateSQLFactory> children = new HashSet<IntermediateSQLFactory>();
 
@@ -72,10 +67,6 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
    protected void installDefaultPropertyChangeListeners(){
       propertyChangeSupport.addPropertyChangeListener("context", new OnContextChangePCL());
       propertyChangeSupport.addPropertyChangeListener(new PropagateContextPCL());
-   }
-
-   protected void installDefaultEventListeners(){
-      eventSupport.addListener(new ChildEventPropagator());
    }
 
    public void collectChildren() {
@@ -189,14 +180,6 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
       return Collections.unmodifiableSet(sqlParts);
    }
 
-   public void fireEvent(String eventType) {
-      eventSupport.fireEvent(eventType);
-   }
-
-   public void fireEvent(String eventType, Object additional) {
-      eventSupport.fireEvent(eventType, additional);
-   }
-
    public void addPropertyChangeListener(PropertyChangeListener listener) {
       propertyChangeSupport.addPropertyChangeListener(listener);
    }
@@ -215,22 +198,6 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
 
    public void removePropertyChangeListener(String propertyName, PropertyChangeListener listener) {
       propertyChangeSupport.removePropertyChangeListener(propertyName, listener);
-   }
-
-   public void addListener(EventListener<? super String, ? super IntermediateSQLObject> eventListener) {
-      eventSupport.addListener(eventListener);
-   }
-
-   public void addListener(String eventType, EventListener<? super String, ? super IntermediateSQLObject> eventListener) {
-      eventSupport.addListener(eventType, eventListener);
-   }
-
-   public boolean removeListener(EventListener listener) {
-      return eventSupport.removeListener(listener);
-   }
-
-   public boolean removeListener(String eventType, EventListener eventListener) {
-      return eventSupport.removeListener(eventType, eventListener);
    }
 
    public PropertyChangeListener[] getPropertyChangeListeners(String propertyName) {
