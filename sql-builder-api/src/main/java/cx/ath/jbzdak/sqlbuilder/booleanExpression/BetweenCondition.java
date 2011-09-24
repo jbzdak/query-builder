@@ -20,15 +20,12 @@
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
-import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
-import cx.ath.jbzdak.sqlbuilder.SQLObject;
-
-import java.util.Set;
+import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class BetweenCondition extends IntermediateSQLObject implements BooleanExpressionMarker{
+public class BetweenCondition extends PeerIntermediateSQLObject implements BooleanExpressionMarker{
 
    Range range;
 

@@ -23,6 +23,7 @@ import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
+import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 import java.util.Arrays;
@@ -61,13 +62,12 @@ public class DefaultBooleanFactory implements BooleanFactory {
       return new Condition(conditionType, columnExpression, stringLiteral);
    }
 
-   public BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression, Parameter<?> parameterLiteral){
+   public BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression, Parameter parameterLiteral){
       return new Condition(conditionType, columnExpression, new ParameterLiteral(parameterLiteral));
    }
 
-
-
-
-
+   public BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression, String parameterLiteral){
+      return new Condition(conditionType, columnExpression, new ParameterLiteral(new DefaultParameter(parameterLiteral)));
+   }
 
 }

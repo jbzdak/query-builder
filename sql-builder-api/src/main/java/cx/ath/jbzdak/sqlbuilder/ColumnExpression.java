@@ -19,12 +19,10 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import java.util.Set;
-
 /**
  * Created by: Jacek Bzdak
  */
-public class ColumnExpression extends IntermediateSQLObject implements Identifier {
+public class ColumnExpression extends PeerIntermediateSQLObject implements Identifier {
 
    public static SelectAllExpression STAR(){
       return new SelectAllExpression();

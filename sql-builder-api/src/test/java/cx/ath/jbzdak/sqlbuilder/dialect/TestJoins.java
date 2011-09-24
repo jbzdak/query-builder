@@ -17,26 +17,10 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder;
+package cx.ath.jbzdak.sqlbuilder.dialect;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class Alias extends PeerIntermediateSQLObject implements Identifier{
-
-   String alias;
-
-   public String getAlias() {
-      return alias;
-   }
-
-   public Alias(String alias) {
-      this.alias = alias;
-   }
-
-   public ColumnExpression column(String column){
-      ColumnExpression columnExpression = new ColumnExpression(alias, column);
-      return columnExpression;
-   }
-
+public class TestJoins {
 }

@@ -24,9 +24,7 @@ package cx.ath.jbzdak.sqlbuilder;
  */
 public class QueryRenderingException extends RuntimeException{
 
-
    private static final long serialVersionUID = -2594111722009156943L;
-
 
    public QueryRenderingException() {
 

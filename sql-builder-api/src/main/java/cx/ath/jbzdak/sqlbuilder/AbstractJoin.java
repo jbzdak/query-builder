@@ -19,12 +19,10 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import java.util.Set;
-
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class AbstractJoin extends IntermediateSQLObject{
+public abstract class AbstractJoin extends PeerIntermediateSQLObject {
 
    String joinType;
 

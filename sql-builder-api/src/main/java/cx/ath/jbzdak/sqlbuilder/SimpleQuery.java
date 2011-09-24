@@ -19,46 +19,49 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class SQLObject extends PeerIntermediateSQLObject implements SQLFactory {
+public class SimpleQuery extends IntermediateSQLObject implements SQLFactory{
 
+   String sql;
 
-   public SQLObject() {
+   public SimpleQuery() {
    }
 
-   protected SQLObject(ExpressionContext context) {
-      super(context);
+   public SimpleQuery(String sql) {
+      this.sql = sql;
    }
 
-   protected SQLObject(IntermediateSQLObject parent) {
-      super(parent);
+   public String getSql() {
+      return sql;
    }
 
-   public Object setParameterValue(String parameterName, Object value) {
+   public void setSql(String sql) {
+      this.sql = sql;
+   }
+
+   public void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder) {
+      if(context == null){
+         context = renderingContext.getExpressionContext();
+      }
+      collectChildren();
+      updateContext();
       collectParameters();
-      return getContext().setParameterValue(parameterName, value);
+      stringBuilder.append(sql);
    }
-
-   public void addParameter(Parameter p) {
-      getContext().addParameter(p);
-   }
-
-//   public Dialect getDialect() {
-//      return getContext().getDialect();
-//   }
-//
-//   public DialectConfig getDialectConfig() {
-//      return getDialect().getDialectConfig();
-//   }
 
    public StringBuilder toSQL() {
       return new StringBuilder(MiscUtils.toSQL(this));
    }
 
+   public Object setParameterValue(String parameterName, Object value) {
+      return context.setParameterValue(parameterName, value);
+   }
 
+   public void addParameter(Parameter p) {
+      context.addParameter(p);
+   }
 }

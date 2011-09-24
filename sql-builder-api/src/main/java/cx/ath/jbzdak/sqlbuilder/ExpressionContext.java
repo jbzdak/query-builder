@@ -26,7 +26,6 @@ import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
-import java.security.InvalidParameterException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,6 +75,16 @@ public class ExpressionContext {
       }
       return boundParameters;
    }
+
+   /**
+    * Checks whether specified string is a parameter string. That is whether <code>paramPattern.matches(possibleParam.trim())</code>;
+    * @return
+    */
+   public boolean isParameter(String possibleParam){
+      Pattern paramPattern = (Pattern) getExpressionConfig().get(ExpressionConfigKey.PARAMETER_REGEXP_PATTERN);
+      return paramPattern.matcher(possibleParam).matches();
+
+   }
    
    public void collectParameters(Collection<?> objects){
       for (Object object : objects) {
@@ -117,6 +126,10 @@ public class ExpressionContext {
    }
 
    public void addParameter(Parameter p){
+      Parameter oldParam = parameters.get(p.getName());
+      if(oldParam != null && ! oldParam.equals(p)){
+         throw new ParameterSetTwice("Parameter '" + p.getName() + "' is set twice, and it should be set only once.");
+      }
       parameters.put(p.getName(), p);
    }
 

@@ -34,15 +34,17 @@ public interface Dialect {
 
    SQLPeer getPeer(IntermediateSQLFactory sqlFactory);
 
-   String getStringQuote();
+//   String getStringQuote();
 
 //   String getIdentifierQuote();
 //
 //   boolean identifierNeedsQuoting(String identifier);
 
-   String quoteIdentifier(String ident, IdentifierQuotingStrategy strategy);
+   String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy);
 
-   String quoteIdentifier(String ident);
+   String quoteIdentifier(CharSequence ident);
+
+   String quoteString(CharSequence quote);
 
    DialectConfig getDialectConfig();
 
@@ -58,4 +60,6 @@ public interface Dialect {
    ExpressionConfig getDefaultExpressionConfig();
 
    <T> BoundParameter bindParameter(Parameter<T> source, T value);
+
+//   String getIdentifierQuote();
 }

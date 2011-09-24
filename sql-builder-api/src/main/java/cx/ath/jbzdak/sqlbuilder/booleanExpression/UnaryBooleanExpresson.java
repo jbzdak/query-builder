@@ -22,12 +22,11 @@ package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 import cx.ath.jbzdak.sqlbuilder.*;
 
 import java.security.InvalidParameterException;
-import java.util.Set;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class UnaryBooleanExpresson extends IntermediateSQLObject implements BooleanExpressionMarker {
+public class UnaryBooleanExpresson extends PeerIntermediateSQLObject implements BooleanExpressionMarker {
 
    protected IntermediateSQLFactory expression;
 

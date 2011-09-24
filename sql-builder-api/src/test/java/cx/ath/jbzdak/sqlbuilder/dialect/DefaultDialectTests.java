@@ -25,7 +25,6 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
-import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 import org.junit.Assert;
@@ -40,6 +39,12 @@ public class DefaultDialectTests {
 
    DefaultDialect defaultDialect;
 
+   LiteralFactory literalFactory;
+
+   Select select;
+
+   Alias dp;
+
    @org.junit.Before
    public void setUp() throws Exception {
 
@@ -47,95 +52,86 @@ public class DefaultDialectTests {
       dialectConfig.setConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY, IdentifierQuotingStrategy.ALWAYS);
       defaultDialect = new DefaultDialect(dialectConfig);
       defaultDialect.getDialectConfig().setConfig(DialectConfigKey.PRETTIFY_SQL, PrettifySQLLevel.MULTILINE);
+      literalFactory = defaultDialect.getLiteralFactory();
+
+      select = defaultDialect.select();
+      dp = new Alias("DP");
+   }
+
+   public void updateDefaultSelectProperties(){
+       select.addColumnExpression(ColumnExpression.STAR());
+       select.setLimit(100);
+   }
+
+   public void updateDefaultFrom(){
+      select.addFrom(new Table("DATA_POINT_DAILY", dp));
+   }
+
+   public void updateWhere(){
+      select.setWhere(
+              BOOLEAN_FACTORY.and(
+                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("POINT_TYPE"), literalFactory.create(4)),
+                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("DATA_SOURCE"), literalFactory.create(1)),
+                      BOOLEAN_FACTORY.isNotNull(dp.column("VALUE"))
+                      ));
+   }
+
+
+   public void validate(){
+       junit.framework.Assert.assertEquals("SELECT * FROM \"DATA_POINT_DAILY\" AS \"DP\" \n" +
+               "\tWHERE ((\"DP\".\"POINT_TYPE\" = 4) AND (\"DP\".\"DATA_SOURCE\" = 1) AND (\"DP\".\"VALUE\" IS NOT NULL)) \n" +
+               "\tLIMIT 100", select.toSQL().toString());
 
    }
 
    @Test
    public void testSelect() throws Exception {
-      Select select = defaultDialect.select();
+      updateDefaultSelectProperties();
+      updateWhere();
+      updateDefaultFrom();
 
-//      select.addColumnExpression(new ColumnExpression("DATE"), new ColumnExpression("VALUE"));
-
-      select.addColumnExpression(ColumnExpression.STAR());
-
-      Alias dp = new Alias("DP");
-
-      select.addFrom(new Table("DATA_POINT_DAILY", dp));
-      select.setLimit(100);
-
-      defaultDialect.getDialectConfig().setConfig(DialectConfigKey.PRETTIFY_SQL, PrettifySQLLevel.MULTILINE);
-
-      LiteralFactory factory = defaultDialect.getLiteralFactory();
-
-      select.setWhere(
-              BOOLEAN_FACTORY.and(
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("POINT_TYPE"), factory.create(4)),
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("DATA_SOURCE"), factory.create(1)),
-                      BOOLEAN_FACTORY.isNotNull(dp.column("VALUE"))
-                      ));
-
-      Assert.assertEquals("SELECT * FROM \"DATA_POINT_DAILY\" AS \"DP\" \n" +
-              "\tWHERE ((\"DP\".\"POINT_TYPE\" = 4) AND (\"DP\".\"DATA_SOURCE\" = 1) AND (\"DP\".\"VALUE\" IS NOT NULL)) \n" +
-              "\tLIMIT 100", select.toSQL().toString());
-      System.out.println(select.toSQL());
+      validate();
    }
 
 
    @Test
    public void testTableParameter() throws Exception {
-       Select select = defaultDialect.select();
+      updateDefaultSelectProperties();
+      updateWhere();
 
-//      select.addColumnExpression(new ColumnExpression("DATE"), new ColumnExpression("VALUE"));
+      select.addFrom(new TableParameter("table_name", dp));
 
-      select.addColumnExpression(ColumnExpression.STAR());
+      select.setParameterValue("table_name", "DATA_POINT_DAILY");
 
-      Alias dp = new Alias("DP");
+      validate();
+   }
+
+   @Test
+   public void testTableParameterAsString() throws Exception {
+      updateDefaultSelectProperties();
+
+      updateWhere();
 
       select.addFrom(new Table(":table_name", dp));
-      select.setLimit(100);
 
       select.addParameter(new TableParameter("table_name"));
 
-      LiteralFactory factory = defaultDialect.getLiteralFactory();
-
-      select.setWhere(
-              BOOLEAN_FACTORY.and(
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("POINT_TYPE"), factory.create(4)),
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("DATA_SOURCE"), factory.create(1)),
-                      BOOLEAN_FACTORY.isNotNull(dp.column("VALUE"))
-                      ));
-
       select.setParameterValue("table_name", "DATA_POINT_DAILY");
-      System.out.println(select.toSQL());
-      Assert.assertEquals("SELECT * FROM \"DATA_POINT_DAILY\" AS \"DP\" \n" +
-              "\tWHERE ((\"DP\".\"POINT_TYPE\" = 4) AND (\"DP\".\"DATA_SOURCE\" = 1) AND (\"DP\".\"VALUE\" IS NOT NULL)) \n" +
-              "\tLIMIT 100", select.toSQL().toString());
+
+      validate();
 
    }
 
-
    @Test
    public void testDefaultParameter() throws Exception {
-       Select select = defaultDialect.select();
 
-//      select.addColumnExpression(new ColumnExpression("DATE"), new ColumnExpression("VALUE"));
+       updateDefaultSelectProperties();
 
-      select.addColumnExpression(ColumnExpression.STAR());
-
-      Alias dp = new Alias("DP");
-
-      select.addFrom(new Table("DATA_POINT_DAILY", dp));
-      select.setLimit(100);
-
-//      select.getContext().addParameter(new TableParameter("table_name"));
-
-
-
-      LiteralFactory factory = defaultDialect.getLiteralFactory();
+      updateDefaultFrom();
 
       select.setWhere(
               BOOLEAN_FACTORY.and(
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("POINT_TYPE"), new DefaultParameter(":point_type")),
+                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("POINT_TYPE"), ":point_type"),
                       BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("DATA_SOURCE"), new DefaultParameter("data_source")),
                       BOOLEAN_FACTORY.isNotNull(dp.column("VALUE"))
                       ));
@@ -143,12 +139,9 @@ public class DefaultDialectTests {
       select.setParameterValue("point_type", "4");
       select.setParameterValue("data_source", 1);
 
-      System.out.println(select.toSQL());
-      Assert.assertEquals("SELECT * FROM \"DATA_POINT_DAILY\" AS \"DP\" \n" +
-              "\tWHERE ((\"DP\".\"POINT_TYPE\" = 4) AND (\"DP\".\"DATA_SOURCE\" = 1) AND (\"DP\".\"VALUE\" IS NOT NULL)) \n" +
-              "\tLIMIT 100", select.toSQL().toString());
-
+      validate();
    }
+
 }
 
 

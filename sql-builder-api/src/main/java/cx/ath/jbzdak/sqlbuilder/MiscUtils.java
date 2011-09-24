@@ -34,7 +34,18 @@ public class MiscUtils {
       return builder.toString();
    }
 
-    public static String prettifySQL(String sqlString, ExpressionContext expressionContext){
+   static String toSQL(IntermediateSQLObject sqlFactory){
+      RenderingContext renderingContext = sqlFactory.getContext().renderingContext();
+      StringBuilder stringBuilder = new StringBuilder();
+      sqlFactory.appendTo(renderingContext, stringBuilder);
+      String sql = stringBuilder.toString();
+      sql = renderingContext.replaceParams(sql);
+      sql = MiscUtils.prettifySQL(sql, sqlFactory.getContext());
+      return sql;
+   }
+
+
+   public static String prettifySQL(String sqlString, ExpressionContext expressionContext){
       DialectConfig dialectConfig = expressionContext.getDialect().getDialectConfig();
       Object config = dialectConfig.getConfig(DialectConfigKey.PRETTIFY_SQL);
       switch ((PrettifySQLLevel) config){

@@ -32,6 +32,10 @@ class PeerUtils {
 
    static void appendIdentifier(StringBuilder stringBuilder, RenderingContext renderingContext, IdentifierQuotingStrategy strategy, String schema,  String table, String column, Alias alias){
 
+      schema = renderingContext.replaceParams(schema);
+      table = renderingContext.replaceParams(table);
+      column = renderingContext.replaceParams(column);
+
       schema = renderingContext.quoteIdentifier(schema, strategy);
       table = renderingContext.quoteIdentifier(table, strategy);
       column =  renderingContext.quoteIdentifier(column, strategy);

@@ -19,18 +19,31 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
+import cx.ath.jbzdak.sqlbuilder.Alias;
+
 /**
  * Created by: Jacek Bzdak
  */
 public class TableParameter extends Parameter<String>{
 
+   private final Alias alias;
+
    public TableParameter(String name) {
+      this(name, null);
+   }
+
+   public TableParameter(String name, Alias alias) {
       super(ParameterType.TABLE_PARAMETER, name);
+      this.alias = alias;
    }
 
    @Override
    public String fromString(String string) {
       return string;
+   }
+
+   public Alias getAlias() {
+      return alias;
    }
 
    @Override

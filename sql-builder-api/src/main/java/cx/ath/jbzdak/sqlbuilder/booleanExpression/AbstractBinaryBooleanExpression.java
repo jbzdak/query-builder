@@ -20,15 +20,12 @@
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
-import cx.ath.jbzdak.sqlbuilder.SQLObject;
-
-import java.util.Set;
+import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
 
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class AbstractBinaryBooleanExpression extends IntermediateSQLObject implements BooleanExpressionMarker {
+public abstract class AbstractBinaryBooleanExpression extends PeerIntermediateSQLObject implements BooleanExpressionMarker {
 
    protected String type;
 

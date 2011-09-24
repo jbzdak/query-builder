@@ -33,41 +33,20 @@ import java.util.*;
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
+public abstract class IntermediateSQLObject implements IntermediateSQLFactory {
 
    private static final Logger LOGGER = LoggerFactory.getLogger(IntermediateSQLObject.class);
 
-   protected SQLPeer sqlPeer;
-
-   private Dialect lastPeerGenerationDialect;
-
-   private ExpressionContext context;
-
+   protected ExpressionContext context;
    protected PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-
-
    protected Set<IntermediateSQLFactory> children = new HashSet<IntermediateSQLFactory>();
-
    protected Set<String> sqlParts = new HashSet<String>();
 
-   protected IntermediateSQLObject() {
-      installDefaultPropertyChangeListeners();
-   }
-
-   protected IntermediateSQLObject(ExpressionContext context) {
-      this();
-      setContext(context);
-   }
-
-   protected IntermediateSQLObject(IntermediateSQLObject parent) {
-      this();
-      setContext(parent.getContext());
-   }
-
    protected void installDefaultPropertyChangeListeners(){
-      propertyChangeSupport.addPropertyChangeListener("context", new OnContextChangePCL());
+
       propertyChangeSupport.addPropertyChangeListener(new PropagateContextPCL());
    }
+
 
    public void collectChildren() {
       children.clear();
@@ -130,12 +109,6 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
       }
    }
 
-   protected void maybeRefreshPeer(ExpressionContext expressionContext){
-      if(!expressionContext.getDialect().equals(lastPeerGenerationDialect)){
-         sqlPeer = expressionContext.getDialect().getPeer(this);
-         lastPeerGenerationDialect = expressionContext.getDialect();
-      }
-   }
 
    public void setContext(ExpressionContext expressionContext) {
       if(expressionContext != this.context){
@@ -150,26 +123,10 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
       return context;
    }
 
-   protected void setSqlPeer(SQLPeer sqlPeer) {
-      SQLPeer oldSqlPeer = this.sqlPeer;
-      this.sqlPeer = sqlPeer;
-      propertyChangeSupport.firePropertyChange("sqlPeer", oldSqlPeer, this.sqlPeer);
-   }
-
    public StringBuilder toSQL(RenderingContext renderContext) {
       StringBuilder stringBuilder = new StringBuilder();
       appendTo(renderContext, stringBuilder);
       return stringBuilder;
-   }
-
-   public void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder) {
-//      eventSupport.fireEvent(ObjectLifecycle.PARAMETER_GATHERING);
-//      eventSupport.fireEvent(ObjectLifecycle.PRE_RENDERING);
-      collectChildren();
-      updateContext();
-      collectParameters();
-      maybeRefreshPeer(renderingContext.getExpressionContext());
-      sqlPeer.appendTo(renderingContext, stringBuilder);
    }
 
    public Set<IntermediateSQLFactory> getChildren() {
@@ -206,16 +163,6 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory{
 
    public boolean hasListeners(String propertyName) {
       return propertyChangeSupport.hasListeners(propertyName);
-   }
-
-   /**
-    * Property change listener that propeagates changed context tto children.
-    */
-   protected class OnContextChangePCL implements PropertyChangeListener {
-      public void propertyChange(PropertyChangeEvent evt) {
-         setSqlPeer(null);
-         updateContext();
-      }
    }
 
    /**

@@ -17,26 +17,28 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder;
+package cx.ath.jbzdak.sqlbuilder.dialect;
+
+import cx.ath.jbzdak.sqlbuilder.SimpleQuery;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class Alias extends PeerIntermediateSQLObject implements Identifier{
+public class SimpleQueryTests  {
 
-   String alias;
+   SimpleQuery simpleQuery;
 
-   public String getAlias() {
-      return alias;
+   @Before
+   public void setUp() throws Exception {
+      simpleQuery = new SimpleQuery("SELECT FROM \"DATA_POINT_HISTORY\" WHERE \"DATA_SOURCE\" = :data_source");
    }
 
-   public Alias(String alias) {
-      this.alias = alias;
-   }
+   @Test
+   public void testParameters() throws Exception {
+      simpleQuery.setParameterValue("data_source", "42");
+      simpleQuery.toSQL();
 
-   public ColumnExpression column(String column){
-      ColumnExpression columnExpression = new ColumnExpression(alias, column);
-      return columnExpression;
    }
-
 }

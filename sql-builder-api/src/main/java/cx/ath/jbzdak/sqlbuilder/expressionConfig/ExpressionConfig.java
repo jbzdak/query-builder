@@ -21,6 +21,7 @@ package cx.ath.jbzdak.sqlbuilder.expressionConfig;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Created by: Jacek Bzdak
@@ -46,4 +47,5 @@ public class ExpressionConfig {
    public Object put(ExpressionConfigKey key, Object value) {
       return values.put(key, value);
    }
+
 }

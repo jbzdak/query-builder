@@ -67,6 +67,7 @@ public class DialectConfig {
    }
 
 
+
    public void addNewPeerMapping(Class<? extends SQLFactory> clazz, Class<? extends SQLPeer> peerClazz){
       if(!config.containsKey(DialectConfigKey.ADDITIONAL_PEERS)){
           config.put(DialectConfigKey.ADDITIONAL_PEERS, DialectConfigKey.ADDITIONAL_PEERS.getDefault(d));

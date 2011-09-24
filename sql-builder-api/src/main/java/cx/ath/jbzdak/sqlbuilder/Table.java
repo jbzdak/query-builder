@@ -19,12 +19,10 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import java.util.Set;
-
 /**
  * Created by: Jacek Bzdak
  */
-public class Table extends IntermediateSQLObject{
+public class Table extends PeerIntermediateSQLObject {
 
    private String schema;
    private String table;

@@ -20,6 +20,8 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
+import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
+import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +35,7 @@ public class Select extends SQLObject{
 
    List<IntermediateSQLFactory> columnExpressions = new ArrayList<IntermediateSQLFactory>();
 
-   List<Table> from = new ArrayList<Table>();
+   List<IntermediateSQLFactory> from = new ArrayList<IntermediateSQLFactory>();
 
    BooleanExpressionMarker where;
 
@@ -58,10 +60,17 @@ public class Select extends SQLObject{
       from.add(table);
    }
 
-   public void addFrom(String table){
-      addFrom(new Table(table));
+   public void addFrom(TableParameter table){
+      from.add(new ParameterLiteral(table));
    }
 
+   public void addFrom(String table){
+      if(getContext().isParameter(table)){
+        addFrom(new TableParameter(table));
+      }else{
+         addFrom(new Table(table));
+      }
+   }
 
    public Integer getLimit() {
       return limit;
@@ -82,7 +91,7 @@ public class Select extends SQLObject{
       return columnExpressions;
    }
 
-   public List<Table> getFrom() {
+   public List<IntermediateSQLFactory> getFrom() {
       return from;
    }
 

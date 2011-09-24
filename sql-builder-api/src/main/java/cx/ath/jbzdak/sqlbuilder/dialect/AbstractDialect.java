@@ -46,9 +46,13 @@ public abstract class AbstractDialect implements Dialect{
 
    protected final Transformer<BoundParameter, Parameter> parameterFactory;
 
+   protected final QuotingManager quotingManager;
+
    protected abstract Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap();
 
    private final DialectConfig dialectConfig;
+
+   protected abstract QuotingManager createDefaultQuotingManager();
 
    protected AbstractDialect(DialectConfig dialectConfig) {
       this.dialectConfig = dialectConfig;
@@ -58,6 +62,7 @@ public abstract class AbstractDialect implements Dialect{
       }else{
          parameterFactory =  (Transformer<BoundParameter, Parameter>) dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY);
       }
+      quotingManager = createDefaultQuotingManager();
    }
 
    public <T> BoundParameter bindParameter(Parameter<T> source, T value) {
@@ -129,12 +134,15 @@ public abstract class AbstractDialect implements Dialect{
       return new ExpressionConfig();
    }
 
-
-
-   public String quoteIdentifier(String ident) {
-      return quoteIdentifier(ident, IdentifierQuotingStrategy.DEFAULT);
+   public String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy) {
+      return quotingManager.quoteIdentifier(ident, strategy);
    }
 
+   public String quoteIdentifier(CharSequence ident) {
+      return quotingManager.quoteIdentifier(ident);
+   }
 
-
+   public String quoteString(CharSequence quote) {
+      return quotingManager.quoteString(quote);
+   }
 }

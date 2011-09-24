@@ -21,13 +21,10 @@ package cx.ath.jbzdak.sqlbuilder.parameter;
 
 import cx.ath.jbzdak.sqlbuilder.*;
 
-import java.util.Collections;
-import java.util.Set;
-
 /**
  * Created by: Jacek Bzdak
  */
-public class BoundParameter<T> extends IntermediateSQLObject{
+public class BoundParameter<T> extends PeerIntermediateSQLObject {
 
    private Parameter<T> parent;
 
@@ -44,6 +41,9 @@ public class BoundParameter<T> extends IntermediateSQLObject{
       return value;
    }
 
+   protected Parameter<T> getParent() {
+      return parent;
+   }
 
    public String getType() {
       return parent.getType();

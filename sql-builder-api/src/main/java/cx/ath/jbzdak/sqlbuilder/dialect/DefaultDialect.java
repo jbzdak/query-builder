@@ -79,7 +79,7 @@ public class DefaultDialect extends AbstractDialect{
       putPeer(transformerMap, UnaryBooleanExpresson.class, UnaryBooleanExpressionPeer.class);
       putPeer(transformerMap, Not.class, NotPeer.class);
       putPeer(transformerMap, SelectAllExpression.class, SelectAllPeer.class);
-      putPeer(transformerMap, BoundTableParameter.class, UnquotedParameterPeer.class);
+      putPeer(transformerMap, BoundTableParameter.class, TableParameterPeer.class);
       putPeer(transformerMap, BoundUnquotedParameter.class, UnquotedParameterPeer.class);
       putPeer(transformerMap, BoundParameter.class, ParameterPeer.class);
       putPeer(transformerMap, ParameterLiteral.class, ParameterLiteralPeer.class);
@@ -111,46 +111,9 @@ public class DefaultDialect extends AbstractDialect{
       return new DefaultParameterFactory();
    }
 
-   public boolean identifierNeedsQuoting(String identifier){
-      try {
-         Charset.forName("ASCII").newEncoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(identifier));
-         return false;
-      } catch (CharacterCodingException e) {
-         return true;
-      }
-   }
-
-
-   public String quoteIdentifier(String ident, IdentifierQuotingStrategy strategy) {
-      if(strategy == null){
-         throw  new NullPointerException("strategy parameter of Dialect.quoteIdentifier must not be null  (and is null)");
-      }
-      if(ident == null){
-         return null;
-      }
-
-      switch (strategy){
-         case NEVER:
-            return ident;
-         case WHEN_NEEDED:
-            if(!identifierNeedsQuoting(ident)){
-               return ident;
-            }
-         case ALWAYS:
-            return getIdentifierQuote() + ident + getIdentifierQuote();
-         case DEFAULT:
-            strategy =
-                    (IdentifierQuotingStrategy) getDialectConfig().getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY);
-            if(strategy == null){
-               throw new InvalidConfigurationException("Default IdentifierQuotingStrategy is null in DialectConfig");
-            }
-            if(strategy == IdentifierQuotingStrategy.DEFAULT){
-               strategy = IdentifierQuotingStrategy.WHEN_NEEDED;
-            }
-            return quoteIdentifier(ident, strategy);
-         default:
-            throw new IllegalStateException();
-      }
+   @Override
+   protected QuotingManager createDefaultQuotingManager() {
+      return new DefaultQuotingManager(getDialectConfig(), "\"", "\"", "'", "''" );
    }
 
 }

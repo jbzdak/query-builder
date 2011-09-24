@@ -17,26 +17,26 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder;
+package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
+import cx.ath.jbzdak.sqlbuilder.Table;
+import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
+
+import java.util.regex.Pattern;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class Alias extends PeerIntermediateSQLObject implements Identifier{
-
-   String alias;
-
-   public String getAlias() {
-      return alias;
+public class TableParameterPeer extends AbstractPeer<BoundTableParameter>{
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
+      if(renderingContext.findParentOfClass(Table.class) != null){
+         stringBuilder.append(parent.getValue());
+      }else{
+         Table table = new Table(parent.getValue(), parent.getAlias());
+         table.appendTo(renderingContext, stringBuilder);
+      }
    }
-
-   public Alias(String alias) {
-      this.alias = alias;
-   }
-
-   public ColumnExpression column(String column){
-      ColumnExpression columnExpression = new ColumnExpression(alias, column);
-      return columnExpression;
-   }
-
 }

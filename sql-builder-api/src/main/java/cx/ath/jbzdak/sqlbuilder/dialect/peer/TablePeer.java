@@ -38,6 +38,7 @@ public class TablePeer extends AbstractPeer<Table>{
          throw new InvalidParameterException();
       }
 
+
       PeerUtils.appendIdentifier(stringBuilder, renderingContext,
               (IdentifierQuotingStrategy) renderingContext.getDialectConfig().getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY),
               parent.getSchema(), parent.getTable(), null, parent.getAlias());

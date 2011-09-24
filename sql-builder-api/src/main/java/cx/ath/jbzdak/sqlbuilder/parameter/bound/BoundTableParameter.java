@@ -19,9 +19,17 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter.bound;
 
+import cx.ath.jbzdak.sqlbuilder.Alias;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class BoundTableParameter extends BoundParameter<String>{ }
+public class BoundTableParameter extends BoundParameter<String>{
+
+     public Alias getAlias(){
+        return ((TableParameter) getParent()).getAlias();
+     }
+
+}

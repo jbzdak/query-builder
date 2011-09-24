@@ -35,6 +35,8 @@ public class RenderingContext{
 
    LinkedList<IntermediateSQLFactory> parentExpressions = new LinkedList<IntermediateSQLFactory>();
 
+   LinkedList<DialectConfig> overrideConfigs = new LinkedList<DialectConfig>();
+
    ContextInfo contextInfo;
 
    final ExpressionContext expressionContext;
@@ -93,8 +95,30 @@ public class RenderingContext{
       return contextInfo.getParentSelect();
    }
 
-   public String getStringQuote() {
-      return getDialect().getStringQuote();
+   public String quoteString(CharSequence quote) {
+      return getDialect().quoteString(quote);
+   }
+
+   public String quoteIdentifier(CharSequence ident) {
+      return getDialect().quoteIdentifier(ident);
+   }
+
+   public String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy) {
+      return getDialect().quoteIdentifier(ident, strategy);
+   }
+
+   /**
+    * Return fist found parent of class.
+    * @param aClass
+    * @return
+    */
+   public IntermediateSQLFactory findParentOfClass(Class aClass){
+      for (IntermediateSQLFactory parentExpression : parentExpressions) {
+         if(aClass.isInstance(parentExpression)){
+            return parentExpression;
+         }
+      }
+      return null;
    }
 
 
@@ -114,6 +138,9 @@ public class RenderingContext{
    }
 
    public String replaceParams(CharSequence queryPart){
+      if(queryPart == null){
+         return null;
+      }
       Pattern pattern = (Pattern) expressionContext.expressionConfig.get(ExpressionConfigKey.PARAMETER_REGEXP_PATTERN);
       Matcher matcher = pattern.matcher(queryPart);
       StringBuffer stringBuffer = new StringBuffer();

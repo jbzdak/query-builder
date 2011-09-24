@@ -22,21 +22,22 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public class Alias extends PeerIntermediateSQLObject implements Identifier{
+public class InvalidParameterException extends QueryRenderingException{
 
-   String alias;
+   private static final long serialVersionUID = -1275538904586145522L;
 
-   public String getAlias() {
-      return alias;
+   public InvalidParameterException() {
    }
 
-   public Alias(String alias) {
-      this.alias = alias;
+   public InvalidParameterException(String message) {
+      super(message);
    }
 
-   public ColumnExpression column(String column){
-      ColumnExpression columnExpression = new ColumnExpression(alias, column);
-      return columnExpression;
+   public InvalidParameterException(String message, Throwable cause) {
+      super(message, cause);
    }
 
+   public InvalidParameterException(Throwable cause) {
+      super(cause);
+   }
 }
