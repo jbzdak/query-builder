@@ -19,12 +19,64 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.dialect.DefaultDialect;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.ServiceLoader;
+
 /**
  * Created by: Jacek Bzdak
  */
 public class DialectHolder {
 
+   private static final Internal INTERNAL = new Internal();
+
+
    public static Dialect getDefaultDialect(){
-      return null;
+      return INTERNAL.getDefaultDialect();
    }
+
+   public static Dialect getByName(String name){
+      return INTERNAL.getByName(name);
+   }
+
+   private static class Internal{
+
+      ServiceLoader<Dialect> serviceLoader;
+
+      Map<String, Dialect> dialectMap;
+
+      private Internal() {
+         serviceLoader = ServiceLoader.load(Dialect.class);
+      }
+
+      public Dialect getDefaultDialect(){
+         try {
+            return serviceLoader.iterator().next();
+         } catch (NoSuchElementException e) {
+            return new DefaultDialect();
+         }
+      }
+
+
+      public synchronized Dialect getByName(String name){
+         if(dialectMap == null){
+            dialectMap = new HashMap<String, Dialect>();
+            for (Dialect dialect : serviceLoader) {
+               dialectMap.put(dialect.dialectName(), dialect);
+            }
+         }
+         Dialect dialect = dialectMap.get(name);
+         if(dialect == null){
+            throw new NoDialectFoundException("Couldn't find dialect '" + name + "'");
+         }
+         return dialect;
+      }
+
+
+   }
+
+
 }

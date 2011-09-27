@@ -89,6 +89,9 @@ public class DefaultDialect extends AbstractDialect{
       return transformerMap;
    }
 
+   public String dialectName() {
+      return "default";
+   }
 
    public String getStringQuote() {
       return "'";

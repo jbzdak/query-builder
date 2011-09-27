@@ -32,6 +32,8 @@ import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
  */
 public interface Dialect {
 
+   String dialectName();
+
    SQLPeer getPeer(IntermediateSQLFactory sqlFactory);
 
 //   String getStringQuote();
