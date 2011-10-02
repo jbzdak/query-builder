@@ -19,6 +19,8 @@
 
 package cx.ath.jbzdak.sqlbuilder.expressionConfig;
 
+import cx.ath.jbzdak.sqlbuilder.Dialect;
+
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -27,6 +29,8 @@ import java.util.regex.Pattern;
  * Created by: Jacek Bzdak
  */
 public class ExpressionConfig {
+
+   Dialect dialect;
 
    private final Map<ExpressionConfigKey, Object> values = new EnumMap<ExpressionConfigKey, Object>(ExpressionConfigKey.class);
 

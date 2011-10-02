@@ -19,25 +19,19 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
-import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
-import cx.ath.jbzdak.sqlbuilder.UnvaluedParameter;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
-import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
-import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundDefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundUnquotedParameter;
 
-import javax.management.monitor.StringMonitor;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class DefaultParameterFactory  implements Transformer<BoundParameter, Parameter> {
+public class DefaultParameterFactory  implements Transformer<BoundParameter, AbstractParameter<?>> {
 
    protected Map<String, Factory<? extends BoundParameter>> typeMap = new HashMap<String, Factory<? extends BoundParameter>>();
 
@@ -69,7 +63,7 @@ public class DefaultParameterFactory  implements Transformer<BoundParameter, Par
       });
    }
 
-   public BoundParameter transform(Parameter source) {
+   public BoundParameter transform(AbstractParameter<?> source) {
       Factory<? extends BoundParameter> factory = typeMap.get(source.getType());
       BoundParameter bound;
       if(factory == null){

@@ -30,6 +30,7 @@ import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
+import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
@@ -44,9 +45,9 @@ public abstract class AbstractDialect implements Dialect{
 
    private volatile Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> transformerMap;
 
-   protected final Transformer<BoundParameter, Parameter> parameterFactory;
+   protected Transformer<BoundParameter, AbstractParameter<?>> parameterFactory;
 
-   protected final QuotingManager quotingManager;
+   protected QuotingManager quotingManager;
 
    protected abstract Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap();
 
@@ -54,18 +55,29 @@ public abstract class AbstractDialect implements Dialect{
 
    protected abstract QuotingManager createDefaultQuotingManager();
 
+   private  boolean dialectConfigLocked = false;
+
    protected AbstractDialect(DialectConfig dialectConfig) {
       this.dialectConfig = dialectConfig;
+   }
+
+   /**
+    * Hook for subclasses to update from dialectConfig. Will be called only once --- after
+    * {@link #lockDialectConfig(cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig)}  is called
+    */
+   protected void updateFromDialectConfig(){}
+
+   private void updateFromDialectConfigInternal(){
       dialectConfig.setDialect(this);
       if(dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY) == null){
          parameterFactory = createDefaultParameterFactory();
       }else{
-         parameterFactory =  (Transformer<BoundParameter, Parameter>) dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY);
+         parameterFactory =  (Transformer<BoundParameter, AbstractParameter<?>>) dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY);
       }
       quotingManager = createDefaultQuotingManager();
    }
 
-   public <T> BoundParameter bindParameter(Parameter<T> source, T value) {
+   public <T> BoundParameter bindParameter(AbstractParameter<T> source, T value) {
       BoundParameter boundParameter = parameterFactory.transform(source);
       boundParameter.setValue(value);
       return boundParameter;
@@ -77,7 +89,7 @@ public abstract class AbstractDialect implements Dialect{
     * Will be called iff {@link DialectConfigKey.PARAMETER_FACTORY} was not set in dialectConfig.
     * @return
     */
-   protected abstract Transformer<BoundParameter, Parameter> createDefaultParameterFactory();
+   protected abstract Transformer<BoundParameter, AbstractParameter<?>> createDefaultParameterFactory();
 
    public synchronized SQLPeer getPeer(IntermediateSQLFactory sqlFactory) {
       if(transformerMap == null){
@@ -115,9 +127,14 @@ public abstract class AbstractDialect implements Dialect{
       }
 
       Class[] intefraces = clazz.getInterfaces();
-      for (int i = 0, intefracesLength = intefraces.length; i < intefracesLength; i++) {
+      int length = intefraces.length;
+      for (int i = 0; i <length; i++) {
          Class intefrace = intefraces[i];
-         return sqlPeer(sqlFactory, intefrace);
+         try {
+            return sqlPeer(sqlFactory, intefrace);
+         } catch (InvalidParameterException e) {
+            //continue
+         }
       }
       throw  new InvalidParameterException("Couldnt find peer for " + sqlFactory);
    }

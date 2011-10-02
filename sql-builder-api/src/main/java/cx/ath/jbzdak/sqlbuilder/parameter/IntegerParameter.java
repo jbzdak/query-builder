@@ -17,10 +17,30 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder;
+package cx.ath.jbzdak.sqlbuilder.parameter;
 
 /**
  * Created by: Jacek Bzdak
  */
-public interface SQLFactory extends IntermediateSQLFactory, BasicSQLFactory {
+public class IntegerParameter extends AbstractParameter<Integer> {
+
+   public IntegerParameter(String name) {
+      super(ParameterType.INTEGER_PARAMETER, name);
+   }
+
+   @Override
+   public Integer fromString(String string) {
+      return Integer.valueOf(string);
+   }
+
+   @Override
+   public Integer fromObject(Object o) {
+      if(o instanceof Number){
+         Number n = (Number) o;
+         return n.intValue();
+      }
+      throw new UnsupportedOperationException("Cant covert '" +o +"' to integer parameter");
+
+
+   }
 }

@@ -24,6 +24,7 @@ import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
+import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
@@ -61,7 +62,7 @@ public interface Dialect {
     */
    ExpressionConfig getDefaultExpressionConfig();
 
-   <T> BoundParameter bindParameter(Parameter<T> source, T value);
+   <T> BoundParameter bindParameter(AbstractParameter<T> source, T value);
 
 //   String getIdentifierQuote();
 }

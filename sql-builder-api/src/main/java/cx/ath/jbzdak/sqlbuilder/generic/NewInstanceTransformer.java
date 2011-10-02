@@ -17,10 +17,22 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder;
+package cx.ath.jbzdak.sqlbuilder.generic;
 
 /**
  * Created by: Jacek Bzdak
  */
-public interface SQLFactory extends IntermediateSQLFactory, BasicSQLFactory {
+public class NewInstanceTransformer implements Transformer<Object, String>{
+
+   public Object transform(String source) {
+      try {
+         return Class.forName(source).newInstance();
+      } catch (InstantiationException e) {
+         throw new RuntimeException(e);
+      } catch (IllegalAccessException e) {
+         throw new RuntimeException(e);
+      } catch (ClassNotFoundException e) {
+         throw new RuntimeException(e);
+      }
+   }
 }

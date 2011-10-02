@@ -27,10 +27,7 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.InvalidConfigurationException;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.*;
-import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameterFactory;
-import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.*;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundDefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundUnquotedParameter;
@@ -46,6 +43,8 @@ import java.util.Map;
  * Created by: Jacek Bzdak
  */
 public class DefaultDialect extends AbstractDialect{
+
+   public static final String DEFAULT_DIALECT_NAME = "default";
 
    public DefaultDialect() {
       super(new DialectConfig());
@@ -90,7 +89,7 @@ public class DefaultDialect extends AbstractDialect{
    }
 
    public String dialectName() {
-      return "default";
+      return DEFAULT_DIALECT_NAME;
    }
 
    public String getStringQuote() {
@@ -110,7 +109,7 @@ public class DefaultDialect extends AbstractDialect{
    }
 
    @Override
-   protected Transformer<BoundParameter, Parameter> createDefaultParameterFactory() {
+   protected Transformer<BoundParameter, AbstractParameter<?>> createDefaultParameterFactory() {
       return new DefaultParameterFactory();
    }
 

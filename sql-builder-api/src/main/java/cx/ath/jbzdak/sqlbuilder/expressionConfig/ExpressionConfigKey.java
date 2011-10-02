@@ -19,6 +19,8 @@
 
 package cx.ath.jbzdak.sqlbuilder.expressionConfig;
 
+import cx.ath.jbzdak.sqlbuilder.DialectHolder;
+
 import java.util.regex.Pattern;
 
 /**
@@ -29,6 +31,12 @@ public enum ExpressionConfigKey {
       @Override
       public Object getDefault(ExpressionConfig config) {
          return Pattern.compile(":([\\w\\d\\-_]+)");
+      }
+   },
+   DIALECT(){
+      @Override
+      public Object getDefault(ExpressionConfig config) {
+         return DialectHolder.getDefaultDialect();
       }
    }
    ;

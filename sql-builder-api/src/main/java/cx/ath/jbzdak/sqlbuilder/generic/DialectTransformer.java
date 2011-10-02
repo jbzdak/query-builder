@@ -17,10 +17,15 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder;
+package cx.ath.jbzdak.sqlbuilder.generic;
 
-/**
- * Created by: Jacek Bzdak
- */
-public interface SQLFactory extends IntermediateSQLFactory, BasicSQLFactory {
+import cx.ath.jbzdak.sqlbuilder.Dialect;
+import cx.ath.jbzdak.sqlbuilder.DialectHolder;
+
+public class DialectTransformer implements Transformer<Dialect, String> {
+
+   public Dialect transform(String source) {
+      return DialectHolder.getByName(source);
+   }
+
 }

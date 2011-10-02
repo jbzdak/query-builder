@@ -19,13 +19,10 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
-import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.ParameterType;
-
 /**
  * Created by: Jacek Bzdak
  */
-public class DefaultParameter extends Parameter<Object>{
+public class DefaultParameter extends AbstractParameter<Object> {
 
    public DefaultParameter(String name) {
       super(ParameterType.DEFAULTT_PARAMETER, name);

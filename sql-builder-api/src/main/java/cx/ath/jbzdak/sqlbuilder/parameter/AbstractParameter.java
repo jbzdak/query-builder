@@ -19,37 +19,46 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
-import cx.ath.jbzdak.sqlbuilder.Alias;
-
 /**
  * Created by: Jacek Bzdak
  */
-public class TableParameter extends AbstractParameter<String> {
+public abstract class AbstractParameter<T> implements Parameter<T> {
 
-   private final Alias alias;
+   String name;
 
-   public TableParameter(String name) {
-      this(name, null);
+   final String type;
+
+   T defaultValue;
+
+   public abstract T fromString(String string);
+
+   public abstract T fromObject(Object o);
+
+   protected AbstractParameter(String type, String name) {
+      if(name.startsWith(":")){
+         name = name.substring(1);
+      }
+      this.name = name;
+      this.type = type;
    }
 
-   public TableParameter(String name, Alias alias) {
-      super(ParameterType.TABLE_PARAMETER, name);
-      this.alias = alias;
+   public String getName() {
+      return name;
    }
 
-   @Override
-   public String fromString(String string) {
-      return string;
+   public T getDefaultValue() {
+      return defaultValue;
    }
 
-   public Alias getAlias() {
-      return alias;
+   public void setDefaultValue(T defaultValue) {
+      this.defaultValue = defaultValue;
    }
 
-   @Override
-   public String fromObject(Object o) {
-      return o.toString();
+   public void setDefaultValueAsString(String defaultValue) {
+      this.defaultValue = fromString(defaultValue);
    }
 
-
+   public String getType() {
+      return type;
+   }
 }

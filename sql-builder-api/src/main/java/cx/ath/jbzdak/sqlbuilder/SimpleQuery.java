@@ -19,7 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 
 /**
  * Created by: Jacek Bzdak
@@ -53,15 +53,15 @@ public class SimpleQuery extends IntermediateSQLObject implements SQLFactory{
       stringBuilder.append(sql);
    }
 
-   public StringBuilder toSQL() {
-      return new StringBuilder(MiscUtils.toSQL(this));
+   public String toSQL() {
+      return MiscUtils.toSQL(this);
    }
 
    public Object setParameterValue(String parameterName, Object value) {
       return context.setParameterValue(parameterName, value);
    }
 
-   public void addParameter(Parameter p) {
+   public void addParameter(AbstractParameter p) {
       context.addParameter(p);
    }
 }

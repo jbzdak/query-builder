@@ -22,6 +22,7 @@ package cx.ath.jbzdak.sqlbuilder;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
+import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
@@ -35,8 +36,6 @@ import java.util.regex.Pattern;
  */
 public class ExpressionContext {
 
-   final Dialect dialect;
-
    DialectConfig dialectConfig;
 
    ExpressionConfig expressionConfig;
@@ -45,7 +44,7 @@ public class ExpressionContext {
 
    Map<String, Object> parameterValues = new HashMap<String, Object>();
 
-   Map<String, Parameter> parameters = new HashMap<String, Parameter>();
+   Map<String, AbstractParameter> parameters = new HashMap<String, AbstractParameter>();
 
    Map<String, BoundParameter> boundParameters;
 
@@ -54,8 +53,12 @@ public class ExpressionContext {
    }
 
    public ExpressionContext(Dialect dialect) {
-      this.dialect = dialect;
-      expressionConfig = new ExpressionConfig(this.getDialect().getDefaultExpressionConfig());
+      expressionConfig = new ExpressionConfig(dialect.getDefaultExpressionConfig());
+      expressionConfig.put(ExpressionConfigKey.DIALECT, dialect);
+   }
+
+   public ExpressionContext(ExpressionConfig expressionConfig) {
+      this.expressionConfig = expressionConfig;
    }
 
    public void setRootExpression(IntermediateSQLFactory rootExpression) {
@@ -66,8 +69,8 @@ public class ExpressionContext {
       if (boundParameters == null) {
          boundParameters = new HashMap<String, BoundParameter>();
          for (String name : parameterValues.keySet()) {
-            Parameter p = parameters.get(name);
-            BoundParameter boundParameter = dialect.bindParameter(p, parameterValues.get(name));
+            AbstractParameter p = parameters.get(name);
+            BoundParameter boundParameter = getDialect().bindParameter(p, parameterValues.get(name));
             boundParameter.setContext(this);
             boundParameters.put(name, boundParameter);
          }
@@ -77,7 +80,7 @@ public class ExpressionContext {
    }
 
    /**
-    * Checks whether specified string is a parameter string. That is whether <code>paramPattern.matches(possibleParam.trim())</code>;
+    * Checks whether specified string is a parameter string. That is whether {@code paramPattern.matches(possibleParam.trim())};
     * @return
     */
    public boolean isParameter(String possibleParam){
@@ -125,8 +128,8 @@ public class ExpressionContext {
       return parameters;
    }
 
-   public void addParameter(Parameter p){
-      Parameter oldParam = parameters.get(p.getName());
+   public void addParameter(AbstractParameter p){
+      AbstractParameter oldParam = parameters.get(p.getName());
       if(oldParam != null && ! oldParam.equals(p)){
          throw new ParameterSetTwice("Parameter '" + p.getName() + "' is set twice, and it should be set only once.");
       }
@@ -152,12 +155,12 @@ public class ExpressionContext {
 
 
    public Dialect getDialect() {
-      return dialect;
+      return (Dialect) expressionConfig.get(ExpressionConfigKey.DIALECT);
    }
 
    public DialectConfig getDialectConfig() {
       if (dialectConfig == null) {
-         dialectConfig = new DialectConfig(dialect.getDialectConfig());
+         dialectConfig = new DialectConfig(getDialect().getDialectConfig());
       }
       return dialectConfig;
    }

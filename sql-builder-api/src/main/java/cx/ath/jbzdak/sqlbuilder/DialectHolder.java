@@ -31,8 +31,9 @@ import java.util.ServiceLoader;
  */
 public class DialectHolder {
 
-   private static final Internal INTERNAL = new Internal();
+   public static final String DEFAULT_DIALECT_NAME = DefaultDialect.DEFAULT_DIALECT_NAME;
 
+   private static final Internal INTERNAL = new Internal();
 
    public static Dialect getDefaultDialect(){
       return INTERNAL.getDefaultDialect();
@@ -52,7 +53,7 @@ public class DialectHolder {
          serviceLoader = ServiceLoader.load(Dialect.class);
       }
 
-      public Dialect getDefaultDialect(){
+      public synchronized Dialect getDefaultDialect(){
          try {
             return serviceLoader.iterator().next();
          } catch (NoSuchElementException e) {
@@ -70,6 +71,9 @@ public class DialectHolder {
          }
          Dialect dialect = dialectMap.get(name);
          if(dialect == null){
+            if(DEFAULT_DIALECT_NAME.equals(name)){
+               return getDefaultDialect();
+            }
             throw new NoDialectFoundException("Couldn't find dialect '" + name + "'");
          }
          return dialect;

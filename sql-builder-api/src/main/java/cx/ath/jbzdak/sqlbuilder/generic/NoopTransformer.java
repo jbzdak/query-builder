@@ -17,10 +17,15 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder;
+package cx.ath.jbzdak.sqlbuilder.generic;
 
 /**
  * Created by: Jacek Bzdak
  */
-public interface SQLFactory extends IntermediateSQLFactory, BasicSQLFactory {
+public class NoopTransformer<T> implements Transformer<T,T>{
+
+
+   public T transform(T source) {
+      return source;
+   }
 }

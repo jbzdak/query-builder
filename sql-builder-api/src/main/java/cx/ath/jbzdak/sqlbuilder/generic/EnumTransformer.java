@@ -17,10 +17,24 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder;
+package cx.ath.jbzdak.sqlbuilder.generic;
 
 /**
  * Created by: Jacek Bzdak
  */
-public interface SQLFactory extends IntermediateSQLFactory, BasicSQLFactory {
+public class EnumTransformer<T extends Enum> implements Transformer<T, String>{
+
+   public  static <T extends Enum> Transformer<T, String> create(Class<? extends T> enumClass){
+      return new EnumTransformer<T>(enumClass);
+   }
+
+   final Class<? extends T> enumClass;
+
+   public EnumTransformer(Class<? extends T> enumClass) {
+      this.enumClass = enumClass;
+   }
+
+   public T transform(String source) {
+      return Enum.valueOf(enumClass, source);
+   }
 }
