@@ -47,7 +47,6 @@ public class DefaultDialect extends AbstractDialect{
    public static final String DEFAULT_DIALECT_NAME = "default";
 
    public DefaultDialect() {
-      super(new DialectConfig());
    }
 
    public DefaultDialect(DialectConfig dialectConfig) {
@@ -109,7 +108,7 @@ public class DefaultDialect extends AbstractDialect{
    }
 
    @Override
-   protected Transformer<BoundParameter, AbstractParameter<?>> createDefaultParameterFactory() {
+   protected Transformer<BoundParameter, Parameter<?>> createDefaultParameterFactory() {
       return new DefaultParameterFactory();
    }
 

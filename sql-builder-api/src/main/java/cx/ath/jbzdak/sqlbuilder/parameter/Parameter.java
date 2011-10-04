@@ -29,4 +29,10 @@ public interface Parameter<T> {
    T getDefaultValue();
 
    String getType();
+
+   void setDefaultValue(T defaultValue);
+
+   void setDefaultValueAsString(String defaultValue);
+
+   T fromObject(Object o);
 }

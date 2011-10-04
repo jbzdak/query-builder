@@ -33,7 +33,6 @@ public class IntegerParameter extends AbstractParameter<Integer> {
       return Integer.valueOf(string);
    }
 
-   @Override
    public Integer fromObject(Object o) {
       if(o instanceof Number){
          Number n = (Number) o;

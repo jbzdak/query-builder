@@ -62,7 +62,9 @@ public interface Dialect {
     */
    ExpressionConfig getDefaultExpressionConfig();
 
-   <T> BoundParameter bindParameter(AbstractParameter<T> source, T value);
+   <T> BoundParameter bindParameter(Parameter<T> source, T value);
 
 //   String getIdentifierQuote();
+
+   void setDialectConfig(DialectConfig dialectConfig);
 }

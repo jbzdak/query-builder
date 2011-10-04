@@ -26,11 +26,11 @@ import cx.ath.jbzdak.sqlbuilder.*;
  */
 public class BoundParameter<T> extends PeerIntermediateSQLObject {
 
-   private AbstractParameter<T> parent;
+   private Parameter<T> parent;
 
    private T value;
 
-   public void setParent(AbstractParameter<T> parent) {
+   public void setParent(Parameter<T> parent) {
       this.parent = parent;
    }
 
@@ -56,7 +56,7 @@ public class BoundParameter<T> extends PeerIntermediateSQLObject {
    }
 
    public void setValueFromObject(String value) {
-      this.value = parent.fromObject(value);
+      this.value = parent.fromObject((Object) value);
    }
 
    public boolean isBound(){

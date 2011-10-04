@@ -45,20 +45,36 @@ public abstract class AbstractDialect implements Dialect{
 
    private volatile Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> transformerMap;
 
-   protected Transformer<BoundParameter, AbstractParameter<?>> parameterFactory;
+   protected Transformer<BoundParameter, Parameter<?>> parameterFactory;
 
    protected QuotingManager quotingManager;
 
    protected abstract Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap();
 
-   private final DialectConfig dialectConfig;
+   private DialectConfig dialectConfig;
 
    protected abstract QuotingManager createDefaultQuotingManager();
 
    private  boolean dialectConfigLocked = false;
 
+   protected AbstractDialect() {
+   }
+
    protected AbstractDialect(DialectConfig dialectConfig) {
+      setDialectConfig(dialectConfig);
+   }
+
+   public void setDialectConfig(DialectConfig dialectConfig){
+      if(dialectConfigLocked){
+         throw new UnsupportedOperationException("DialectConfig can be set only once!");
+      }
+      if(dialectConfig == null){
+         dialectConfig = new DialectConfig();
+      }
       this.dialectConfig = dialectConfig;
+      updateFromDialectConfigInternal();
+      updateFromDialectConfig();
+      dialectConfigLocked = true;
    }
 
    /**
@@ -72,12 +88,12 @@ public abstract class AbstractDialect implements Dialect{
       if(dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY) == null){
          parameterFactory = createDefaultParameterFactory();
       }else{
-         parameterFactory =  (Transformer<BoundParameter, AbstractParameter<?>>) dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY);
+         parameterFactory =  (Transformer<BoundParameter, Parameter<?>>) dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY);
       }
       quotingManager = createDefaultQuotingManager();
    }
 
-   public <T> BoundParameter bindParameter(AbstractParameter<T> source, T value) {
+   public <T> BoundParameter bindParameter(Parameter<T> source, T value) {
       BoundParameter boundParameter = parameterFactory.transform(source);
       boundParameter.setValue(value);
       return boundParameter;
@@ -89,9 +105,9 @@ public abstract class AbstractDialect implements Dialect{
     * Will be called iff {@link DialectConfigKey.PARAMETER_FACTORY} was not set in dialectConfig.
     * @return
     */
-   protected abstract Transformer<BoundParameter, AbstractParameter<?>> createDefaultParameterFactory();
+   protected abstract Transformer<BoundParameter, Parameter<?>> createDefaultParameterFactory();
 
-   public synchronized SQLPeer getPeer(IntermediateSQLFactory sqlFactory) {
+   public SQLPeer getPeer(IntermediateSQLFactory sqlFactory) {
       if(transformerMap == null){
          transformerMap = new ConcurrentHashMap<Class, Transformer<SQLPeer, IntermediateSQLFactory>>(createTransformerMap());
          Map<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>> additional =

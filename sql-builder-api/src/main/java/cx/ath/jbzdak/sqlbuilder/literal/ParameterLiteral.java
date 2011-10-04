@@ -21,6 +21,7 @@ package cx.ath.jbzdak.sqlbuilder.literal;
 
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteralType;
+import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 import java.lang.reflect.Array;
@@ -31,13 +32,13 @@ import java.util.Set;
 /**
  * Created by: Jacek Bzdak
  */
-public class ParameterLiteral extends SQLLiteral<Parameter>{
+public class ParameterLiteral extends SQLLiteral<AbstractParameter>{
 
 
    public ParameterLiteral() {
    }
 
-   public ParameterLiteral(Parameter literalValue) {
+   public ParameterLiteral(AbstractParameter literalValue) {
       super(SQLLiteralType.PARAMETER, literalValue);
    }
 

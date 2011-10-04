@@ -20,6 +20,9 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+
+import java.util.Collection;
 
 /**
  * Created by: Jacek Bzdak
@@ -27,6 +30,12 @@ import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 public class SimpleQuery extends IntermediateSQLObject implements SQLFactory{
 
    String sql;
+
+   String name;
+
+   String description;
+
+
 
    public SimpleQuery() {
    }
@@ -41,6 +50,22 @@ public class SimpleQuery extends IntermediateSQLObject implements SQLFactory{
 
    public void setSql(String sql) {
       this.sql = sql;
+   }
+
+   public String getName() {
+      return name;
+   }
+
+   public void setName(String name) {
+      this.name = name;
+   }
+
+   public String getDescription() {
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
    }
 
    public void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder) {
@@ -61,7 +86,11 @@ public class SimpleQuery extends IntermediateSQLObject implements SQLFactory{
       return context.setParameterValue(parameterName, value);
    }
 
-   public void addParameter(AbstractParameter p) {
+   public void addParameter(Parameter p) {
       context.addParameter(p);
+   }
+
+   public void addParameters(Collection<? extends Parameter<?>> p) {
+      context.addParameters(p);
    }
 }

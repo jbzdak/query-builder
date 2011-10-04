@@ -44,7 +44,7 @@ public class ExpressionContext {
 
    Map<String, Object> parameterValues = new HashMap<String, Object>();
 
-   Map<String, AbstractParameter> parameters = new HashMap<String, AbstractParameter>();
+   Map<String, Parameter> parameters = new HashMap<String, Parameter>();
 
    Map<String, BoundParameter> boundParameters;
 
@@ -69,7 +69,7 @@ public class ExpressionContext {
       if (boundParameters == null) {
          boundParameters = new HashMap<String, BoundParameter>();
          for (String name : parameterValues.keySet()) {
-            AbstractParameter p = parameters.get(name);
+            Parameter p = parameters.get(name);
             BoundParameter boundParameter = getDialect().bindParameter(p, parameterValues.get(name));
             boundParameter.setContext(this);
             boundParameters.put(name, boundParameter);
@@ -128,13 +128,20 @@ public class ExpressionContext {
       return parameters;
    }
 
-   public void addParameter(AbstractParameter p){
-      AbstractParameter oldParam = parameters.get(p.getName());
+   public void addParameter(Parameter p){
+      Parameter oldParam = parameters.get(p.getName());
       if(oldParam != null && ! oldParam.equals(p)){
          throw new ParameterSetTwice("Parameter '" + p.getName() + "' is set twice, and it should be set only once.");
       }
       parameters.put(p.getName(), p);
    }
+
+   public void addParameters(Collection<? extends Parameter<?>> p){
+      for (Parameter abstractParameter : p) {
+         addParameter(abstractParameter);
+      }
+    }
+
 
    public ExpressionContext(SQLObject sqlObject) {
       this(sqlObject.getContext().getDialect());
@@ -143,11 +150,6 @@ public class ExpressionContext {
    public RenderingContext renderingContext(){
       return new RenderingContext(this);
    }
-
-//   public RenderingContext renderingContext(IntermediateSQLFactory sqlFactory){
-//      RenderingContext context = new RenderingContext(dialect);
-//      return context;
-//   }
 
    public ExpressionConfig getExpressionConfig() {
       return expressionConfig;

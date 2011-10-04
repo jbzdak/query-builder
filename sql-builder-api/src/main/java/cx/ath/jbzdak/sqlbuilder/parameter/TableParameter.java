@@ -46,7 +46,6 @@ public class TableParameter extends AbstractParameter<String> {
       return alias;
    }
 
-   @Override
    public String fromObject(Object o) {
       return o.toString();
    }

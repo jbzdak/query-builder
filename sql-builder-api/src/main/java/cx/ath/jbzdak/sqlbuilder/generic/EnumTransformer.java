@@ -35,6 +35,6 @@ public class EnumTransformer<T extends Enum> implements Transformer<T, String>{
    }
 
    public T transform(String source) {
-      return Enum.valueOf(enumClass, source);
+      return (T) Enum.valueOf(enumClass, source);
    }
 }

@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * Created by: Jacek Bzdak
  */
-public class DefaultParameterFactory  implements Transformer<BoundParameter, AbstractParameter<?>> {
+public class DefaultParameterFactory  implements Transformer<BoundParameter, Parameter<?>> {
 
    protected Map<String, Factory<? extends BoundParameter>> typeMap = new HashMap<String, Factory<? extends BoundParameter>>();
 
@@ -63,7 +63,7 @@ public class DefaultParameterFactory  implements Transformer<BoundParameter, Abs
       });
    }
 
-   public BoundParameter transform(AbstractParameter<?> source) {
+   public BoundParameter transform(Parameter<?> source) {
       Factory<? extends BoundParameter> factory = typeMap.get(source.getType());
       BoundParameter bound;
       if(factory == null){

@@ -32,8 +32,6 @@ public abstract class AbstractParameter<T> implements Parameter<T> {
 
    public abstract T fromString(String string);
 
-   public abstract T fromObject(Object o);
-
    protected AbstractParameter(String type, String name) {
       if(name.startsWith(":")){
          name = name.substring(1);

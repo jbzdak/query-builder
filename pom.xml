@@ -29,6 +29,8 @@
     <version>1.0</version>
     <modules>
         <module>sql-builder-api</module>
+        <module>sql-builder-xml-binidings</module>
+        <module>query-manager-api</module>
     </modules>
 
 

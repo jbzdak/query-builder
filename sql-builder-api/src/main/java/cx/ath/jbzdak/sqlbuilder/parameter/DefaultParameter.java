@@ -33,7 +33,6 @@ public class DefaultParameter extends AbstractParameter<Object> {
       return string;
    }
 
-   @Override
    public Object fromObject(Object o) {
       return o;
    }
