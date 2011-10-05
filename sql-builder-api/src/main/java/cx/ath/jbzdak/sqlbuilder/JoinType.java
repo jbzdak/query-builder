@@ -32,4 +32,6 @@ public final class JoinType {
 
    public static final String RIGHT = "RIGHT";
 
+   private JoinType() {
+   }
 }

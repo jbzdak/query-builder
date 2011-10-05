@@ -65,11 +65,13 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory {
       }
    }
 
-   public void collectParameters() {
+   public Set<String> collectParameters() {
       collectChildren();
       updateContext();
-      context.collectParameters(children);
-      context.collectParameters(sqlParts);
+      HashSet<String> result = new HashSet<String>();
+      result.addAll(context.collectParameters(this, children));
+      result.addAll(context.collectParameters(this, sqlParts));
+      return result;
    }
 
    private void collectSingleField(Field f){
@@ -109,6 +111,9 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory {
       }
    }
 
+   public boolean containsUnboundParams() {
+      return context.containsUnboundParams(this);
+   }
 
    public void setContext(ExpressionContext expressionContext) {
       if(expressionContext != this.context){

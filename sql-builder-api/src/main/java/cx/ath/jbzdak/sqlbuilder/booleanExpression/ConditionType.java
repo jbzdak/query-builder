@@ -46,6 +46,8 @@ public class ConditionType {
 
    private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(ConditionType.class, String.class);
 
+
+
    public static String nameOf(String value) {
       return FAKE_ENUM.nameOf(value);
    }

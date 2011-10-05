@@ -1,7 +1,1 @@
-DialectConfigItem
-DialectConfigTransformer
-ExpressionConfigItem
-ExpressionConfigTransformer
-XmlDialectConfig
-XmlExpressionConfig
 XmlQueryCollection

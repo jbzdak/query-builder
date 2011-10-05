@@ -21,6 +21,7 @@ package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 
 /**
  * Created by: Jacek Bzdak
@@ -34,7 +35,11 @@ public class NAryBooleanExpressionPeer extends AbstractPeer<NAryBooleanExpressio
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       stringBuilder.append("(");
-      PeerUtils.joinSqls(renderingContext, stringBuilder, " " + parent.getType() + " ", parent.getExpressions());
+      if(!(Boolean) renderingContext.getExpressionContext().getExpressionConfig().get(ExpressionConfigKey.IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS)){
+         PeerUtils.joinSqls(renderingContext, stringBuilder, " " + parent.getType() + " ", parent.getExpressions());
+      }else{
+         PeerUtils.joinSqls(renderingContext, stringBuilder, " " + parent.getType() + " ", parent.getExpressionsWithoutUnboundParams());
+      }
       stringBuilder.append(")");
    }
 

@@ -22,6 +22,7 @@ package cx.ath.jbzdak.sqlbuilder.xml;
 import cx.ath.jbzdak.sqlbuilder.Dialect;
 import cx.ath.jbzdak.sqlbuilder.DialectHolder;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
+import cx.ath.jbzdak.sqlbuilder.generic.BooleanTransformer;
 import cx.ath.jbzdak.sqlbuilder.generic.DialectTransformer;
 import cx.ath.jbzdak.sqlbuilder.generic.NoopTransformer;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
@@ -42,6 +43,7 @@ public class ExpressionConfigTransformer implements Transformer<Object, Expressi
    private ExpressionConfigTransformer() {
       transformerMap.put(ExpressionConfigKey.PARAMETER_REGEXP_PATTERN, new NoopTransformer<String>());
       transformerMap.put(ExpressionConfigKey.DIALECT, new DialectTransformer());
+      transformerMap.put(ExpressionConfigKey.IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS, new BooleanTransformer());
    }
 
    Object transform(ExpressionConfigKey key, String value) {

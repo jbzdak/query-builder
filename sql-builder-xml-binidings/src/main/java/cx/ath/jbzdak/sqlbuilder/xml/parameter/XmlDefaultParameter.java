@@ -30,6 +30,12 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "defaultParameter")
 public class XmlDefaultParameter extends XmlParameter{
 
+   public XmlDefaultParameter() {
+   }
+
+   public XmlDefaultParameter(String name, String defaultValue) {
+      super(name, defaultValue);
+   }
 
    @Override
    public Parameter<?> createParameter() {

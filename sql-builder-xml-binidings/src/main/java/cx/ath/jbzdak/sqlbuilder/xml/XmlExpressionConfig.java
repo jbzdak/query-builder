@@ -34,7 +34,7 @@ public class XmlExpressionConfig {
 
    List<ExpressionConfigItem> expressionConfigItems = new ArrayList<ExpressionConfigItem>();
 
-   @XmlElement
+   @XmlElement(name = "item")
    public List<ExpressionConfigItem> getExpressionConfigItems() {
       return expressionConfigItems;
    }
@@ -43,9 +43,13 @@ public class XmlExpressionConfig {
       this.expressionConfigItems = expressionConfigItems;
    }
 
-   ExpressionConfig createConfig(XmlExpressionConfig parent){
-      ExpressionConfig config = new ExpressionConfig();
-
+   public ExpressionConfig createConfig(ExpressionConfig parent){
+      ExpressionConfig config;
+      if(parent!=null){
+         config = new ExpressionConfig(parent);
+      }else{
+         config = new ExpressionConfig();
+      }
 
       for (ExpressionConfigItem configItem : expressionConfigItems) {
          config.put(configItem.key, ExpressionConfigTransformer.EXPRESSION_CONFIG_TRANSFORMER.transform(configItem));

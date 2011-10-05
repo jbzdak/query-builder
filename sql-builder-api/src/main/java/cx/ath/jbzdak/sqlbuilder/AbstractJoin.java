@@ -43,4 +43,12 @@ public abstract class AbstractJoin extends PeerIntermediateSQLObject {
    public Table getTable() {
       return table;
    }
+
+   public void setJoinType(String joinType) {
+      this.joinType = joinType;
+   }
+
+   public void setTable(Table table) {
+      this.table = table;
+   }
 }

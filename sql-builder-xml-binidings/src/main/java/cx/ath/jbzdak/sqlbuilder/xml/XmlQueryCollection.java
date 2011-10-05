@@ -24,7 +24,10 @@ import cx.ath.jbzdak.sqlbuilder.Dialect;
 import cx.ath.jbzdak.sqlbuilder.SQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SimpleQuery;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
+import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 import cx.ath.jbzdak.sqlbuilder.xml.query.AbstractQuery;
+import cx.ath.jbzdak.sqlbuilder.xml.query.XmlSelect;
 import cx.ath.jbzdak.sqlbuilder.xml.query.XmlSimpleQuery;
 
 import javax.xml.bind.annotation.*;
@@ -37,7 +40,7 @@ import java.util.Map;
  * Created by: Jacek Bzdak
  */
 
-@XmlType
+@XmlType(propOrder = {"xmlDialectConfig", "xmlDefaultExpressionConfig", "queryTags"})
 @XmlRootElement(name = "queryCollection")
 public class XmlQueryCollection {
 
@@ -54,10 +57,10 @@ public class XmlQueryCollection {
    @XmlTransient
    private DialectConfig dialectConfig;
 
-//   @XmlElement(nillable = true, required = false, name = "defaultExpressionConfig")
-//   XmlExpressionConfig xmlDefaultExpressionConfig;
 
+   XmlExpressionConfig xmlDefaultExpressionConfig;
 
+   ExpressionConfig defaultExpressionConfig;
 
    List<AbstractQuery> queryTags = new ArrayList<AbstractQuery>();
 
@@ -65,6 +68,11 @@ public class XmlQueryCollection {
 
    public void prepare(){
       dialectConfig = xmlDialectConfig.createDialectConfig();
+      if(xmlDefaultExpressionConfig!=null){
+         defaultExpressionConfig = xmlDefaultExpressionConfig.createConfig(null);
+      }else{
+         defaultExpressionConfig = new ExpressionConfig();
+      }
       ConfigurableDialectHolder configurableDialectHolder = new ConfigurableDialectHolder();
       dialect = configurableDialectHolder.getDialect(xmlDialect, dialectConfig);
       queries = new HashMap<String, QueryTag>();
@@ -92,7 +100,8 @@ public class XmlQueryCollection {
    }
 
    @XmlElements({
-           @XmlElement(name = "simpleQuery", type = XmlSimpleQuery.class)
+           @XmlElement(name = "simpleQuery", type = XmlSimpleQuery.class),
+           @XmlElement(name = "select", type = XmlSelect.class)
    })
    public List<AbstractQuery> getQueryTags() {
       return queryTags;
@@ -119,7 +128,21 @@ public class XmlQueryCollection {
       return dialect;
    }
 
+   @XmlTransient
+   public ExpressionConfig getDefaultExpressionConfig() {
+      return defaultExpressionConfig;
+   }
+
    public DialectConfig getDialectConfig() {
       return dialectConfig;
+   }
+
+   @XmlElement(nillable = true, required = false, name = "defaultExpressionConfig")
+   public XmlExpressionConfig getXmlDefaultExpressionConfig() {
+      return xmlDefaultExpressionConfig;
+   }
+
+   public void setXmlDefaultExpressionConfig(XmlExpressionConfig xmlDefaultExpressionConfig) {
+      this.xmlDefaultExpressionConfig = xmlDefaultExpressionConfig;
    }
 }

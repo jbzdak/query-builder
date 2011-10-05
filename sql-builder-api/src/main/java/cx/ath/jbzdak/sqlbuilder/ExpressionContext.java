@@ -48,6 +48,9 @@ public class ExpressionContext {
 
    Map<String, BoundParameter> boundParameters;
 
+   Map<IntermediateSQLFactory, Set<String>> parametersByItem
+           = new HashMap<IntermediateSQLFactory, Set<String>>();
+
    public ExpressionContext() {
       this(DialectHolder.getDefaultDialect());
    }
@@ -88,24 +91,42 @@ public class ExpressionContext {
       return paramPattern.matcher(possibleParam).matches();
 
    }
+
+   public boolean containsUnboundParams(IntermediateSQLFactory factory){
+      Set<String> parameters = parametersByItem.get(factory);
+      for (String paramName : boundParameters.keySet()) {
+         parameters.remove(paramName);
+      }
+      return parameters.size() == 0;
+   }
+
    
-   public void collectParameters(Collection<?> objects){
+   public Set<String> collectParameters(IntermediateSQLFactory parent, Collection<?> objects){
+      Set<String> collected = new HashSet<String>();
       for (Object object : objects) {
          if (object instanceof IntermediateSQLFactory) {
             IntermediateSQLFactory intermediateSQLFactory = (IntermediateSQLFactory) object;
-            intermediateSQLFactory.collectParameters();
+            collected.addAll(intermediateSQLFactory.collectParameters());
          }
          if (object instanceof String) {
             String s = (String) object;
             Set<String> params = collectParametersFromString(s);
             for (String param : params) {
+               collected.add(param);
                if(!parameters.containsKey(param)){
-                  addParameter(new DefaultParameter(param));
+                  DefaultParameter defaultParameter = new DefaultParameter(param);
+                  addParameter(defaultParameter);
                }
             }
+
          }
       }
+      parametersByItem.put(parent, collected);
+      return collected;
    }
+
+
+
 
    public Object setParameterValue(String parameterName, Object value) {
       try {

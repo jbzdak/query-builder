@@ -29,7 +29,6 @@ import java.util.*;
  */
 public class NAryBooleanExpression extends SQLObject implements BooleanExpressionMarker {
 
-
    protected List<BooleanExpressionMarker> expressions = new ArrayList<BooleanExpressionMarker>();
 
    protected String type;
@@ -54,6 +53,16 @@ public class NAryBooleanExpression extends SQLObject implements BooleanExpressio
       return Collections.unmodifiableList(expressions);
    }
 
+   public List<BooleanExpressionMarker> getExpressionsWithoutUnboundParams(){
+      List<BooleanExpressionMarker> result = new ArrayList<BooleanExpressionMarker>();
+      for (BooleanExpressionMarker expression : expressions) {
+         if(!expression.containsUnboundParams()){
+            result.add(expression);
+         }
+      }
+      return result;
+   }
+
    public void setExpressions(List<BooleanExpressionMarker> expressions) {
       this.expressions = new ArrayList<BooleanExpressionMarker>(expressions);
    }
@@ -62,6 +71,9 @@ public class NAryBooleanExpression extends SQLObject implements BooleanExpressio
       this.expressions = new ArrayList<BooleanExpressionMarker>(expressions);
    }
 
+   public boolean addExpression(BooleanExpressionMarker booleanExpressionMarker) {
+      return expressions.add(booleanExpressionMarker);
+   }
 }
 
 

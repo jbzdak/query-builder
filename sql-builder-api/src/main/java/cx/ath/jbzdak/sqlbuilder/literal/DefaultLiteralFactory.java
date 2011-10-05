@@ -19,7 +19,6 @@
 
 package cx.ath.jbzdak.sqlbuilder.literal;
 
-import com.sun.org.apache.bcel.internal.generic.ObjectType;
 import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteralType;

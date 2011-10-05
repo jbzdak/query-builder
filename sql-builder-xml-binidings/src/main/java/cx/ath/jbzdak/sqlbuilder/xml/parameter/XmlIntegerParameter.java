@@ -30,6 +30,13 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "integerParameter")
 public class XmlIntegerParameter extends XmlParameter{
 
+   public XmlIntegerParameter() {
+   }
+
+   public XmlIntegerParameter(String name, String defaultValue) {
+      super(name, defaultValue);
+   }
+
    @Override
    public Parameter<?> createParameter() {
       return new IntegerParameter(name);

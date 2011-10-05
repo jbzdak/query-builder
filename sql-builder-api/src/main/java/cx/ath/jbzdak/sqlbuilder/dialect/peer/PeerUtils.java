@@ -58,7 +58,7 @@ class PeerUtils {
          stringBuilder.append(column);
       }
 
-      if(alias != null){
+      if(alias != null && alias.getAlias() != null){
          stringBuilder.append(" AS ");
          alias.appendTo(renderingContext, stringBuilder);
       }
@@ -68,7 +68,7 @@ class PeerUtils {
    }
 
    static void appendJoinBegining(StringBuilder stringBuilder, RenderingContext renderingContext, AbstractJoin abstractJoin){
-      stringBuilder.append(abstractJoin.getJoinType());
+      stringBuilder.append(abstractJoin.getJoinType().toUpperCase());
       stringBuilder.append(" JOIN ");
       abstractJoin.getTable().appendTo(renderingContext, stringBuilder);
       stringBuilder.append(' ');

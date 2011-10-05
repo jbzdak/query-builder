@@ -1,0 +1,51 @@
+<!--
+  ~ Copyright (c) 2011 for Jacek Bzdak
+  ~
+  ~ This file is part of query builder.
+  ~
+  ~ Query builder is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Query builder is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<queryCollection xmlns="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings=1.0.xsd" dialect="default">
+
+    <dialectConfig>
+        <item key="IDENTIFIER_QUOTING_STRATEGY">ALWAYS</item>
+    </dialectConfig>
+
+    <select name="simple-select">
+
+        <expressionConfig>
+            <!--<item key=""></item>-->
+        </expressionConfig>
+
+        <sel>
+            <col table="dp">value</col>
+        </sel>
+        <from>
+            <table as="dp">DATA_POINT_DAILY</table>
+        </from>
+        <where>
+            <and>
+                <cond>dp.data_source = :data_source</cond>
+                <is-null not="true">
+                    <col table="dp" >value</col>
+                </is-null>
+            </and>
+        </where>
+        <parameters>
+            <integerParameter name="data_source" />
+        </parameters>
+    </select>
+
+</queryCollection>

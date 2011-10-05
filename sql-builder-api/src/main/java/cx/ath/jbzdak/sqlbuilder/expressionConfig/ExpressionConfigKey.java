@@ -27,18 +27,33 @@ import java.util.regex.Pattern;
  * Created by: Jacek Bzdak
  */
 public enum ExpressionConfigKey {
+
+   DIALECT(){
+      @Override
+      public Object getDefault(ExpressionConfig config) {
+         return DialectHolder.getDefaultDialect();
+      }
+   },
+   /**
+    * If possible queries to ignore missing parametears by omitting parts of a query that contains such parameters.
+    *
+    * It is implemented currently in {@link cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpression} ---
+    * parts of expression that contain unbound parameters will be omitted.
+    *
+    *
+    */
+   IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS(){
+      @Override
+      public Object getDefault(ExpressionConfig config) {
+         return Boolean.FALSE;
+      }
+   },
    PARAMETER_REGEXP_PATTERN(){
       @Override
       public Object getDefault(ExpressionConfig config) {
          return Pattern.compile(":([\\w\\d\\-_]+)");
       }
    },
-   DIALECT(){
-      @Override
-      public Object getDefault(ExpressionConfig config) {
-         return DialectHolder.getDefaultDialect();
-      }
-   }
    ;
 
    public abstract Object getDefault(ExpressionConfig config);

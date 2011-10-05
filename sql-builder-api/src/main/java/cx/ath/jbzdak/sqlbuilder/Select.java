@@ -56,6 +56,10 @@ public class Select extends SQLObject{
       columnExpressions.addAll(Arrays.asList(columnExpression));
    }
 
+   public void addColumnExpression(RawString... columnExpression){
+      columnExpressions.addAll(Arrays.asList(columnExpression));
+   }
+
    public void addFrom(Table table){
       from.add(table);
    }

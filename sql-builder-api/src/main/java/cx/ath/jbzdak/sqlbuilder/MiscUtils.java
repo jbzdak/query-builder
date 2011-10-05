@@ -57,6 +57,7 @@ public class MiscUtils {
             sqlString = sqlString.replaceAll("\\([ ]+", "(");
             sqlString = sqlString.replaceAll("[ ]+\\)", ")");
          case MINIMAL:
+            sqlString = sqlString.replaceAll("\\s+,", ",");
             sqlString = sqlString.replaceAll("[ ]+", " ");
             sqlString = sqlString.replaceAll("^\\s+", "");
             sqlString = sqlString.replaceAll("\\s+$", "");
@@ -69,5 +70,9 @@ public class MiscUtils {
             throw new IllegalStateException();
       }
       return sqlString;
+   }
+
+   public static boolean isEmpty(String s){
+      return s == null || s.trim().length() == 0;
    }
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2011 for Jacek Bzdak
+  ~
+  ~ This file is part of query builder.
+  ~
+  ~ Query builder is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Lesser General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Query builder is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public License
+  ~ along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<queryCollection xmlns="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings=1.0.xsd" dialect="default">
+    <dialectConfig>
+        <item key="PRETTIFY_SQL">PRETTY</item>
+    </dialectConfig>
+    <simpleQuery name="foo-query-name">
+        <description>Query that does foo</description>
+        <parameters/>
+        <expressionConfig/>
+        <query>SELECT * FROM foo</query>
+    </simpleQuery>
+     <select name="select">
+        <description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+        <parameters>
+            <integerParameter name=":foo"></integerParameter>
+            <parameter name=":bar">BAR</parameter>
+        </parameters>
+        <expressionConfig/>
+        <from>
+            <raw>FOO</raw>
+            <table>BAZ</table>
+            <table as="BARFOO">FOOBAZ</table>
+        </from>
+        <sel>
+            <col schema="FOO_SCHEMA" table="FOO">foo</col>
+            <col>bar</col>
+            <col schema="BAZ_SCHEMA" table="BAZ">baz</col>
+            <raw>foobar AS barfoo</raw>
+        </sel>
+        <where>
+            <or>
+                <and>
+                    <cond>foo = 2</cond>
+                    <is-null not="false">
+                        <col as="as" schema="FOO_SCHEMA">foo</col>
+                    </is-null>
+                </and>
+                <cond>baz &lt;&gt; 32</cond>
+            </or>
+        </where>
+    </select>
+
+
+</queryCollection>

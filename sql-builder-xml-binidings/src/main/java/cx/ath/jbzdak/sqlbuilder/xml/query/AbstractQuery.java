@@ -19,11 +19,10 @@
 
 package cx.ath.jbzdak.sqlbuilder.xml.query;
 
-import com.sun.org.apache.xpath.internal.Expression;
 import cx.ath.jbzdak.sqlbuilder.Namespace;
 import cx.ath.jbzdak.sqlbuilder.xml.QueryTag;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlExpressionConfig;
-import cx.ath.jbzdak.sqlbuilder.xml.parameter.Parameters;
+import cx.ath.jbzdak.sqlbuilder.xml.parameter.XmlParameters;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,7 +38,7 @@ public abstract class AbstractQuery implements QueryTag{
 
    String description;
 
-   Parameters parameters = new Parameters();
+   XmlParameters parameters = new XmlParameters();
 
    XmlExpressionConfig xmlExpressionConfig = new XmlExpressionConfig();
 
@@ -51,7 +50,7 @@ public abstract class AbstractQuery implements QueryTag{
       this.description = description;
    }
 
-   @XmlAttribute
+   @XmlAttribute(required = true)
    public String getName() {
       return name;
    }
@@ -70,15 +69,15 @@ public abstract class AbstractQuery implements QueryTag{
    }
 
    @XmlElement(required = false, nillable = true, namespace = Namespace.NAMESPACE)
-   public Parameters getParameters() {
+   public XmlParameters getParameters() {
       return parameters;
    }
 
-   public void setParameters(Parameters parameters) {
+   public void setParameters(XmlParameters parameters) {
       this.parameters = parameters;
    }
 
-   @XmlElement(required = false, nillable = true, namespace = Namespace.NAMESPACE)
+   @XmlElement(required = false, nillable = true, namespace = Namespace.NAMESPACE, name = "expressionConfig")
    public XmlExpressionConfig getXmlExpressionConfig() {
       return xmlExpressionConfig;
    }

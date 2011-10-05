@@ -17,38 +17,24 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.xml.parameter;
-
-import cx.ath.jbzdak.sqlbuilder.parameter.*;
+package cx.ath.jbzdak.sqlbuilder.xml.boolExp;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpressionType;
+import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by: Jacek Bzdak
  */
-@XmlType
-public class Parameters {
+@XmlType(name = "and")
+public class XmlAnd extends XmlNargBooleanExpression implements Factory<BooleanExpressionMarker>{
 
-
-   @XmlElements({
-           @XmlElement(name = "parameter", type = XmlDefaultParameter.class),
-           @XmlElement(name = "tableParameter", type =XmlTableParameter.class),
-           @XmlElement(name = "integerParameter", type =XmlIntegerParameter.class)
-   })
-   List<XmlParameter> parameters = new ArrayList<XmlParameter>();
-
-
-   @XmlTransient
-   public List<Parameter<?>> getParameters(){
-      List<Parameter<?>> params = new ArrayList<Parameter<?>>();
-      for (XmlParameter parameter : parameters) {
-         params.add(parameter.createParameter());
-      }
-      return params;
+   public BooleanExpressionMarker create() {
+      return create(NAryBooleanExpressionType.AND);
    }
 }

@@ -102,6 +102,8 @@ public class FakeEnum<E> {
       throw new RuntimeException();      
    }
 
+
+
    public Collection<? extends E> values(){
       return constants.values();
    }

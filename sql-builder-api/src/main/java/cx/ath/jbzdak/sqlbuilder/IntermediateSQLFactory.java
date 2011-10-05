@@ -36,13 +36,15 @@ public interface IntermediateSQLFactory {
 
    void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder);
 
-   void collectParameters();
+   Set<String> collectParameters();
 
    public void collectChildren();
 
    Set<IntermediateSQLFactory> getChildren();
 
    Set<String> getSqlParts();
+
+   boolean containsUnboundParams();
 
 
    /* ************************************************************
@@ -63,5 +65,6 @@ public interface IntermediateSQLFactory {
    PropertyChangeListener[] getPropertyChangeListeners(String propertyName);
 
    boolean hasListeners(String propertyName);
+
 
 }

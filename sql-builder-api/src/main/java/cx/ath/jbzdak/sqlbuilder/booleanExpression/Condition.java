@@ -19,30 +19,60 @@
 
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
-import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
-import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
-import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
-import cx.ath.jbzdak.sqlbuilder.Select;
+import cx.ath.jbzdak.sqlbuilder.*;
+
+import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by: Jacek Bzdak
  */
 public class Condition extends AbstractBinaryBooleanExpression {
 
+   public static final Pattern CONDITION_PATTERN = prepareConditionPattern();
+
+   public static Pattern prepareConditionPattern(){
+      StringBuilder stringBuilder = new StringBuilder();
+      stringBuilder.append("(.*)\\s*(");
+      Iterator<? extends String> iter = ConditionType.values().iterator();
+      while (iter.hasNext()){
+         String s = iter.next();
+         stringBuilder.append("(?:");
+         stringBuilder.append(s);
+         stringBuilder.append(")");
+         if(iter.hasNext()){
+            stringBuilder.append("|");
+         }
+      }
+      stringBuilder.append(")\\s*(.*)");
+      return Pattern.compile(stringBuilder.toString());
+   }
 
    public Condition() {
    }
 
    Condition(String type, ColumnExpression lhs, SQLLiteral rhs) {
-       super(type, rhs, lhs);
+      super(type, rhs, lhs);
    }
 
    Condition(String type, SQLLiteral rhs, ColumnExpression lhs) {
-       super(type, rhs, lhs);
+      super(type, rhs, lhs);
    }
 
    Condition(String type, ColumnExpression rhs, ColumnExpression lhs) {
-       super(type, rhs, lhs);
+
+      super(type, rhs, lhs);
+   }
+
+   public void parseString(String s){
+      Matcher m = CONDITION_PATTERN.matcher(s);
+      if(!m.matches()){
+         throw new CantMatchConditionException("Cant match condition '" + s + "'");
+      }
+      lhs = new RawString(m.group(1));
+      rhs = new RawString(m.group(3));
+      type = m.group(2);
    }
 
    public void setRhs(ColumnExpression rhs) {

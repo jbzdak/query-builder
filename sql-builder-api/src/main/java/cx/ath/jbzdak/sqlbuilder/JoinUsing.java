@@ -41,4 +41,7 @@ public class JoinUsing extends AbstractJoin {
       return columns;
    }
 
+   public void setColumns(List<String> columns) {
+      this.columns = columns;
+   }
 }

@@ -44,7 +44,8 @@ public class ParameterLiteral extends SQLLiteral<AbstractParameter>{
 
 
    @Override
-   public void collectParameters() {
+   public Set<String> collectParameters() {
       getContext().addParameter(getLiteralValue());
+      return new HashSet<String>(Arrays.asList(getLiteralValue().getName()));
    }
 }

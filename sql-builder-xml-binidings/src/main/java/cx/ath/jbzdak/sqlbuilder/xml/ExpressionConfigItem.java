@@ -22,17 +22,19 @@ package cx.ath.jbzdak.sqlbuilder.xml;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
  * Created by: Jacek Bzdak
  */
+@XmlType
 public class ExpressionConfigItem {
 
-   @XmlAttribute(name = "key")
-   ExpressionConfigKey key;
+   @XmlAttribute
+   public ExpressionConfigKey key;
 
    @XmlValue
-   String value;
+   public String value;
 
 }

@@ -20,6 +20,9 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+
+import java.util.Collection;
 
 /**
  * Created by: Jacek Bzdak
@@ -66,7 +69,11 @@ public abstract class SQLObject extends PeerIntermediateSQLObject implements SQL
       getContext().addParameter(p);
    }
 
-//   public Dialect getDialect() {
+   public void addParameters(Collection<? extends Parameter<?>> p) {
+      getContext().addParameters(p);
+   }
+
+   //   public Dialect getDialect() {
 //      return getContext().getDialect();
 //   }
 //

@@ -32,9 +32,15 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlType
 public abstract class XmlParameter {
 
+   protected XmlParameter() {
+   }
+
+   protected XmlParameter(String name, String defaultValue) {
+      this.name = name;
+      this.defaultValue = defaultValue;
+   }
 
    String name;
-
 
    String defaultValue;
 

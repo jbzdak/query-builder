@@ -28,23 +28,24 @@ import java.util.Set;
  */
 public class JoinOn extends AbstractJoin{
 
-   private AbstractBinaryBooleanExpression onCondition;
+   private BooleanExpressionMarker onCondition;
 
    public JoinOn() {
    }
 
-   public JoinOn(AbstractBinaryBooleanExpression onCondition) {
+   public JoinOn(BooleanExpressionMarker onCondition) {
       this.onCondition = onCondition;
    }
 
-   public AbstractBinaryBooleanExpression getOnCondition() {
+   public BooleanExpressionMarker getOnCondition() {
       return onCondition;
    }
 
-   public void setOnCondition(AbstractBinaryBooleanExpression onCondition) {
-      AbstractBinaryBooleanExpression oldOnCondition = this.onCondition;
+   public void setOnCondition(BooleanExpressionMarker onCondition) {
+      BooleanExpressionMarker oldOnCondition = this.onCondition;
       this.onCondition = onCondition;
       propertyChangeSupport.firePropertyChange("onCondition", oldOnCondition, this.onCondition);
    }
+
 
 }
