@@ -19,10 +19,12 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
+import cx.ath.jbzdak.sqlbuilder.ParameterDescriptor;
+
 /**
  * Created by: Jacek Bzdak
  */
-public interface Parameter<T> {
+public interface Parameter<T>  extends ParameterDescriptor{
 
    String getName();
 

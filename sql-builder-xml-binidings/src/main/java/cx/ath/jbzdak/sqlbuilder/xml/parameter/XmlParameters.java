@@ -20,6 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder.xml.parameter;
 
 import cx.ath.jbzdak.sqlbuilder.parameter.*;
+import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
@@ -38,10 +39,10 @@ public class XmlParameters {
 
 
    @XmlTransient
-   public List<Parameter<?>> getParameters(){
+   public List<Parameter<?>> getParameters(XmlQueryCollection collection){
       List<Parameter<?>> params = new ArrayList<Parameter<?>>();
       for (XmlParameter parameter : xmlParameters) {
-         params.add(parameter.createParameter());
+         params.add(parameter.createParameter(collection));
       }
       return params;
    }

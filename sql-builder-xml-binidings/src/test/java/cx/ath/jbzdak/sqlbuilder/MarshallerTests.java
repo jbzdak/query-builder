@@ -44,7 +44,7 @@ public class MarshallerTests {
 
    @Before
    public void setUp() throws Exception {
-      marshaller = QueryCollectionFactory.DEFAULT_CONTEXT.createMarshaller();
+      marshaller = JaxbEntryPoint.DEFAULT_CONTEXT.createMarshaller();
       marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 //      marshaller.setProperty(Marshaller.JAXB_ENCODING, );
 

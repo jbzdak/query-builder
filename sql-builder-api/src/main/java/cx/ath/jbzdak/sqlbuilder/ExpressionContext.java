@@ -93,16 +93,21 @@ public class ExpressionContext {
    }
 
    public boolean containsUnboundParams(IntermediateSQLFactory factory){
-      Set<String> parameters = parametersByItem.get(factory);
-      for (String paramName : boundParameters.keySet()) {
+      Set<String> parameters = new HashSet<String>(parametersByItem.get(factory));
+      for (String paramName : getBoundParameters().keySet()) {
          parameters.remove(paramName);
       }
-      return parameters.size() == 0;
+      return parameters.size() != 0;
    }
 
-   
+
    public Set<String> collectParameters(IntermediateSQLFactory parent, Collection<?> objects){
-      Set<String> collected = new HashSet<String>();
+      Set<String> collected = parametersByItem.get(parent);
+      if(collected == null){
+         collected = new HashSet<String>();
+      }else{
+         collected = new HashSet<String>(collected);
+      }
       for (Object object : objects) {
          if (object instanceof IntermediateSQLFactory) {
             IntermediateSQLFactory intermediateSQLFactory = (IntermediateSQLFactory) object;
@@ -121,6 +126,7 @@ public class ExpressionContext {
 
          }
       }
+      collected = Collections.unmodifiableSet(collected);
       parametersByItem.put(parent, collected);
       return collected;
    }

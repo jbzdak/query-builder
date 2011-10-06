@@ -19,10 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.xml;
 
-import cx.ath.jbzdak.sqlbuilder.ConfigurableDialectHolder;
-import cx.ath.jbzdak.sqlbuilder.Dialect;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
-import cx.ath.jbzdak.sqlbuilder.SimpleQuery;
+import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
@@ -31,10 +28,7 @@ import cx.ath.jbzdak.sqlbuilder.xml.query.XmlSelect;
 import cx.ath.jbzdak.sqlbuilder.xml.query.XmlSimpleQuery;
 
 import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by: Jacek Bzdak
@@ -42,7 +36,7 @@ import java.util.Map;
 
 @XmlType(propOrder = {"xmlDialectConfig", "xmlDefaultExpressionConfig", "queryTags"})
 @XmlRootElement(name = "queryCollection")
-public class XmlQueryCollection {
+public class XmlQueryCollection implements QueryCollection{
 
 
    String xmlDialect;
@@ -76,6 +70,7 @@ public class XmlQueryCollection {
       ConfigurableDialectHolder configurableDialectHolder = new ConfigurableDialectHolder();
       dialect = configurableDialectHolder.getDialect(xmlDialect, dialectConfig);
       queries = new HashMap<String, QueryTag>();
+      defaultExpressionConfig.put(ExpressionConfigKey.DIALECT, dialect);
       for (QueryTag queryTag : queryTags) {
          queries.put(queryTag.getName(), queryTag);
       }
@@ -144,5 +139,13 @@ public class XmlQueryCollection {
 
    public void setXmlDefaultExpressionConfig(XmlExpressionConfig xmlDefaultExpressionConfig) {
       this.xmlDefaultExpressionConfig = xmlDefaultExpressionConfig;
+   }
+
+   public Set<String> getQueryNames() {
+      return queries.keySet();
+   }
+
+   public void setJdbcUrl(String jdbc) {
+      //To change body of implemented methods use File | Settings | File Templates.
    }
 }

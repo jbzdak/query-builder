@@ -25,6 +25,6 @@ package cx.ath.jbzdak.sqlbuilder.generic;
 public class BooleanTransformer implements Transformer<Boolean, String>{
 
    public Boolean transform(String source) {
-      return Boolean.getBoolean(source);
+      return Boolean.valueOf(source);
    }
 }

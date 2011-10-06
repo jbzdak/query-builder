@@ -22,6 +22,7 @@ package cx.ath.jbzdak.sqlbuilder.xml.parameter;
 import cx.ath.jbzdak.sqlbuilder.Alias;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
+import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
@@ -43,7 +44,7 @@ public class XmlTableParameter extends XmlParameter{
    }
 
    @Override
-   public Parameter<?> createParameter() {
+   public Parameter<?> createParameter(XmlQueryCollection collection) {
       return new TableParameter(name, new Alias(alias));
    }
 }

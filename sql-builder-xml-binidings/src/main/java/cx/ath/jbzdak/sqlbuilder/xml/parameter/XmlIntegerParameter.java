@@ -21,6 +21,7 @@ package cx.ath.jbzdak.sqlbuilder.xml.parameter;
 
 import cx.ath.jbzdak.sqlbuilder.parameter.IntegerParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
 
 import javax.xml.bind.annotation.XmlType;
 
@@ -38,7 +39,7 @@ public class XmlIntegerParameter extends XmlParameter{
    }
 
    @Override
-   public Parameter<?> createParameter() {
+   public Parameter<?> createParameter(XmlQueryCollection collection) {
       return new IntegerParameter(name);
    }
 }

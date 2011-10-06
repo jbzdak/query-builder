@@ -59,7 +59,7 @@ public class XmlSimpleQuery extends AbstractQuery{
       );
       simpleQuery.setContext(expressionContext);
 
-      simpleQuery.addParameters(parameters.getParameters());
+      simpleQuery.addParameters(parameters.getParameters(queryCollection));
       simpleQuery.setName(name);
       simpleQuery.setDescription(description);
       return simpleQuery;

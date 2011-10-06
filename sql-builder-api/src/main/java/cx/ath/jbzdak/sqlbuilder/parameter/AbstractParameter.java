@@ -19,6 +19,12 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
+import cx.ath.jbzdak.sqlbuilder.ParameterDescriptor;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -58,5 +64,9 @@ public abstract class AbstractParameter<T> implements Parameter<T> {
 
    public String getType() {
       return type;
+   }
+
+   public List<ParameterDescriptor> getValues() {
+      return Collections.emptyList();
    }
 }

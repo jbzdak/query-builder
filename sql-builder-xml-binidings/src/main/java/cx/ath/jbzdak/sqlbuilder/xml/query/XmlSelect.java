@@ -45,8 +45,9 @@ public class XmlSelect extends AbstractQuery{
    XmlBooleanCondition where;
 
    public Select createQuery(XmlQueryCollection queryCollection) {
+
       ExpressionConfig config = xmlExpressionConfig.createConfig(queryCollection.getDefaultExpressionConfig());
-      ExpressionContext expressionContext = new ExpressionContext(queryCollection.getDialect());
+      ExpressionContext expressionContext = new ExpressionContext(config);
       UnsafeSelect select = new UnsafeSelect(expressionContext);
       for (Object o: this.select) {
          Factory<IntermediateSQLFactory> f = (Factory<IntermediateSQLFactory>) o;
@@ -57,7 +58,7 @@ public class XmlSelect extends AbstractQuery{
          select.addFrom(f.create());
       }
       select.setWhere(where.create());
-      select.addParameters(parameters.getParameters());
+      select.addParameters(parameters.getParameters(queryCollection));
       return select;
    }
 

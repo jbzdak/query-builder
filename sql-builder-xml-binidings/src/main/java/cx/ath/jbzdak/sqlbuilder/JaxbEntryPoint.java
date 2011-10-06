@@ -19,15 +19,32 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import java.util.List;
+import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 
 /**
  * Created by: Jacek Bzdak
  */
-public interface QueryManager extends QueryCollection{
+public class JaxbEntryPoint {
 
-   SQLObject getByName(String name);
+   public static final JAXBContext DEFAULT_CONTEXT = buildContext("");
 
-   List<String> getQueryNames();
+   public static final String DEFAULT_JAXB_PACKAGES =
+           "cx.ath.jbzdak.sqlbuilder.xml";
+
+   public static JAXBContext buildContext(String additionalPackages){
+
+      String context = DEFAULT_JAXB_PACKAGES;
+      if(additionalPackages != null && context.length()!=0){
+         context+=":" + additionalPackages;
+      }
+      try {
+         return JAXBContext.newInstance(context);
+      } catch (JAXBException e) {
+         throw new RuntimeException(e);
+      }
+   }
+
 
 }

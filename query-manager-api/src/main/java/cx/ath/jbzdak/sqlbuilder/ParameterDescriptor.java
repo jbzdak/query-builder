@@ -19,32 +19,16 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import javax.xml.bind.JAXB;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import java.util.List;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class QueryCollectionFactory {
+public interface ParameterDescriptor {
 
-   public static final JAXBContext DEFAULT_CONTEXT = buildContext("");
+   String getName();
 
-   public static final String DEFAULT_JAXB_PACKAGES =
-           "cx.ath.jbzdak.sqlbuilder.xml:cx.ath.jbzdak.sqlbuilder.xml.query:cx.ath.jbzdak.sqlbuilder.xml.parameter";
+   String getType();
 
-   public static JAXBContext buildContext(String additionalPackages){
-
-      String context = DEFAULT_JAXB_PACKAGES;
-      if(additionalPackages != null && context.length()!=0){
-         context+=":" + additionalPackages;
-      }
-      try {
-         return JAXBContext.newInstance(context);
-      } catch (JAXBException e) {
-         throw new RuntimeException(e);
-      }
-   }
-
-
+   List<ParameterDescriptor> getValues();
 }

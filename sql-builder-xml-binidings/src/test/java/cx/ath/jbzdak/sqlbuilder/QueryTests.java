@@ -23,7 +23,6 @@ import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 
 /**
@@ -36,7 +35,7 @@ public class QueryTests {
 
    @Before
    public void setUp() throws Exception {
-      Unmarshaller unmarshaller = QueryCollectionFactory.DEFAULT_CONTEXT.createUnmarshaller();
+      Unmarshaller unmarshaller = JaxbEntryPoint.DEFAULT_CONTEXT.createUnmarshaller();
       xmlQueryCollection = (XmlQueryCollection) unmarshaller.unmarshal(getClass().getResourceAsStream("/test-queries.xml"));
       xmlQueryCollection.prepare();
    }

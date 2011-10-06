@@ -17,31 +17,14 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.xml.parameter;
-
-import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
-import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
-
-import javax.xml.bind.annotation.XmlType;
+package cx.ath.jbzdak.sqlbuilder;
 
 /**
  * Created by: Jacek Bzdak
  */
-@XmlType(name = "defaultParameter")
-public class XmlDefaultParameter extends XmlParameter{
+public interface ParameterValueDescriptor {
 
-   public XmlDefaultParameter() {
-   }
+   String getValue();
 
-   public XmlDefaultParameter(String name, String defaultValue) {
-      super(name, defaultValue);
-   }
-
-   @Override
-   public Parameter<?> createParameter(XmlQueryCollection collection) {
-      DefaultParameter defaultParameter = new DefaultParameter(getName());
-      defaultParameter.setDefaultValue(getDefaultValue());
-      return defaultParameter;
-   }
+   String getLabel();
 }

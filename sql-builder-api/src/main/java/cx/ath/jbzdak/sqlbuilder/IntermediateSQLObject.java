@@ -71,7 +71,7 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory {
       HashSet<String> result = new HashSet<String>();
       result.addAll(context.collectParameters(this, children));
       result.addAll(context.collectParameters(this, sqlParts));
-      return result;
+      return Collections.unmodifiableSet(result);
    }
 
    private void collectSingleField(Field f){

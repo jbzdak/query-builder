@@ -19,6 +19,8 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
+import java.util.List;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -33,5 +35,9 @@ public interface BasicSQLFactory {
    String toSQL();
 
    Object setParameterValue(String parameterName, Object value);
+
+   List<ParameterDescriptor> getParameters();
+
+
 
 }

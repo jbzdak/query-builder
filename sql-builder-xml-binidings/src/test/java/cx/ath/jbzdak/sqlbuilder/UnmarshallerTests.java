@@ -24,7 +24,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.xml.bind.Unmarshaller;
-import java.io.StringReader;
 
 /**
  * Created by: Jacek Bzdak
@@ -35,7 +34,7 @@ public class UnmarshallerTests {
 
    @Before
    public void setUp() throws Exception {
-      unmarshaller = QueryCollectionFactory.DEFAULT_CONTEXT.createUnmarshaller();
+      unmarshaller = JaxbEntryPoint.DEFAULT_CONTEXT.createUnmarshaller();
    }
 
 
