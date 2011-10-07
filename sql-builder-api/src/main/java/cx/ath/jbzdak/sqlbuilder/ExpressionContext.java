@@ -22,10 +22,7 @@ package cx.ath.jbzdak.sqlbuilder;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
-import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.*;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -173,7 +170,9 @@ public class ExpressionContext {
 
    public void addParameter(Parameter p){
       Parameter oldParam = parameters.get(p.getName());
-      if(oldParam != null && ! oldParam.equals(p)){
+      if(oldParam != null &&
+              ! ParameterType.DEFAULTT_PARAMETER.equals(oldParam.getType()) &&
+              ! oldParam.getType().equals(p.getType())){
          throw new ParameterSetTwice("Parameter '" + p.getName() + "' is set twice, and it should be set only once.");
       }
       parameters.put(p.getName(), p);

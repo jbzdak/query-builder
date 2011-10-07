@@ -28,6 +28,7 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.IntegerParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 import org.junit.Test;
 
@@ -61,7 +62,7 @@ public class TestParameterLogic {
 
    @Test(expected = ParameterSetTwice.class)
    public void testSetTheSameParameterTwice() throws Exception {
-      select.addParameter(new DefaultParameter("foo"));
+      select.addParameter(new IntegerParameter("foo"));
       select.addParameter(new TableParameter("foo"));
    }
 }
