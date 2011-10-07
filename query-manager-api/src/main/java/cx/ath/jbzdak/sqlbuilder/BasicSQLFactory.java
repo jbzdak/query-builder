@@ -20,6 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by: Jacek Bzdak
@@ -36,8 +37,5 @@ public interface BasicSQLFactory {
 
    Object setParameterValue(String parameterName, Object value);
 
-   List<ParameterDescriptor> getParameters();
-
-
-
+   Set<? extends ParameterDescriptor> getParameters();
 }
