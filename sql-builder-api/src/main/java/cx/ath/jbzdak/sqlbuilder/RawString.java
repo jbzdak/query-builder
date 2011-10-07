@@ -19,12 +19,13 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class RawString extends SQLObject{
+public class RawString extends PeerIntermediateSQLObject{
 
 
    public RawString(String rawString) {

@@ -47,7 +47,6 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory {
       propertyChangeSupport.addPropertyChangeListener(new PropagateContextPCL());
    }
 
-
    public void collectChildren() {
       children.clear();
       sqlParts.clear();

@@ -20,8 +20,10 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.Alias;
+import cx.ath.jbzdak.sqlbuilder.IdenitfierPart;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
+import cx.ath.jbzdak.sqlbuilder.dialect.QuotingManager;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 
 /**
@@ -35,7 +37,8 @@ public class AliasPeer extends AbstractPeer<Alias> {
        stringBuilder.append(' ');
       IdentifierQuotingStrategy quotingStrategy =
               (IdentifierQuotingStrategy) renderingContext.getDialect().getDialectConfig().getConfig(DialectConfigKey.ALIAS_QUOTING_STRATEGY);
-      stringBuilder.append(renderingContext.quoteIdentifier(parent.getAlias(), quotingStrategy));
+      QuotingManager quotingManager = renderingContext.getQuotingManager();
+      stringBuilder.append(quotingManager.quoteIdentifier(parent.getAlias(), quotingStrategy, IdenitfierPart.ALIAS));
       stringBuilder.append(' ');
    }
 

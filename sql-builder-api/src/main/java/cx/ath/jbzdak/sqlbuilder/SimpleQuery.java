@@ -23,6 +23,7 @@ import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by: Jacek Bzdak
@@ -35,13 +36,16 @@ public class SimpleQuery extends IntermediateSQLObject implements SQLFactory{
 
    String description;
 
-
-
    public SimpleQuery() {
    }
 
    public SimpleQuery(String sql) {
       this.sql = sql;
+   }
+
+   public Set<? extends ParameterDescriptor> getParameters() {
+      collectParameters();
+      return getContext().getParameters();
    }
 
    public String getSql() {

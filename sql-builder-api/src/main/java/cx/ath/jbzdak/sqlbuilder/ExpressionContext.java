@@ -51,6 +51,8 @@ public class ExpressionContext {
    Map<IntermediateSQLFactory, Set<String>> parametersByItem
            = new HashMap<IntermediateSQLFactory, Set<String>>();
 
+
+
    public ExpressionContext() {
       this(DialectHolder.getDefaultDialect());
    }
@@ -131,6 +133,20 @@ public class ExpressionContext {
       return collected;
    }
 
+   public Set<Parameter> getParameters(){
+      return Collections.unmodifiableSet(new HashSet<Parameter>(parameters.values()));
+   }
+
+   public Set<Parameter> getParametersForItem(IntermediateSQLFactory intermediateSQLFactory){
+      if(rootExpression.equals(intermediateSQLFactory)){
+         return getParameters();
+      }
+      Set<Parameter> result = new HashSet<Parameter>();
+      for (String name : parametersByItem.get(intermediateSQLFactory)) {
+         result.add(parameters.get(name));
+      }
+      return Collections.unmodifiableSet(result);
+   }
 
 
 

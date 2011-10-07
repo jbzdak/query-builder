@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
+import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.SQLObject;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
@@ -28,7 +29,7 @@ import java.util.Set;
 /**
  * Created by: Jacek Bzdak
  */
-public class Range extends SQLObject{
+public class Range extends PeerIntermediateSQLObject{
 
    private SQLLiteral from;
 

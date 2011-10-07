@@ -19,15 +19,23 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
+import cx.ath.jbzdak.sqlbuilder.IdenitfierPart;
+
 /**
  * Created by: Jacek Bzdak
  */
 public interface QuotingManager {
 
-   String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy);
+   String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy, IdenitfierPart idenitfierPart);
+
+   String quoteIdentifier(CharSequence ident, IdenitfierPart idenitfierPart);
 
    String quoteIdentifier(CharSequence ident);
 
    String quoteString(CharSequence quote);
+
+   public boolean identifierNeedsQuoting(CharSequence ident, IdenitfierPart idenitfierPart);
+
+   public boolean identifierNeedsQuoting(CharSequence ident);
 
 }

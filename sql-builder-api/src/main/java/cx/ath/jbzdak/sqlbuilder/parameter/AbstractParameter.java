@@ -20,6 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
 import cx.ath.jbzdak.sqlbuilder.ParameterDescriptor;
+import cx.ath.jbzdak.sqlbuilder.ParameterValueDescriptor;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -66,7 +67,24 @@ public abstract class AbstractParameter<T> implements Parameter<T> {
       return type;
    }
 
-   public List<ParameterDescriptor> getValues() {
+   public List<ParameterValueDescriptor> getValues() {
       return Collections.emptyList();
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof AbstractParameter)) return false;
+
+      AbstractParameter that = (AbstractParameter) o;
+
+      if (name != null ? !name.equals(that.name) : that.name != null) return false;
+
+      return true;
+   }
+
+   @Override
+   public int hashCode() {
+      return name != null ? name.hashCode() : 0;
    }
 }

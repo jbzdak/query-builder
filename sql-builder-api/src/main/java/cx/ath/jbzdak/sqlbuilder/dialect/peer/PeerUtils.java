@@ -36,9 +36,9 @@ class PeerUtils {
       table = renderingContext.replaceParams(table);
       column = renderingContext.replaceParams(column);
 
-      schema = renderingContext.quoteIdentifier(schema, strategy);
-      table = renderingContext.quoteIdentifier(table, strategy);
-      column =  renderingContext.quoteIdentifier(column, strategy);
+      schema = renderingContext.quoteIdentifier(schema, strategy, IdenitfierPart.SCHEMA_NAME);
+      table = renderingContext.quoteIdentifier(table, strategy, IdenitfierPart.TABLE_NAME);
+      column =  renderingContext.quoteIdentifier(column, strategy, IdenitfierPart.COLUMN_NAME);
 
       stringBuilder.append(' ');
 

@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import cx.ath.jbzdak.sqlbuilder.IdenitfierPart;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.SelectAllExpression;
 import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
@@ -40,11 +41,11 @@ public class SelectAllPeer extends AbstractPeer<SelectAllExpression> {
       }
 
       if(parent.getSchema() != null){
-         stringBuilder.append(renderingContext.quoteIdentifier(parent.getSchema()));
+         stringBuilder.append(renderingContext.quoteIdentifier(parent.getSchema(), IdentifierQuotingStrategy.DEFAULT, IdenitfierPart.SCHEMA_NAME));
          stringBuilder.append(".");
       }
       if(parent.getTable() != null){
-         stringBuilder.append(renderingContext.quoteIdentifier(parent.getTable()));
+         stringBuilder.append(renderingContext.quoteIdentifier(parent.getTable(), IdentifierQuotingStrategy.DEFAULT, IdenitfierPart.SCHEMA_NAME));
          stringBuilder.append(".");
       }
       stringBuilder.append("*");

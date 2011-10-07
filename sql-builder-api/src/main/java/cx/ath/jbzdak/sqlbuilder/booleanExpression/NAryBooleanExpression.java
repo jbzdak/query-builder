@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.booleanExpression;
 
+import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
 import cx.ath.jbzdak.sqlbuilder.SQLObject;
 
 import java.security.InvalidParameterException;
@@ -27,7 +28,7 @@ import java.util.*;
 /**
  * Created by: Jacek Bzdak
  */
-public class NAryBooleanExpression extends SQLObject implements BooleanExpressionMarker {
+public class NAryBooleanExpression extends PeerIntermediateSQLObject implements BooleanExpressionMarker {
 
    protected List<BooleanExpressionMarker> expressions = new ArrayList<BooleanExpressionMarker>();
 

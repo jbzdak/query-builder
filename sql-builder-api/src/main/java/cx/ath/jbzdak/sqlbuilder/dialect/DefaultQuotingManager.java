@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
+import cx.ath.jbzdak.sqlbuilder.IdenitfierPart;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.InvalidConfigurationException;
@@ -32,7 +33,7 @@ import java.util.regex.Pattern;
 /**
  * Created by: Jacek Bzdak
  */
-public class DefaultQuotingManager implements QuotingManager{
+public class DefaultQuotingManager extends AbstractQuotingManager {
 
    final DialectConfig dialectConfig;
 
@@ -44,34 +45,7 @@ public class DefaultQuotingManager implements QuotingManager{
 
    final String stringQuoteReplace;
 
-
-   /**
-    *
-    * @param dialectConfig
-    * @param identifierQuote Character that is used to quote identifiers
-    * @param identifierQuoteReplace if identifier contains {@code identifierQuote} it will be treplaces with {@code identifierQuoteReplace}
-    * @param stringQuote     Character that is used to quote strings
-    * @param stringQuoteReplace      if identifier strings {@code stringQuote} it will be treplaces with {@code stringQuoteReplace}
-    */
-   public DefaultQuotingManager(DialectConfig dialectConfig, String identifierQuote, String identifierQuoteReplace, String stringQuote, String stringQuoteReplace) {
-      this.dialectConfig = dialectConfig;
-      this.identifierQuote = identifierQuote;
-      this.identifierQuoteReplace = identifierQuoteReplace;
-      this.stringQuote = stringQuote;
-      this.stringQuoteReplace = stringQuoteReplace;
-   }
-
-
-   public boolean identifierNeedsQuoting(String identifier){
-      try {
-         Charset.forName("ASCII").newEncoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(identifier));
-         return false;
-      } catch (CharacterCodingException e) {
-         return true;
-      }
-   }
-
-   public String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy) {
+   public String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy, IdenitfierPart idenitfierPart) {
       if(strategy == null){
          throw  new NullPointerException("strategy parameter of Dialect.quoteIdentifier must not be null  (and is null)");
       }
@@ -97,11 +71,30 @@ public class DefaultQuotingManager implements QuotingManager{
             if(strategy == IdentifierQuotingStrategy.DEFAULT){
                strategy = IdentifierQuotingStrategy.WHEN_NEEDED;
             }
-            return quoteIdentifier(ident, strategy);
+            return quoteIdentifier(ident, strategy, idenitfierPart);
          default:
             throw new IllegalStateException();
       }
    }
+
+
+
+   /**
+    *
+    * @param dialectConfig
+    * @param identifierQuote Character that is used to quote identifiers
+    * @param identifierQuoteReplace if identifier contains {@code identifierQuote} it will be treplaces with {@code identifierQuoteReplace}
+    * @param stringQuote     Character that is used to quote strings
+    * @param stringQuoteReplace      if identifier strings {@code stringQuote} it will be treplaces with {@code stringQuoteReplace}
+    */
+   public DefaultQuotingManager(DialectConfig dialectConfig, String identifierQuote, String identifierQuoteReplace, String stringQuote, String stringQuoteReplace) {
+      this.dialectConfig = dialectConfig;
+      this.identifierQuote = identifierQuote;
+      this.identifierQuoteReplace = identifierQuoteReplace;
+      this.stringQuote = stringQuote;
+      this.stringQuoteReplace = stringQuoteReplace;
+   }
+
 
    private String quote(CharSequence ident, String quote, String quoteReplace){
       String id = ident.toString();
@@ -109,10 +102,15 @@ public class DefaultQuotingManager implements QuotingManager{
       return quote + id + quote;
    }
 
-
-   public String quoteIdentifier(CharSequence ident) {
-      return quoteIdentifier(ident, IdentifierQuotingStrategy.DEFAULT);
+   public boolean identifierNeedsQuoting(CharSequence ident, IdenitfierPart idenitfierPart) {
+      try {
+         Charset.forName("ASCII").newEncoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(ident));
+         return false;
+      } catch (CharacterCodingException e) {
+         return true;
+      }
    }
+
 
    public String quoteString(CharSequence quote) {
       return quote(quote, stringQuote, stringQuoteReplace);

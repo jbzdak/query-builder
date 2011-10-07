@@ -52,6 +52,11 @@ public class Select extends SQLObject{
       super(expressionContext);
    }
 
+   public Set<? extends ParameterDescriptor> getParameters() {
+      collectParameters();
+      return context.getParameters();
+   }
+
    public void addColumnExpression(ColumnExpression... columnExpression){
       columnExpressions.addAll(Arrays.asList(columnExpression));
    }

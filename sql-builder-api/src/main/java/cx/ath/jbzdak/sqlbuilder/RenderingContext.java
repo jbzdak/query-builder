@@ -20,6 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
+import cx.ath.jbzdak.sqlbuilder.dialect.QuotingManager;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
@@ -63,12 +64,8 @@ public class RenderingContext{
       parentExpressions.push(sqlFactory);
    }
 
-   public String quoteIdentifier(String ident) {
-      return getDialect().quoteIdentifier(ident);
-   }
-
-   public String quoteIdentifier(String ident, IdentifierQuotingStrategy strategy) {
-      return getDialect().quoteIdentifier(ident, strategy);
+   public QuotingManager getQuotingManager() {
+      return getDialect().getQuotingManager();
    }
 
    public IntermediateSQLFactory getRootExpression(){
@@ -95,16 +92,8 @@ public class RenderingContext{
       return contextInfo.getParentSelect();
    }
 
-   public String quoteString(CharSequence quote) {
-      return getDialect().quoteString(quote);
-   }
-
-   public String quoteIdentifier(CharSequence ident) {
-      return getDialect().quoteIdentifier(ident);
-   }
-
-   public String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy) {
-      return getDialect().quoteIdentifier(ident, strategy);
+   public String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy, IdenitfierPart idenitfierPart) {
+      return getQuotingManager().quoteIdentifier(ident, strategy, idenitfierPart);
    }
 
    /**
@@ -132,6 +121,9 @@ public class RenderingContext{
    }
 
 
+   public String quoteString(CharSequence quote) {
+      return getQuotingManager().quoteString(quote);
+   }
 
    public ExpressionContext getExpressionContext() {
       return expressionContext;

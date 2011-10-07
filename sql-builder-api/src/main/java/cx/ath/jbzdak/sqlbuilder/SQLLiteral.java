@@ -25,7 +25,7 @@ import java.util.Set;
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class SQLLiteral<T> extends SQLObject implements SQLFactory {
+public abstract class SQLLiteral<T> extends PeerIntermediateSQLObject{
 
    protected String literalType;
 
