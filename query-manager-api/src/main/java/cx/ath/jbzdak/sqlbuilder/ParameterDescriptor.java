@@ -30,5 +30,5 @@ public interface ParameterDescriptor {
 
    String getType();
 
-   List<ParameterDescriptor> getValues();
+   List<ParameterValueDescriptor> getValues();
 }
