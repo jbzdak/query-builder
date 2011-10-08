@@ -20,19 +20,14 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.InvalidConfigurationException;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.DefaultTransformer;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
-import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
-import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
-import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.ParameterFactory;
 
 import java.security.InvalidParameterException;
 import java.util.Map;
@@ -45,9 +40,11 @@ public abstract class AbstractDialect implements Dialect{
 
    private volatile Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> transformerMap;
 
-   protected Transformer<BoundParameter, Parameter<?>> parameterFactory;
+   protected Transformer<BoundParameter, Parameter<?>> boundParameterFactory;
 
    protected QuotingManager quotingManager;
+
+   protected ParameterFactory parameterFactory;
 
    protected abstract Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap();
 
@@ -86,17 +83,21 @@ public abstract class AbstractDialect implements Dialect{
    private void updateFromDialectConfigInternal(){
       dialectConfig.setDialect(this);
       if(dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY) == null){
-         parameterFactory = createDefaultParameterFactory();
+         boundParameterFactory = createDefaultParameterFactory();
       }else{
-         parameterFactory =  (Transformer<BoundParameter, Parameter<?>>) dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY);
+         boundParameterFactory =  (Transformer<BoundParameter, Parameter<?>>) dialectConfig.getConfig(DialectConfigKey.PARAMETER_FACTORY);
       }
       quotingManager = createDefaultQuotingManager();
    }
 
    public <T> BoundParameter bindParameter(Parameter<T> source, T value) {
-      BoundParameter boundParameter = parameterFactory.transform(source);
+      BoundParameter boundParameter = boundParameterFactory.transform(source);
       boundParameter.setValue(value);
       return boundParameter;
+   }
+
+   public Parameter createParameter(String name, String type) {
+      return parameterFactory.createParameter(name, type);
    }
 
    /**

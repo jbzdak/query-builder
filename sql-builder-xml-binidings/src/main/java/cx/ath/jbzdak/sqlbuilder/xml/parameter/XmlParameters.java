@@ -48,9 +48,10 @@ public class XmlParameters {
    }
 
    @XmlElements({
-           @XmlElement(name = "parameter", type = XmlDefaultParameter.class),
+//           @XmlElement(name = "parameter", type = XmlDefaultParameter.class),
            @XmlElement(name = "tableParameter", type =XmlTableParameter.class),
-           @XmlElement(name = "integerParameter", type =XmlIntegerParameter.class)
+           @XmlElement(name = "integerParameter", type =XmlIntegerParameter.class),
+           @XmlElement(name = "parameter", type = TypedParameter.class)
    })
    public List<XmlParameter> getXmlParameters() {
       return xmlParameters;

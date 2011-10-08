@@ -148,4 +148,8 @@ public class XmlQueryCollection implements QueryCollection{
    public void setJdbcUrl(String jdbc) {
       //To change body of implemented methods use File | Settings | File Templates.
    }
+
+   public void setCredentials(String username, String password) {
+      //To change body of implemented methods use File | Settings | File Templates.
+   }
 }

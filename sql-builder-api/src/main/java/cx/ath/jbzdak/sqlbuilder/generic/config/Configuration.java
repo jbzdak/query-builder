@@ -17,20 +17,29 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+package cx.ath.jbzdak.sqlbuilder.generic.config;
 
-import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
-import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class ParameterPeer extends AbstractPeer<BoundParameter>{
+public class Configuration {
 
-   @Override
-   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      SQLLiteral literal = renderingContext.getDialect().getLiteralFactory().create(parent.getType(), parent.getValue());
-      literal.appendTo(renderingContext, stringBuilder);
+   private final Map<ConfigurationKey, Object> configuration
+           = new HashMap<ConfigurationKey, Object>();
+
+
+   public <T> T put(ConfigurationKey<T> key, T value){
+      return (T) configuration.put(key, value);
+   }
+
+   public <T> T get(ConfigurationKey<T> key){
+      T result = (T) configuration.get(key);
+      if(result == null){
+         result = key.getDefault(this);
+      }
+      return result;
    }
 }

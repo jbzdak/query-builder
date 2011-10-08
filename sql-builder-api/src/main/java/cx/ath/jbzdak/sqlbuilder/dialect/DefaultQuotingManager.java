@@ -45,6 +45,12 @@ public class DefaultQuotingManager extends AbstractQuotingManager {
 
    final String stringQuoteReplace;
 
+   public static String quote(CharSequence ident, String quote, String quoteReplace){
+      String id = ident.toString();
+      id = id.replaceAll(Pattern.quote(quote), quoteReplace);
+      return quote + id + quote;
+   }
+
    public String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy, IdenitfierPart idenitfierPart) {
       if(strategy == null){
          throw  new NullPointerException("strategy parameter of Dialect.quoteIdentifier must not be null  (and is null)");
@@ -93,13 +99,6 @@ public class DefaultQuotingManager extends AbstractQuotingManager {
       this.identifierQuoteReplace = identifierQuoteReplace;
       this.stringQuote = stringQuote;
       this.stringQuoteReplace = stringQuoteReplace;
-   }
-
-
-   private String quote(CharSequence ident, String quote, String quoteReplace){
-      String id = ident.toString();
-      id = id.replaceAll(Pattern.quote(quote), quoteReplace);
-      return quote + id + quote;
    }
 
    public boolean identifierNeedsQuoting(CharSequence ident, IdenitfierPart idenitfierPart) {

@@ -17,20 +17,27 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+package cx.ath.jbzdak.sqlbuilder.postgresql;
 
-import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
-import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
+import cx.ath.jbzdak.sqlbuilder.postgresql.config.StringQuotingStyle;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class ParameterPeer extends AbstractPeer<BoundParameter>{
+public class PostgreStringLiteral extends StringLiteral{
 
-   @Override
-   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      SQLLiteral literal = renderingContext.getDialect().getLiteralFactory().create(parent.getType(), parent.getValue());
-      literal.appendTo(renderingContext, stringBuilder);
+   private StringQuotingStyle quotingStyle = StringQuotingStyle.DEFAULT;
+
+   public StringQuotingStyle getQuotingStyle() {
+      return quotingStyle;
    }
+
+   public void setQuotingStyle(StringQuotingStyle quotingStyle) {
+      StringQuotingStyle oldQuotingStyle = this.quotingStyle;
+      this.quotingStyle = quotingStyle;
+      propertyChangeSupport.firePropertyChange("quotingStyle", oldQuotingStyle, this.quotingStyle);
+   }
+
+
 }

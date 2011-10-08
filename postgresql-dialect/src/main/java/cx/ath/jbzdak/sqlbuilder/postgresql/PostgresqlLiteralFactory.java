@@ -17,20 +17,23 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+package cx.ath.jbzdak.sqlbuilder.postgresql;
 
-import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
-import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import cx.ath.jbzdak.sqlbuilder.SQLLiteralType;
+import cx.ath.jbzdak.sqlbuilder.literal.DefaultLiteralFactory;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class ParameterPeer extends AbstractPeer<BoundParameter>{
+public class PostgresqlLiteralFactory extends DefaultLiteralFactory{
+
+   public PostgresqlLiteralFactory() {
+      addLiteralType(SQLLiteralType.STRING, PostgreStringLiteral.class);
+   }
 
    @Override
-   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      SQLLiteral literal = renderingContext.getDialect().getLiteralFactory().create(parent.getType(), parent.getValue());
-      literal.appendTo(renderingContext, stringBuilder);
+   public PostgreStringLiteral create(String value) {
+      return (PostgreStringLiteral) super.create(value);
    }
 }

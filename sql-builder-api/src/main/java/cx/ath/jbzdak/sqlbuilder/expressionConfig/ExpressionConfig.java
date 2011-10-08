@@ -20,10 +20,12 @@
 package cx.ath.jbzdak.sqlbuilder.expressionConfig;
 
 import cx.ath.jbzdak.sqlbuilder.Dialect;
+import cx.ath.jbzdak.sqlbuilder.generic.config.Configuration;
+import cx.ath.jbzdak.sqlbuilder.generic.config.ConfigurationKey;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 /**
  * Created by: Jacek Bzdak
@@ -34,11 +36,21 @@ public class ExpressionConfig {
 
    private final Map<ExpressionConfigKey, Object> values = new EnumMap<ExpressionConfigKey, Object>(ExpressionConfigKey.class);
 
+   private final Configuration configuration = new Configuration();
+
    public ExpressionConfig() {
    }
 
    public ExpressionConfig(ExpressionConfig expressionConfig) {
       values.putAll(expressionConfig.values);
+   }
+
+   public <T> T put(ConfigurationKey<T> key, T value) {
+      return configuration.put(key, value);
+   }
+
+   public <T> T get(ConfigurationKey<T> key) {
+      return configuration.get(key);
    }
 
    public Object get(ExpressionConfigKey key){

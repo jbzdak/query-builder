@@ -23,6 +23,8 @@ import cx.ath.jbzdak.sqlbuilder.Dialect;
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
+import cx.ath.jbzdak.sqlbuilder.generic.config.Configuration;
+import cx.ath.jbzdak.sqlbuilder.generic.config.ConfigurationKey;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -37,6 +39,8 @@ public class DialectConfig {
 
    final Map<DialectConfigKey, Object> config
            = new ConcurrentHashMap<DialectConfigKey, Object>();
+
+   final Configuration configuration = new Configuration();
 
    public DialectConfig() {
    }
@@ -54,6 +58,14 @@ public class DialectConfig {
       this.d = d;
    }
 
+   public <T> T put(ConfigurationKey<T> key, T value) {
+      return configuration.put(key, value);
+   }
+
+   public <T> T get(ConfigurationKey<T> key) {
+      return configuration.get(key);
+   }
+
    public Object getConfig(DialectConfigKey dialectConfigKey){
       Object result = config.get(dialectConfigKey);
       if(result != null){
@@ -66,8 +78,6 @@ public class DialectConfig {
       config.put(dialectConfigKey, value);
    }
 
-
-
    public void addNewPeerMapping(Class<? extends SQLFactory> clazz, Class<? extends SQLPeer> peerClazz){
       if(!config.containsKey(DialectConfigKey.ADDITIONAL_PEERS)){
           config.put(DialectConfigKey.ADDITIONAL_PEERS, DialectConfigKey.ADDITIONAL_PEERS.getDefault(d));
@@ -75,6 +85,4 @@ public class DialectConfig {
       Map<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>> additional =  (Map<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>>) config.get(DialectConfigKey.ADDITIONAL_PEERS);
       additional.put(clazz, peerClazz);
    }
-
-
 }

@@ -12,6 +12,8 @@ public abstract class AbstractQuotingManager implements QuotingManager{
       return quoteIdentifier(ident, IdentifierQuotingStrategy.DEFAULT, idenitfierPart);
    }
 
+
+
    public String quoteIdentifier(CharSequence ident) {
       return quoteIdentifier(ident, IdentifierQuotingStrategy.DEFAULT, IdenitfierPart.UNKNOWM);
    }

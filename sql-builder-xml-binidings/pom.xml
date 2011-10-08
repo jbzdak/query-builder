@@ -45,7 +45,7 @@
                 <!--</execution>-->
                 <!--</executions>-->
                 <configuration>
-                    <project>${project}</project>
+                    <project>sql-builder</project>
                     <!--<destdir>${project.build.directory}/schemas</destdir>-->
                     <!--<srcdir>${project.build.sourceDirectory}/cx/ath/jbzdak/hajmon/db/xml/query</srcdir>-->
                     <!--<verbose>true</verbose>-->
@@ -89,7 +89,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>sql-builder</groupId>
+            <groupId>cx.ath.jbzdak.sql-builder</groupId>
             <artifactId>sql-builder-api</artifactId>
             <version>1.0</version>
         </dependency>

@@ -50,7 +50,7 @@ public class DefaultLiteralFactory implements LiteralFactory {
 
    }
 
-   private void addLiteralType(String type, Class<? extends SQLLiteral> literalTypeClass){
+   protected void addLiteralType(String type, Class<? extends SQLLiteral> literalTypeClass){
       literals.put(type, new NewInstanceFactory<SQLLiteral>(literalTypeClass));
    }
 

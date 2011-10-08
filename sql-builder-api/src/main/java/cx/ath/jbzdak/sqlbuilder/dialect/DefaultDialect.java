@@ -22,8 +22,6 @@ package cx.ath.jbzdak.sqlbuilder.dialect;
 import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.InvalidConfigurationException;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.*;
@@ -32,10 +30,6 @@ import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundDefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundUnquotedParameter;
 
-import java.nio.CharBuffer;
-import java.nio.charset.CharacterCodingException;
-import java.nio.charset.Charset;
-import java.nio.charset.CodingErrorAction;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,16 +40,16 @@ public class DefaultDialect extends AbstractDialect{
 
    public static final String DEFAULT_DIALECT_NAME = "default";
 
-   public DefaultDialect() {
-   }
 
    public DefaultDialect(DialectConfig dialectConfig) {
       super(dialectConfig);
+      parameterFactory = new DefaultParameterFactory();
    }
 
-   DefaultLiteralFactory defaultLiteralFactory = new DefaultLiteralFactory();
+   protected DefaultLiteralFactory defaultLiteralFactory = new DefaultLiteralFactory();
 
-   DefaultBooleanFactory defaultBooleanFactory = new DefaultBooleanFactory();
+   protected DefaultBooleanFactory defaultBooleanFactory = new DefaultBooleanFactory();
+
 
    @Override
    protected Map<Class, Transformer<SQLPeer, IntermediateSQLFactory>> createTransformerMap() {
@@ -109,7 +103,7 @@ public class DefaultDialect extends AbstractDialect{
 
    @Override
    protected Transformer<BoundParameter, Parameter<?>> createDefaultParameterFactory() {
-      return new DefaultParameterFactory();
+      return new DefaultBoundParameterFactory();
    }
 
    @Override

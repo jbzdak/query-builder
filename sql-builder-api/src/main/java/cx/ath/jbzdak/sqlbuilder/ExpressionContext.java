@@ -48,8 +48,6 @@ public class ExpressionContext {
    Map<IntermediateSQLFactory, Set<String>> parametersByItem
            = new HashMap<IntermediateSQLFactory, Set<String>>();
 
-
-
    public ExpressionContext() {
       this(DialectHolder.getDefaultDialect());
    }
@@ -99,6 +97,21 @@ public class ExpressionContext {
       return parameters.size() != 0;
    }
 
+   public <T> T resolveParameter(Parameter<T> parameter){
+      addParameter(parameter);
+      return (T) resolveParameter(parameter.getName());
+   }
+
+   public Object resolveParameter(String parameterName){
+      if(parameterName.startsWith(":")){
+         parameterName = parameterName.substring(1);
+      }
+      BoundParameter boundParameter = getBoundParameters().get(parameterName);
+      if(boundParameter == null){
+         return null;
+      }
+      return boundParameter.getValue();
+   }
 
    public Set<String> collectParameters(IntermediateSQLFactory parent, Collection<?> objects){
       Set<String> collected = parametersByItem.get(parent);

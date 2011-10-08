@@ -21,18 +21,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>sql-builder</artifactId>
+        <groupId>cx.ath.jbzdak.sql-builder</groupId>
+        <version>1.0</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cx.ath.jbzdak.sql-builder</groupId>
-    <artifactId>sql-builder</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0</version>
-    <modules>
-        <module>sql-builder-api</module>
-        <module>sql-builder-xml-binidings</module>
-        <module>query-manager-api</module>
-        <module>postgresql-dialect</module>
-    </modules>
+    <artifactId>postgresql-dialect</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>cx.ath.jbzdak.sql-builder</groupId>
+            <artifactId>sql-builder-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+
+    </dependencies>
 
 
 </project>
