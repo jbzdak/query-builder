@@ -39,7 +39,5 @@ public class IntegerParameter extends AbstractParameter<Integer> {
          return n.intValue();
       }
       throw new UnsupportedOperationException("Cant covert '" +o +"' to integer parameter");
-
-
    }
 }

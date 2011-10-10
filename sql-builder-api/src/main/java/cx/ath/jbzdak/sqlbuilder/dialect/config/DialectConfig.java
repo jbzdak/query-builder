@@ -19,15 +19,16 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect.config;
 
-import cx.ath.jbzdak.sqlbuilder.Dialect;
-import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
-import cx.ath.jbzdak.sqlbuilder.SQLPeer;
+import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.generic.config.Configuration;
 import cx.ath.jbzdak.sqlbuilder.generic.config.ConfigurationKey;
+import org.apache.commons.collections.CollectionUtils;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.nio.charset.MalformedInputException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -85,4 +86,20 @@ public class DialectConfig {
       Map<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>> additional =  (Map<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>>) config.get(DialectConfigKey.ADDITIONAL_PEERS);
       additional.put(clazz, peerClazz);
    }
+
+   public Date parseDate(String date) throws QueryRenderingException{
+      SimpleDateFormat format;
+      List<String> config1 = (List<String>) getConfig(DialectConfigKey.DEFAULT_INPUT_DATE_FORMATS);
+      for (String stringFormat : config1) {
+         format = new SimpleDateFormat(stringFormat);
+         try {
+            return format.parse(date);
+         } catch (ParseException e) {
+            continue;
+         }
+      }
+      throw new QueryRenderingException("Couldn't parse date '" + date + "' using paterns " + Arrays.toString(config1.toArray()));
+   }
+
+
 }

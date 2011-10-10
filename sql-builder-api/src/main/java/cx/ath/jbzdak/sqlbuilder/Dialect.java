@@ -30,6 +30,8 @@ import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.ParameterFactory;
 
+import java.util.Date;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -38,8 +40,6 @@ public interface Dialect {
    String dialectName();
 
    SQLPeer getPeer(IntermediateSQLFactory sqlFactory);
-
-
 
    QuotingManager getQuotingManager();
 
@@ -63,4 +63,5 @@ public interface Dialect {
    void setDialectConfig(DialectConfig dialectConfig);
 
    Parameter createParameter(String name, String type);
+
 }

@@ -37,4 +37,6 @@ public interface Parameter<T>  extends ParameterDescriptor{
    void setDefaultValueAsString(String defaultValue);
 
    T fromObject(Object o);
+
+   T fromString(String string);
 }

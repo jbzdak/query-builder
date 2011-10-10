@@ -20,10 +20,14 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 import cx.ath.jbzdak.sqlbuilder.parameter.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -197,6 +201,15 @@ public class ExpressionContext {
       }
     }
 
+//   public Date parseDate(String string) {
+//      DateFormat dateFormat = new SimpleDateFormat(
+//              (String) getDialectConfig().getConfig(DialectConfigKey.DEFAULT_INPUT_DATE_FORMAT));
+//      try {
+//         return dateFormat.parse(string);
+//      } catch (ParseException e) {
+//         throw new QueryRenderingException("Can't parse '" + string + "' as date", e);
+//      }
+//   }
 
    public ExpressionContext(SQLObject sqlObject) {
       this(sqlObject.getContext().getDialect());

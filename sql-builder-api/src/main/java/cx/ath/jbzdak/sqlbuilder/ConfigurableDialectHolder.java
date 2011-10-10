@@ -70,7 +70,7 @@ public class ConfigurableDialectHolder {
       if(dialectServiceLoader.iterator().hasNext()){
          d = dialectServiceLoader.iterator().next();
       } else {
-         d = new DefaultDialect();
+         d = new DefaultDialect(new DialectConfig());
       }
       d.setDialectConfig(dialectConfig);
       return d;

@@ -24,6 +24,8 @@ import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -67,6 +69,12 @@ public enum DialectConfigKey {
       @Override
       public Object getDefault(Dialect d) {
          return null;
+      }
+   },
+   DEFAULT_INPUT_DATE_FORMATS{
+      @Override
+      public Object getDefault(Dialect d) {
+         return Arrays.asList("yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy");
       }
    };
 

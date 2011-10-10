@@ -37,8 +37,6 @@ public abstract class AbstractParameter<T> implements Parameter<T> {
 
    T defaultValue;
 
-   public abstract T fromString(String string);
-
    protected AbstractParameter(String type, String name) {
       if(name.startsWith(":")){
          name = name.substring(1);

@@ -30,6 +30,8 @@ import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+
 import static cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory.BOOLEAN_FACTORY;
 
 /**
@@ -142,6 +144,13 @@ public class DefaultDialectTests {
       validate();
    }
 
+   @Test
+   public void testFoo() throws Exception {
+      DialectConfig dialectConfig = new DialectConfig();
+
+      System.out.println(dialectConfig.parseDate("2010-12-12"));
+
+   }
 }
 
 

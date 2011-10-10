@@ -20,6 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.dialect.DefaultDialect;
+import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +58,7 @@ public class DialectHolder {
          try {
             return serviceLoader.iterator().next();
          } catch (NoSuchElementException e) {
-            return new DefaultDialect();
+            return new DefaultDialect(new DialectConfig());
          }
       }
 
