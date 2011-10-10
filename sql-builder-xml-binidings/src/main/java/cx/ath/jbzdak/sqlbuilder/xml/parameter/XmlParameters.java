@@ -37,8 +37,7 @@ public class XmlParameters {
 
    List<XmlParameter> xmlParameters = new ArrayList<XmlParameter>();
 
-
-   @XmlTransient
+//   @XmlTransient
    public List<Parameter<?>> getParameters(XmlQueryCollection collection){
       List<Parameter<?>> params = new ArrayList<Parameter<?>>();
       for (XmlParameter parameter : xmlParameters) {

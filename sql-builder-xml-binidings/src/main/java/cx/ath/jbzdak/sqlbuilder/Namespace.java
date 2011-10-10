@@ -23,5 +23,5 @@ package cx.ath.jbzdak.sqlbuilder;
  * Created by: Jacek Bzdak
  */
 public class Namespace {
-   public static final String NAMESPACE = "http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings=1.0.xsd";
+   public static final String NAMESPACE = "http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd";
 }

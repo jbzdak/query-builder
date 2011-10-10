@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" targetNamespace="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd" xmlns:sql="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd" xmlns:tns="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="queryCollection" type="tns:xmlQueryCollection"/>
+
+  <xs:complexType name="xmlQueryCollection">
+    <xs:sequence>
+      <xs:element name="dialectConfig" type="tns:dialectConfig" nillable="true" minOccurs="0"/>
+      <xs:element name="defaultExpressionConfig" type="tns:expressionConfig" nillable="true" minOccurs="0"/>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="simpleQuery" type="tns:simpleQuery"/>
+        <xs:element name="select" type="tns:xml-select"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="dialect" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="dialectConfig">
+    <xs:sequence>
+      <xs:element name="item" type="tns:dialectConfigItem" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dialectConfigItem">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="tns:dialectConfigKey"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="expressionConfig">
+    <xs:sequence>
+      <xs:element name="item" type="tns:expressionConfigItem" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="expressionConfigItem">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="tns:expressionConfigKey"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="simpleQuery">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractQuery">
+        <xs:sequence>
+          <xs:element name="query" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="abstractQuery" abstract="true">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="parameters" type="tns:xmlParameters" nillable="true" minOccurs="0"/>
+      <xs:element name="expressionConfig" type="tns:expressionConfig" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="xmlParameters">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tableParameter" type="tns:xmlTableParameter"/>
+        <xs:element name="integerParameter" type="tns:integerParameter"/>
+        <xs:element name="parameter" type="tns:typedParameter"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="xmlTableParameter">
+    <xs:simpleContent>
+      <xs:extension base="tns:xmlParameter">
+        <xs:attribute name="alias" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="xmlParameter">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="integerParameter">
+    <xs:simpleContent>
+      <xs:extension base="tns:xmlParameter"/>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="typedParameter">
+    <xs:simpleContent>
+      <xs:extension base="tns:xmlParameter">
+        <xs:attribute name="type" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="xml-select">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractQuery">
+        <xs:sequence>
+          <xs:element name="from" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element name="table" type="tns:from"/>
+                  <xs:element name="raw" type="tns:raw"/>
+                </xs:choice>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="sel" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                  <xs:element name="raw" type="tns:raw"/>
+                  <xs:element name="col" type="tns:col"/>
+                </xs:choice>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="where" type="tns:xmlBooleanCondition" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="from">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="schema" type="xs:string"/>
+        <xs:attribute name="as" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="raw">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="col">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="table" type="xs:string"/>
+        <xs:attribute name="schema" type="xs:string"/>
+        <xs:attribute name="as" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="xmlBooleanCondition">
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element name="or" type="tns:or"/>
+        <xs:element name="and" type="tns:and"/>
+        <xs:element name="cond" type="tns:expr"/>
+        <xs:element name="is-null" type="tns:is-null"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="or">
+    <xs:complexContent>
+      <xs:extension base="tns:xmlNargBooleanExpression">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="xmlNargBooleanExpression">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="or" type="tns:or"/>
+        <xs:element name="and" type="tns:and"/>
+        <xs:element name="cond" type="tns:expr"/>
+        <xs:element name="is-null" type="tns:is-null"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="and">
+    <xs:complexContent>
+      <xs:extension base="tns:xmlNargBooleanExpression">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="expr">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+
+  <xs:complexType name="is-null">
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element name="col" type="tns:col"/>
+        <xs:element name="raw" type="tns:raw"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="not" type="xs:boolean" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="dialectConfigKey">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IDENTIFIER_QUOTING_STRATEGY"/>
+      <xs:enumeration value="ALIAS_QUOTING_STRATEGY"/>
+      <xs:enumeration value="TABLE_EXPRESSION_QUOTING_STRATEGY"/>
+      <xs:enumeration value="PRETTIFY_SQL"/>
+      <xs:enumeration value="ADDITIONAL_PEERS"/>
+      <xs:enumeration value="PARAMETER_FACTORY"/>
+      <xs:enumeration value="DEFAULT_INPUT_DATE_FORMATS"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="expressionConfigKey">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DIALECT"/>
+      <xs:enumeration value="IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS"/>
+      <xs:enumeration value="PARAMETER_REGEXP_PATTERN"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
