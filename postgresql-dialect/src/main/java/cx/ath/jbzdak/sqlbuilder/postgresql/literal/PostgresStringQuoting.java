@@ -17,7 +17,7 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.postgresql;
+package cx.ath.jbzdak.sqlbuilder.postgresql.literal;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import com.sun.org.apache.xpath.internal.operations.Quo;

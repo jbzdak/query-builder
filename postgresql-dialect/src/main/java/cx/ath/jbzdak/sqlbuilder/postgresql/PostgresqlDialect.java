@@ -22,7 +22,8 @@ package cx.ath.jbzdak.sqlbuilder.postgresql;
 import cx.ath.jbzdak.sqlbuilder.dialect.DefaultDialect;
 import cx.ath.jbzdak.sqlbuilder.dialect.QuotingManager;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
-import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
+import cx.ath.jbzdak.sqlbuilder.postgresql.literal.PostgresqlLiteralFactory;
+import cx.ath.jbzdak.sqlbuilder.postgresql.literal.PostgresqlQuotingManager;
 
 /**
  * Created by: Jacek Bzdak

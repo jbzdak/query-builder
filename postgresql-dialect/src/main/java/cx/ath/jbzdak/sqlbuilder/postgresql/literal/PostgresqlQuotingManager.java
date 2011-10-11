@@ -17,7 +17,7 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.postgresql;
+package cx.ath.jbzdak.sqlbuilder.postgresql.literal;
 
 import cx.ath.jbzdak.sqlbuilder.IdenitfierPart;
 import cx.ath.jbzdak.sqlbuilder.dialect.AbstractQuotingManager;
