@@ -17,7 +17,7 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.booleanExpression;
+package cx.ath.jbzdak.sqlbuilder.expression;
 
 /**
  * Created by: Jacek Bzdak

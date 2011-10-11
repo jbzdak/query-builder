@@ -17,14 +17,27 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.booleanExpression;
+package cx.ath.jbzdak.sqlbuilder.expression;
 
-import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
+import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
 
 /**
- * Marker interface
  * Created by: Jacek Bzdak
  */
-public interface BooleanExpressionMarker extends IntermediateSQLFactory {
+public class Not extends UnaryBooleanExpresson{
+
+
+   public Not() {
+      expressionType = "NOT";
+   }
+
+   public Not(BooleanExpressionMarker parent) {
+      this();
+      expression = parent;
+   }
+
+   public Not(ColumnExpression parent) {
+      this();
+      expression = parent;
+   }
 }

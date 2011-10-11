@@ -20,7 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.*;
+import cx.ath.jbzdak.sqlbuilder.expression.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;

@@ -20,19 +20,16 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.ConditionType;
+import cx.ath.jbzdak.sqlbuilder.expression.ConditionType;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.text.SimpleDateFormat;
-
-import static cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory.BOOLEAN_FACTORY;
+import static cx.ath.jbzdak.sqlbuilder.expression.BooleanFactory.BOOLEAN_FACTORY;
 
 /**
  * Created by: Jacek Bzdak

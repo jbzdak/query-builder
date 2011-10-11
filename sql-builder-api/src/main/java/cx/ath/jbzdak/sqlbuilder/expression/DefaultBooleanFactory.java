@@ -17,7 +17,7 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.booleanExpression;
+package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
@@ -25,7 +25,6 @@ import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 import java.util.Arrays;
 

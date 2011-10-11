@@ -19,7 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.*;
+import cx.ath.jbzdak.sqlbuilder.expression.*;
 
 /**
  * Created by: Jacek Bzdak

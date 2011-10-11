@@ -37,7 +37,7 @@ public enum ExpressionConfigKey {
    /**
     * If possible queries to ignore missing parametears by omitting parts of a query that contains such parameters.
     *
-    * It is implemented currently in {@link cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpression} ---
+    * It is implemented currently in {@link cx.ath.jbzdak.sqlbuilder.expression.NAryBooleanExpression} ---
     * parts of expression that contain unbound parameters will be omitted.
     *
     *

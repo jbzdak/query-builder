@@ -19,18 +19,13 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanFactory;
-import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.QuotingManager;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
-import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.ParameterFactory;
-
-import java.util.Date;
 
 /**
  * Created by: Jacek Bzdak

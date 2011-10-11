@@ -17,14 +17,12 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.booleanExpression;
+package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.SQLObject;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
-
-import java.util.Set;
 
 /**
  * Created by: Jacek Bzdak

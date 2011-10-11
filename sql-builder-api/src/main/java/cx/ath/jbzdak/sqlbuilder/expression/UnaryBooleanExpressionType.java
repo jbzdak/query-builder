@@ -17,7 +17,7 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.booleanExpression;
+package cx.ath.jbzdak.sqlbuilder.expression;
 
 import fakeEnum.FakeEnum;
 
@@ -26,27 +26,14 @@ import java.util.Collection;
 /**
  * Created by: Jacek Bzdak
  */
-public class ConditionType {
+public class UnaryBooleanExpressionType {
 
-   public static final String LIKE = "LIKE";
+   public static final String IS_NULL = "IS NULL";
+   public static final String IS_NON_NULL = "IS NOT NULL";
 
-   public static final String EQUALS = "=";
+//   public static final String NOT = "NOT";
 
-   public static final String NE = "<>";
-
-   public static final String LT = "<";
-
-   public static final String GT = ">";
-
-   public static final String LTE = "<=";
-
-   public static final String GTE = ">=";
-
-   public static final String IN = "IN";
-
-   private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(ConditionType.class, String.class);
-
-
+   private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(UnaryBooleanExpressionType.class, String.class);
 
    public static String nameOf(String value) {
       return FAKE_ENUM.nameOf(value);

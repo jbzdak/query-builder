@@ -20,7 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.Not;
+import cx.ath.jbzdak.sqlbuilder.expression.Not;
 
 /**
  * Created by: Jacek Bzdak

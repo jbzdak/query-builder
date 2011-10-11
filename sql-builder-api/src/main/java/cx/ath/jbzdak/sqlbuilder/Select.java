@@ -19,7 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
 import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
 import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 

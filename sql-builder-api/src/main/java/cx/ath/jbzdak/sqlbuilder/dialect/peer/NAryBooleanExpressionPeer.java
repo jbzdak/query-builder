@@ -20,7 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.expression.NAryBooleanExpression;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 
 /**

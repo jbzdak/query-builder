@@ -21,7 +21,7 @@ package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.Condition;
+import cx.ath.jbzdak.sqlbuilder.expression.Condition;
 
 /**
  * Created by: Jacek Bzdak

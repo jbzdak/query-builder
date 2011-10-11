@@ -17,10 +17,9 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.booleanExpression;
+package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
-import cx.ath.jbzdak.sqlbuilder.SQLObject;
 
 import java.security.InvalidParameterException;
 import java.util.*;
