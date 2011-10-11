@@ -30,7 +30,7 @@ public class ParameterLiteralPeer  extends AbstractPeer<ParameterLiteral>{
 
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      stringBuilder.append(":");
+      stringBuilder.append(" :");
       stringBuilder.append(parent.getLiteralValue().getName());
       stringBuilder.append(" ");
    }
