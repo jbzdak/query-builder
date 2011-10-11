@@ -30,9 +30,9 @@ public interface BooleanFactory {
 
    public static final DefaultBooleanFactory BOOLEAN_FACTORY = new DefaultBooleanFactory();
 
-   BooleanExpressionMarker and(BooleanExpressionMarker... childExpressions);
+   NAryBooleanExpression and(BooleanExpressionMarker... childExpressions);
 
-   BooleanExpressionMarker or(BooleanExpressionMarker... childExpressios);
+   NAryBooleanExpression or(BooleanExpressionMarker... childExpressios);
 
    BooleanExpressionMarker not(BooleanExpressionMarker child);
 
@@ -43,4 +43,6 @@ public interface BooleanFactory {
    BooleanExpressionMarker like(ColumnExpression columnExpression, StringLiteral stringLiteral);
 
    BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression, SQLLiteral<?> stringLiteral);
+
+   BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression, ColumnExpression stringLiteral);
 }
