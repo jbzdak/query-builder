@@ -37,6 +37,10 @@ public class ParameterType {
 
    public static final String FLOAT_PARAMETER = SQLLiteralType.FLOATING_POINT;
 
+   public static final String DOUBLE_PARAMETER = SQLLiteralType.DOUBLE;
+
+
+
    public static final String NUMERIC_PARAMETER = SQLLiteralType.DOUBLE;
 
    public static final String QUOTED_STRING = SQLLiteralType.STRING;

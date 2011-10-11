@@ -22,16 +22,16 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class AbstractJoin extends PeerIntermediateSQLObject {
+public abstract class Join extends PeerIntermediateSQLObject {
 
    String joinType;
 
    Table table;
 
-   protected AbstractJoin() {
+   protected Join() {
    }
 
-   public AbstractJoin(String joinType, Table table) {
+   public Join(String joinType, Table table) {
       this.joinType = joinType;
       this.table = table;
    }

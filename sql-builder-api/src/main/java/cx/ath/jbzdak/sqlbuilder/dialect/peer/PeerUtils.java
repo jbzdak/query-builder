@@ -67,10 +67,10 @@ class PeerUtils {
 
    }
 
-   static void appendJoinBegining(StringBuilder stringBuilder, RenderingContext renderingContext, AbstractJoin abstractJoin){
-      stringBuilder.append(abstractJoin.getJoinType().toUpperCase());
+   static void appendJoinBegining(StringBuilder stringBuilder, RenderingContext renderingContext, Join join){
+      stringBuilder.append(join.getJoinType().toUpperCase());
       stringBuilder.append(" JOIN ");
-      abstractJoin.getTable().appendTo(renderingContext, stringBuilder);
+      join.getTable().appendTo(renderingContext, stringBuilder);
       stringBuilder.append(' ');
    }
 

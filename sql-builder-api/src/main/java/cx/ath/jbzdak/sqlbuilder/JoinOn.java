@@ -21,12 +21,10 @@ package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.booleanExpression.*;
 
-import java.util.Set;
-
 /**
  * Created by: Jacek Bzdak
  */
-public class JoinOn extends AbstractJoin{
+public class JoinOn extends Join {
 
    private BooleanExpressionMarker onCondition;
 

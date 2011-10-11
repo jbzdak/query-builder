@@ -20,12 +20,11 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class JoinUsing extends AbstractJoin {
+public class JoinUsing extends Join {
 
    List<String> columns;
 
