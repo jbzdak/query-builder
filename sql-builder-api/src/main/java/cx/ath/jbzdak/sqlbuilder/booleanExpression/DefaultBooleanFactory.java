@@ -35,12 +35,17 @@ import java.util.Arrays;
 public class DefaultBooleanFactory implements BooleanFactory {
 
 
-   public BooleanExpressionMarker and(BooleanExpressionMarker... childExpressions){
+   public NAryBooleanExpression and(BooleanExpressionMarker... childExpressions){
       return new NAryBooleanExpression(NAryBooleanExpressionType.AND, Arrays.asList(childExpressions));
    }
 
-   public BooleanExpressionMarker or(BooleanExpressionMarker... childExpressios){
+   public NAryBooleanExpression or(BooleanExpressionMarker... childExpressios){
       return new NAryBooleanExpression(NAryBooleanExpressionType.OR, Arrays.asList(childExpressios));
+   }
+
+   @Override
+   public BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression, ColumnExpression columnExpression1) {
+      return new Condition(conditionType, columnExpression, columnExpression1);
    }
 
    public BooleanExpressionMarker not(BooleanExpressionMarker child){

@@ -44,5 +44,5 @@ public interface BooleanFactory {
 
    BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression, SQLLiteral<?> stringLiteral);
 
-   BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression, ColumnExpression stringLiteral);
+   BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression1, ColumnExpression columnExpression2);
 }
