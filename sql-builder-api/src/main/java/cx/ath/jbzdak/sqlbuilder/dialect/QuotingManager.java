@@ -21,6 +21,8 @@ package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.IdenitfierPart;
 
+import java.util.Date;
+
 /**
  * Created by: Jacek Bzdak
  */
@@ -33,6 +35,8 @@ public interface QuotingManager {
    String quoteIdentifier(CharSequence ident);
 
    String quoteString(CharSequence quote);
+
+   String quoteDate(Date quote);
 
    public boolean identifierNeedsQuoting(CharSequence ident, IdenitfierPart idenitfierPart);
 

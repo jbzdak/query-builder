@@ -19,7 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.expression.BooleanFactory;
+import cx.ath.jbzdak.sqlbuilder.expression.ExpressionFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.QuotingManager;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
@@ -44,7 +44,7 @@ public interface Dialect {
 
    LiteralFactory getLiteralFactory();
 
-   BooleanFactory getBooleanFactory();
+   ExpressionFactory getBooleanFactory();
 
    /**
     * @return

@@ -1,80 +1,21 @@
-/*
- * Copyright (c) 2011 for Jacek Bzdak
- *
- * This file is part of query builder.
- *
- * Query builder is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Query builder is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package cx.ath.jbzdak.sqlbuilder.expression;
 
-import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
-
-import java.security.InvalidParameterException;
-import java.util.*;
+import java.util.Collection;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class NAryBooleanExpression extends PeerIntermediateSQLObject implements BooleanExpressionMarker {
-
-   protected List<BooleanExpressionMarker> expressions = new ArrayList<BooleanExpressionMarker>();
-
-   protected String type;
+public class NAryBooleanExpression extends AbstractNaryExpression<BooleanExpressionMarker> implements BooleanExpressionMarker{
 
    public NAryBooleanExpression(String type) {
-      this(type, Collections.<BooleanExpressionMarker>emptyList());
+      super(type);
+   }
+
+   public NAryBooleanExpression(String type, BooleanExpressionMarker... markers) {
+      super(type, markers);
    }
 
    public NAryBooleanExpression(String type, Collection<BooleanExpressionMarker> expressions) {
-      if(!NAryBooleanExpressionType.FAKE_ENUM.values().contains(type)){
-         throw new InvalidParameterException("Unknown boolean expression type");
-      }
-      this.expressions.addAll(expressions);
-      this.type = type;
-   }
-
-   public String getType() {
-      return type;
-   }
-
-   public List<BooleanExpressionMarker> getExpressions() {
-      return Collections.unmodifiableList(expressions);
-   }
-
-   public List<BooleanExpressionMarker> getExpressionsWithoutUnboundParams(){
-      List<BooleanExpressionMarker> result = new ArrayList<BooleanExpressionMarker>();
-      for (BooleanExpressionMarker expression : expressions) {
-         if(!expression.containsUnboundParams()){
-            result.add(expression);
-         }
-      }
-      return result;
-   }
-
-   public void setExpressions(List<BooleanExpressionMarker> expressions) {
-      this.expressions = new ArrayList<BooleanExpressionMarker>(expressions);
-   }
-
-   public void setSqlFactories(BooleanExpressionMarker... exressions) {
-      this.expressions = new ArrayList<BooleanExpressionMarker>(expressions);
-   }
-
-   public boolean addExpression(BooleanExpressionMarker booleanExpressionMarker) {
-      return expressions.add(booleanExpressionMarker);
+      super(type, expressions);
    }
 }
-
-
-

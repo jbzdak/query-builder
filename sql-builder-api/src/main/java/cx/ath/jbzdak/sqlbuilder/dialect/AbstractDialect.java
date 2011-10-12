@@ -156,6 +156,8 @@ public abstract class AbstractDialect implements Dialect{
       throw  new InvalidParameterException("Couldnt find peer for " + sqlFactory);
    }
 
+
+
    public DialectConfig getDialectConfig() {
       return dialectConfig;
    }

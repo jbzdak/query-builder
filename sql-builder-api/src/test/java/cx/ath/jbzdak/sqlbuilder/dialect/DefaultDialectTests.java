@@ -20,7 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.expression.ConditionType;
+import cx.ath.jbzdak.sqlbuilder.expression.BinaryExpressionType;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
@@ -29,7 +29,7 @@ import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 import org.junit.Test;
 
-import static cx.ath.jbzdak.sqlbuilder.expression.BooleanFactory.BOOLEAN_FACTORY;
+import static cx.ath.jbzdak.sqlbuilder.expression.ExpressionFactory.BOOLEAN_FACTORY;
 
 /**
  * Created by: Jacek Bzdak
@@ -69,8 +69,8 @@ public class DefaultDialectTests {
    public void updateWhere(){
       select.setWhere(
               BOOLEAN_FACTORY.and(
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("POINT_TYPE"), literalFactory.create(4)),
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("DATA_SOURCE"), literalFactory.create(1)),
+                      BOOLEAN_FACTORY.condition(BinaryExpressionType.EQUALS, dp.column("POINT_TYPE"), literalFactory.create(4)),
+                      BOOLEAN_FACTORY.condition(BinaryExpressionType.EQUALS, dp.column("DATA_SOURCE"), literalFactory.create(1)),
                       BOOLEAN_FACTORY.isNotNull(dp.column("VALUE"))
                       ));
    }
@@ -130,8 +130,8 @@ public class DefaultDialectTests {
 
       select.setWhere(
               BOOLEAN_FACTORY.and(
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("POINT_TYPE"), ":point_type"),
-                      BOOLEAN_FACTORY.condition(ConditionType.EQUALS, dp.column("DATA_SOURCE"), new DefaultParameter("data_source")),
+                      BOOLEAN_FACTORY.condition(BinaryExpressionType.EQUALS, dp.column("POINT_TYPE"), ":point_type"),
+                      BOOLEAN_FACTORY.condition(BinaryExpressionType.EQUALS, dp.column("DATA_SOURCE"), new DefaultParameter("data_source")),
                       BOOLEAN_FACTORY.isNotNull(dp.column("VALUE"))
                       ));
 

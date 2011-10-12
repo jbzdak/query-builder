@@ -19,17 +19,28 @@
 
 package cx.ath.jbzdak.sqlbuilder.expression;
 
-import fakeEnum.FakeEnum;
+import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
+
+import java.security.InvalidParameterException;
+import java.util.*;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class NAryBooleanExpressionType {
+public class NAryExpression extends AbstractNaryExpression<ExpressionMarker>{
 
-   public static final String AND = "AND";
+   public NAryExpression(String type) {
+      super(type);
+   }
 
-   public static final String OR = "OR";
+   public NAryExpression(String type, ExpressionMarker... markers) {
+      super(type, markers);
+   }
 
-   public static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(NAryBooleanExpressionType.class, String.class);
-
+   public NAryExpression(String type, Collection<ExpressionMarker> expressions) {
+      super(type, expressions);
+   }
 }
+
+
+

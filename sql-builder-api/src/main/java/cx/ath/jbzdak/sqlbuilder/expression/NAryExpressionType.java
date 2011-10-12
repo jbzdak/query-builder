@@ -17,36 +17,23 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+package cx.ath.jbzdak.sqlbuilder.expression;
 
-import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.SQLPeer;
-import cx.ath.jbzdak.sqlbuilder.literal.DateLiteral;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import fakeEnum.FakeEnum;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class DatePeer extends AbstractPeer<DateLiteral>{
+public class NAryExpressionType {
 
-   public DatePeer() {
-   }
+   public static final String AND = "AND";
 
-   public StringBuilder toSQL() {
+   public static final String OR = "OR";
 
-      return new StringBuilder();
-   }
+   public static final String PLUS = "+";
 
+   public static final String TIMES = "*";
 
-   @Override
-   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-      stringBuilder.append(" ");
-      stringBuilder.append(renderingContext.quoteString(dateFormat.format(parent.getLiteralValue())));
-      stringBuilder.append(" ");
-   }
+   public static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(NAryExpressionType.class, String.class);
 
 }

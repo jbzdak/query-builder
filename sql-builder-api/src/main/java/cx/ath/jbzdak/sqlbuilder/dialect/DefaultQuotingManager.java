@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
  */
 public class DefaultQuotingManager extends AbstractQuotingManager {
 
-   final DialectConfig dialectConfig;
+
 
    final String identifierQuote;
 
@@ -94,7 +94,7 @@ public class DefaultQuotingManager extends AbstractQuotingManager {
     * @param stringQuoteReplace      if identifier strings {@code stringQuote} it will be treplaces with {@code stringQuoteReplace}
     */
    public DefaultQuotingManager(DialectConfig dialectConfig, String identifierQuote, String identifierQuoteReplace, String stringQuote, String stringQuoteReplace) {
-      this.dialectConfig = dialectConfig;
+      super(dialectConfig);
       this.identifierQuote = identifierQuote;
       this.identifierQuoteReplace = identifierQuoteReplace;
       this.stringQuote = stringQuote;

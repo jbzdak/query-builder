@@ -24,7 +24,7 @@ import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
 /**
  * Created by: Jacek Bzdak
  */
-public class Not extends UnaryBooleanExpresson{
+public class Not extends BooleanUnaryExpression implements BooleanExpressionMarker {
 
 
    public Not() {

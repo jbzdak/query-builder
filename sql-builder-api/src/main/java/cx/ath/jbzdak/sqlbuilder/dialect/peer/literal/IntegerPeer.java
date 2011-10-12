@@ -17,33 +17,21 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.expression;
+package cx.ath.jbzdak.sqlbuilder.dialect.peer.literal;
 
-import fakeEnum.FakeEnum;
-
-import java.util.Collection;
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
+import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.AbstractPeer;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class UnaryBooleanExpressionType {
-
-   public static final String IS_NULL = "IS NULL";
-   public static final String IS_NON_NULL = "IS NOT NULL";
-
-//   public static final String NOT = "NOT";
-
-   private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(UnaryBooleanExpressionType.class, String.class);
-
-   public static String nameOf(String value) {
-      return FAKE_ENUM.nameOf(value);
-   }
-
-   public static Collection<? extends String> values() {
-      return FAKE_ENUM.values();
-   }
-
-   public static String valueOf(String s) {
-      return FAKE_ENUM.valueOf(s);
+public class IntegerPeer extends AbstractPeer<SQLLiteral> {
+   @Override
+   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
+      stringBuilder.append(' ');
+      Number number = (Number) parent.getLiteralValue();
+      stringBuilder.append(number.longValue());
+      stringBuilder.append(' ');
    }
 }

@@ -17,21 +17,22 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+package cx.ath.jbzdak.sqlbuilder.expression;
 
-import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
-import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class ParameterLiteralPeer  extends AbstractPeer<ParameterLiteral>{
+public class BinaryExpression extends AbstractBinaryExpression {
+   public BinaryExpression() {
+   }
 
-   @Override
-   protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      stringBuilder.append(" :");
-      stringBuilder.append(parent.getLiteralValue().getName());
-      stringBuilder.append(" ");
+   public BinaryExpression(String type) {
+      super(type);
+   }
+
+   public BinaryExpression(String type, IntermediateSQLObject rhs, IntermediateSQLObject lhs) {
+      super(type, rhs, lhs);
    }
 }

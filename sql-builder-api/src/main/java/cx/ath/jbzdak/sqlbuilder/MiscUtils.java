@@ -23,10 +23,21 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
 
+import java.util.NoSuchElementException;
+
 /**
  * Created by: Jacek Bzdak
  */
 public class MiscUtils {
+
+   public static <T> T firstNonNull(T... args){
+      for (T t : args) {
+         if(t!=null){
+            return t;
+         }
+      }
+      throw new NoSuchElementException();
+   }
 
    public static String toSQL(RenderingContext renderingContext, IntermediateSQLFactory intermediateSQLFactory){
       StringBuilder builder = new StringBuilder();

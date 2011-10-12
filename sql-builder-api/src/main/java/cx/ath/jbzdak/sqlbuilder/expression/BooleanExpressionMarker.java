@@ -25,5 +25,5 @@ import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
  * Marker interface
  * Created by: Jacek Bzdak
  */
-public interface BooleanExpressionMarker extends IntermediateSQLFactory {
+public interface BooleanExpressionMarker extends IntermediateSQLFactory, ExpressionMarker {
 }

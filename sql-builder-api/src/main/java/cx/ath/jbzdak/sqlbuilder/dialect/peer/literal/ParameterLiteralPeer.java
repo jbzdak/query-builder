@@ -17,20 +17,22 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+package cx.ath.jbzdak.sqlbuilder.dialect.peer.literal;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.AbstractPeer;
+import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class IntegerPeer extends AbstractPeer<SQLLiteral>{
+public class ParameterLiteralPeer  extends AbstractPeer<ParameterLiteral> {
+
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      stringBuilder.append(' ');
-      Number number = (Number) parent.getLiteralValue();
-      stringBuilder.append(number.longValue());
-      stringBuilder.append(' ');
+      stringBuilder.append(" :");
+      stringBuilder.append(parent.getLiteralValue().getName());
+      stringBuilder.append(" ");
    }
 }

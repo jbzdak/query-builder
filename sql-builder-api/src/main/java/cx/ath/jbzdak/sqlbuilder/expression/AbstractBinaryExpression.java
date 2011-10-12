@@ -28,14 +28,14 @@ import java.util.regex.Pattern;
 /**
  * Created by: Jacek Bzdak
  */
-public class Condition extends AbstractBinaryBooleanExpression {
+public abstract class AbstractBinaryExpression extends PeerIntermediateSQLObject implements ExpressionMarker {
 
    public static final Pattern CONDITION_PATTERN = prepareConditionPattern();
 
-   public static Pattern prepareConditionPattern(){
+   private static Pattern prepareConditionPattern(){
       StringBuilder stringBuilder = new StringBuilder();
       stringBuilder.append("(.*)\\s*(");
-      Iterator<? extends String> iter = ConditionType.values().iterator();
+      Iterator<? extends String> iter = BinaryExpressionType.values().iterator();
       while (iter.hasNext()){
          String s = iter.next();
          stringBuilder.append("(?:");
@@ -49,20 +49,54 @@ public class Condition extends AbstractBinaryBooleanExpression {
       return Pattern.compile(stringBuilder.toString());
    }
 
-   public Condition() {
+   protected String type;
+
+   protected IntermediateSQLObject rhs;
+
+   protected IntermediateSQLObject lhs;
+
+   protected AbstractBinaryExpression() {}
+
+
+   protected AbstractBinaryExpression(String type) {
+      this.type = type;
    }
 
-   Condition(String type, ColumnExpression lhs, SQLLiteral rhs) {
-      super(type, rhs, lhs);
+   protected AbstractBinaryExpression(String type, IntermediateSQLObject rhs, IntermediateSQLObject lhs) {
+      this.type = type;
+      this.rhs = rhs;
+      this.lhs = lhs;
    }
 
-   Condition(String type, SQLLiteral rhs, ColumnExpression lhs) {
-      super(type, rhs, lhs);
+   public String getType() {
+      return type;
    }
 
-   Condition(String type, ColumnExpression rhs, ColumnExpression lhs) {
+   public void setType(String type) {
+      this.type = type;
+   }
 
-      super(type, rhs, lhs);
+   public IntermediateSQLObject getRhs() {
+      return rhs;
+   }
+
+   public IntermediateSQLObject getLhs() {
+      return lhs;
+   }
+
+   protected void setRhs(IntermediateSQLObject rhs) {
+      this.rhs = rhs;
+   }
+
+   protected void setLhs(IntermediateSQLObject lhs) {
+      this.lhs = lhs;
+   }
+
+   @Override
+   public void collectChildren() {
+      children.add(this.lhs);
+      children.add(this.rhs);
+      sqlParts.add(this.type);
    }
 
    public void parseString(String s){

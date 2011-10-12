@@ -20,12 +20,12 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.expression.UnaryBooleanExpresson;
+import cx.ath.jbzdak.sqlbuilder.expression.UnaryExpresson;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class UnaryBooleanExpressionPeer extends AbstractPeer<UnaryBooleanExpresson>{
+public class UnaryBooleanExpressionPeer extends AbstractPeer<UnaryExpresson>{
 
    @Override
    protected void appendToInternal(final RenderingContext renderingContext, StringBuilder stringBuilder) {

@@ -21,12 +21,12 @@ package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.expression.Condition;
+import cx.ath.jbzdak.sqlbuilder.expression.BinaryExpression;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class ConditionPeer extends AbstractPeer<Condition>{
+public class ConditionPeer extends AbstractPeer<BinaryExpression>{
 
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {

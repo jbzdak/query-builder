@@ -21,28 +21,29 @@ package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.UnaryBooleanExpressionPeer;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 
 /**
  * Created by: Jacek Bzdak
  */
-public interface BooleanFactory {
+public interface ExpressionFactory {
 
-   public static final DefaultBooleanFactory BOOLEAN_FACTORY = new DefaultBooleanFactory();
+   public static final DefaultExpressionFactory BOOLEAN_FACTORY = new DefaultExpressionFactory();
 
    NAryBooleanExpression and(BooleanExpressionMarker... childExpressions);
 
    NAryBooleanExpression or(BooleanExpressionMarker... childExpressios);
 
-   BooleanExpressionMarker not(BooleanExpressionMarker child);
+   BooleanUnaryExpression not(BooleanExpressionMarker child);
 
-   BooleanExpressionMarker isNull(ColumnExpression columnExpression);
+   BooleanUnaryExpression isNull(ColumnExpression columnExpression);
 
-   BooleanExpressionMarker isNotNull(ColumnExpression columnExpression);
+   BooleanUnaryExpression isNotNull(ColumnExpression columnExpression);
 
-   BooleanExpressionMarker like(ColumnExpression columnExpression, StringLiteral stringLiteral);
+   BinaryBooleanExpression like(ColumnExpression columnExpression, StringLiteral stringLiteral);
 
-   BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression, SQLLiteral<?> stringLiteral);
+   BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, SQLLiteral<?> stringLiteral);
 
-   BooleanExpressionMarker condition(String conditionType, ColumnExpression columnExpression1, ColumnExpression columnExpression2);
+   BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression1, ColumnExpression columnExpression2);
 }

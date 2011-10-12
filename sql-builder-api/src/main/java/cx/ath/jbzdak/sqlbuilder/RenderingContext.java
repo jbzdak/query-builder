@@ -96,6 +96,10 @@ public class RenderingContext{
       return getQuotingManager().quoteIdentifier(ident, strategy, idenitfierPart);
    }
 
+   public String quoteDate(Date quote) {
+      return getQuotingManager().quoteDate(quote);
+   }
+
    /**
     * Return fist found parent of class.
     * @param aClass

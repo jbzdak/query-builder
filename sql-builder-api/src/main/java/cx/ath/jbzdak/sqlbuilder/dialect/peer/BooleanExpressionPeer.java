@@ -20,12 +20,12 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.expression.AbstractBinaryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.expression.AbstractBinaryExpression;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class BooleanExpressionPeer extends AbstractPeer<AbstractBinaryBooleanExpression>{
+public class BooleanExpressionPeer extends AbstractPeer<AbstractBinaryExpression>{
 
 
    @Override

@@ -17,21 +17,35 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+package cx.ath.jbzdak.sqlbuilder.dialect.peer.literal;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
+import cx.ath.jbzdak.sqlbuilder.SQLPeer;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.AbstractPeer;
+import cx.ath.jbzdak.sqlbuilder.literal.DateLiteral;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class StringPeer extends AbstractPeer<StringLiteral>{
+public class DatePeer extends AbstractPeer<DateLiteral> {
+
+   public DatePeer() {
+   }
+
+   public StringBuilder toSQL() {
+      return new StringBuilder();
+   }
+
 
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      stringBuilder.append(' ');
-      stringBuilder.append(renderingContext.quoteString(parent.getLiteralValue()));
-      stringBuilder.append(' ');
+      stringBuilder.append(" ");
+      stringBuilder.append(renderingContext.getDialect().getQuotingManager().quoteDate(parent.getLiteralValue()));
+      stringBuilder.append(" ");
    }
 
 }

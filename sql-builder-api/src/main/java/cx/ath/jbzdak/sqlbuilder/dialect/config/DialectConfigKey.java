@@ -76,7 +76,14 @@ public enum DialectConfigKey {
       public Object getDefault(Dialect d) {
          return Arrays.asList("yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy");
       }
+   },
+   OUTPUT_DATE_FORMAT{
+      @Override
+      public Object getDefault(Dialect d) {
+         return "yyyy-MM-dd";
+      }
    };
+
 
    public abstract Object getDefault(Dialect d);
 

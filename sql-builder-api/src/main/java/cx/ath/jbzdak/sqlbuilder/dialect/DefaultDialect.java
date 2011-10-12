@@ -20,6 +20,10 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.literal.DatePeer;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.literal.IntegerPeer;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.literal.ParameterLiteralPeer;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.literal.StringPeer;
 import cx.ath.jbzdak.sqlbuilder.expression.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
@@ -48,7 +52,7 @@ public class DefaultDialect extends AbstractDialect{
 
    protected DefaultLiteralFactory defaultLiteralFactory = new DefaultLiteralFactory();
 
-   protected DefaultBooleanFactory defaultBooleanFactory = new DefaultBooleanFactory();
+   protected DefaultExpressionFactory defaultBooleanFactory = new DefaultExpressionFactory();
 
 
    @Override
@@ -64,11 +68,11 @@ public class DefaultDialect extends AbstractDialect{
       putPeer(transformerMap, JoinUsing.class, UsingJoinPeer.class);
       putPeer(transformerMap, JoinOn.class, OnJoinPeer.class);
       putPeer(transformerMap, Select.class, SelectPeer.class);
-      putPeer(transformerMap, AbstractBinaryBooleanExpression.class, BooleanExpressionPeer.class);
+      putPeer(transformerMap, AbstractBinaryExpression.class, BooleanExpressionPeer.class);
       putPeer(transformerMap, RawString.class, RawStringPeer.class);
-      putPeer(transformerMap, NAryBooleanExpression.class, NAryBooleanExpressionPeer.class);
+      putPeer(transformerMap, NAryExpression.class, NAryBooleanExpressionPeer.class);
       putPeer(transformerMap, BetweenCondition.class, BetweenConditionPeer.class);
-      putPeer(transformerMap, UnaryBooleanExpresson.class, UnaryBooleanExpressionPeer.class);
+      putPeer(transformerMap, UnaryExpresson.class, UnaryBooleanExpressionPeer.class);
       putPeer(transformerMap, Not.class, NotPeer.class);
       putPeer(transformerMap, SelectAllExpression.class, SelectAllPeer.class);
       putPeer(transformerMap, BoundTableParameter.class, TableParameterPeer.class);
@@ -97,7 +101,7 @@ public class DefaultDialect extends AbstractDialect{
       return defaultLiteralFactory;
    }
 
-   public DefaultBooleanFactory getBooleanFactory() {
+   public DefaultExpressionFactory getBooleanFactory() {
       return defaultBooleanFactory;
    }
 

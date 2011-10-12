@@ -17,30 +17,22 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.dialect.peer;
+package cx.ath.jbzdak.sqlbuilder.dialect.peer.literal;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.expression.NAryExpression;
-import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.AbstractPeer;
+import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class NAryBooleanExpressionPeer extends AbstractPeer<NAryExpression> {
-
-   public NAryBooleanExpressionPeer() {
-   }
-
+public class StringPeer extends AbstractPeer<StringLiteral> {
 
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
-      stringBuilder.append("(");
-      if(!(Boolean) renderingContext.getExpressionContext().getExpressionConfig().get(ExpressionConfigKey.IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS)){
-         PeerUtils.joinSqls(renderingContext, stringBuilder, " " + parent.getType() + " ", parent.getExpressions());
-      }else{
-         PeerUtils.joinSqls(renderingContext, stringBuilder, " " + parent.getType() + " ", parent.getExpressionsWithoutUnboundParams());
-      }
-      stringBuilder.append(")");
+      stringBuilder.append(' ');
+      stringBuilder.append(renderingContext.quoteString(parent.getLiteralValue()));
+      stringBuilder.append(' ');
    }
 
 }
