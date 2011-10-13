@@ -19,18 +19,11 @@
 
 package cx.ath.jbzdak.sqlbuilder.postgresql.literal;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-import com.sun.org.apache.xpath.internal.operations.Quo;
-import cx.ath.jbzdak.sqlbuilder.InvalidParameterException;
 import cx.ath.jbzdak.sqlbuilder.dialect.DefaultQuotingManager;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.postgresql.config.PostgreSQLConfig;
 import cx.ath.jbzdak.sqlbuilder.postgresql.config.StringQuotingStyle;
 import cx.ath.jbzdak.sqlbuilder.postgresql.utils.QuotingUtils;
-
-import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by: Jacek Bzdak

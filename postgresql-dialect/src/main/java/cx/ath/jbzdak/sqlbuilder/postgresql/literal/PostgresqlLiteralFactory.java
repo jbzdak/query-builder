@@ -29,10 +29,16 @@ public class PostgresqlLiteralFactory extends DefaultLiteralFactory{
 
    public PostgresqlLiteralFactory() {
       addLiteralType(SQLLiteralType.STRING, PostgreStringLiteral.class);
+      addLiteralType(PostgresLiteralType.INTERVAL, PostgresIntervalLiteral.class);
+
    }
 
    @Override
    public PostgreStringLiteral create(String value) {
       return (PostgreStringLiteral) super.create(value);
+   }
+
+   public PostgresIntervalLiteral create(SQLInterval interval){
+      return (PostgresIntervalLiteral) super.create(PostgresLiteralType.INTERVAL, interval);
    }
 }

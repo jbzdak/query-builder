@@ -28,6 +28,9 @@ import cx.ath.jbzdak.sqlbuilder.postgresql.config.PostgreSQLConfig;
 import cx.ath.jbzdak.sqlbuilder.postgresql.config.StringQuotingStyle;
 import cx.ath.jbzdak.sqlbuilder.postgresql.utils.QuotingUtils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
@@ -37,20 +40,23 @@ public class PostgresqlQuotingManager extends AbstractQuotingManager{
 
    public static final Pattern UPPERCASE = Pattern.compile("\\p{javaUpperCase}");
 
-   final DialectConfig dialectConfig;
+
 
    final PostgresStringQuoting postgresStringQuoting;
 
    public PostgresqlQuotingManager(DialectConfig dialectConfig) {
-      this.dialectConfig = dialectConfig;
+      super(dialectConfig);
       postgresStringQuoting = new PostgresStringQuoting(dialectConfig);
    }
 
    public String quoteIdentifier(CharSequence ident, IdentifierQuotingStrategy strategy, IdenitfierPart idenitfierPart) {
+      if(ident == null){
+         return null;
+      }
       switch (strategy){
          case DEFAULT:
             IdentifierQuotingStrategy def = (IdentifierQuotingStrategy) dialectConfig.getConfig(DialectConfigKey.IDENTIFIER_QUOTING_STRATEGY);
-            if(def==null){
+            if(def==IdentifierQuotingStrategy.DEFAULT || def == null){
                def = IdentifierQuotingStrategy.WHEN_NEEDED;
             }
             return quoteIdentifier(ident, def, idenitfierPart);
@@ -69,11 +75,23 @@ public class PostgresqlQuotingManager extends AbstractQuotingManager{
 
    }
 
+   @Override
+   public String quoteDate(Date quote) {
+      if(quote == null){
+         return null;
+      }
+      DateFormat format = new SimpleDateFormat((String) dialectConfig.getConfig(DialectConfigKey.OUTPUT_DATE_FORMAT));
+      return quoteString(format.format(quote), StringQuotingStyle.SINGLE_QUOTES);
+   }
+
    public boolean identifierNeedsQuoting(CharSequence ident, IdenitfierPart idenitfierPart) {
       return QuotingUtils.containsNonAsciiChars(ident) || UPPERCASE.matcher(ident).find();
    }
 
    public String quoteString(CharSequence quote) {
+      if(quote == null){
+         return null;
+      }
       return postgresStringQuoting.quoteString(quote);
    }
 

@@ -19,7 +19,6 @@
 
 package cx.ath.jbzdak.sqlbuilder.postgresql.utils;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import cx.ath.jbzdak.sqlbuilder.InvalidParameterException;
 import cx.ath.jbzdak.sqlbuilder.dialect.DefaultQuotingManager;
 
