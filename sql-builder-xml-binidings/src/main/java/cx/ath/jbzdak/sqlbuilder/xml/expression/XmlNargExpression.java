@@ -1,8 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.xml.expression;
 
-import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
 import cx.ath.jbzdak.sqlbuilder.expression.ExpressionMarker;
-import cx.ath.jbzdak.sqlbuilder.expression.NAryBooleanExpression;
 import cx.ath.jbzdak.sqlbuilder.expression.NAryExpression;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.xml.boolExp.XmlAnd;

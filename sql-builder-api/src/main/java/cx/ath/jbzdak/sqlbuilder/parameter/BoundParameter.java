@@ -19,7 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
-import cx.ath.jbzdak.sqlbuilder.*;
+import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
 
 /**
  * Created by: Jacek Bzdak

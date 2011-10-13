@@ -24,7 +24,6 @@ import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 

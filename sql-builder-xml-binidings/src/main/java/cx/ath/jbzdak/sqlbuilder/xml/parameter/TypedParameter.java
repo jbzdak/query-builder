@@ -6,7 +6,6 @@ import cx.ath.jbzdak.sqlbuilder.xml.XmlParsingContext;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSchema;
 
 /**
  * Created by: Jacek Bzdak

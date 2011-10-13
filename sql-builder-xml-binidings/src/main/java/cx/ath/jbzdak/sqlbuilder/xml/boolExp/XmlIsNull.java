@@ -23,12 +23,14 @@ import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
 import cx.ath.jbzdak.sqlbuilder.expression.UnaryBooleanExpression;
 import cx.ath.jbzdak.sqlbuilder.expression.UnaryExpressionType;
-import cx.ath.jbzdak.sqlbuilder.expression.UnaryExpression;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlColumnExpression;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlRaw;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * Created by: Jacek Bzdak

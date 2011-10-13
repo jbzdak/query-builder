@@ -20,10 +20,7 @@
 package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
-import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
-import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
-import org.apache.commons.lang.ObjectUtils;
 
 import java.util.Collection;
 

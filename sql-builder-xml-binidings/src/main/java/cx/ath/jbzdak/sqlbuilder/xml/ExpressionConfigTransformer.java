@@ -19,8 +19,6 @@
 
 package cx.ath.jbzdak.sqlbuilder.xml;
 
-import cx.ath.jbzdak.sqlbuilder.Dialect;
-import cx.ath.jbzdak.sqlbuilder.DialectHolder;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 import cx.ath.jbzdak.sqlbuilder.generic.BooleanTransformer;
 import cx.ath.jbzdak.sqlbuilder.generic.DialectTransformer;

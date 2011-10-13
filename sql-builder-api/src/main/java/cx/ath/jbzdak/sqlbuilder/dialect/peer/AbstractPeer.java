@@ -19,7 +19,9 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
-import cx.ath.jbzdak.sqlbuilder.*;
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
+import cx.ath.jbzdak.sqlbuilder.RenderingContext;
+import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 
 /**
  * Created by: Jacek Bzdak

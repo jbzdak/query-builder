@@ -22,8 +22,6 @@ package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
-import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundDefaultParameter;
 
 import java.util.Date;

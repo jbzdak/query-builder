@@ -21,7 +21,6 @@ package cx.ath.jbzdak.sqlbuilder.xml;
 
 import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
-import cx.ath.jbzdak.sqlbuilder.MiscUtils;
 import cx.ath.jbzdak.sqlbuilder.xml.boolExp.XmlBooleanCondition;
 
 import javax.xml.bind.annotation.XmlAttribute;

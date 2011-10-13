@@ -21,7 +21,6 @@ package cx.ath.jbzdak.sqlbuilder.xml.parameter;
 
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
-import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
 
 import javax.xml.bind.annotation.XmlType;
 

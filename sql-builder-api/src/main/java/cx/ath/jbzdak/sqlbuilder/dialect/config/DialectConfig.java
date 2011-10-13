@@ -22,13 +22,13 @@ package cx.ath.jbzdak.sqlbuilder.dialect.config;
 import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.generic.config.Configuration;
 import cx.ath.jbzdak.sqlbuilder.generic.config.ConfigurationKey;
-import org.apache.commons.collections.CollectionUtils;
 
-import java.nio.charset.MalformedInputException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**

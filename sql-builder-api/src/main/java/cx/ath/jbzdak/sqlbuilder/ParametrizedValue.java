@@ -1,6 +1,5 @@
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 /**

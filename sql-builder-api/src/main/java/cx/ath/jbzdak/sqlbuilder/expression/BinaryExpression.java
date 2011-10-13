@@ -20,7 +20,6 @@
 package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
-import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
 
 /**
  * Created by: Jacek Bzdak

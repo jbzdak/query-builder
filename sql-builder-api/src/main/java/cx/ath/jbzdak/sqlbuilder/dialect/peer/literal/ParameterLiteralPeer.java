@@ -22,7 +22,6 @@ package cx.ath.jbzdak.sqlbuilder.dialect.peer.literal;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.AbstractPeer;
 import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
-import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 /**
  * Created by: Jacek Bzdak

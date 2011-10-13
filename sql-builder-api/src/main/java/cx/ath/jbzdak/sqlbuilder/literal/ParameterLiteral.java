@@ -21,10 +21,8 @@ package cx.ath.jbzdak.sqlbuilder.literal;
 
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteralType;
-import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;

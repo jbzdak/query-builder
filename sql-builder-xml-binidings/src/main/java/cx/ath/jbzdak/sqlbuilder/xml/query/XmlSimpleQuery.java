@@ -22,7 +22,6 @@ package cx.ath.jbzdak.sqlbuilder.xml.query;
 import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
 import cx.ath.jbzdak.sqlbuilder.SQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SimpleQuery;
-import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;

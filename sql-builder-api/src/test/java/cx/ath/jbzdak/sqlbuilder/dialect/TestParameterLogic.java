@@ -19,15 +19,11 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
-import cx.ath.jbzdak.sqlbuilder.Alias;
 import cx.ath.jbzdak.sqlbuilder.ParameterSetTwice;
 import cx.ath.jbzdak.sqlbuilder.Select;
-import cx.ath.jbzdak.sqlbuilder.Table;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
-import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
-import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.IntegerParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 import org.junit.Test;

@@ -24,7 +24,6 @@ import cx.ath.jbzdak.sqlbuilder.generic.config.Configuration;
 import cx.ath.jbzdak.sqlbuilder.generic.config.ConfigurationKey;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

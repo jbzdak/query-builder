@@ -20,13 +20,8 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer.literal;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.AbstractPeer;
 import cx.ath.jbzdak.sqlbuilder.literal.DateLiteral;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * Created by: Jacek Bzdak

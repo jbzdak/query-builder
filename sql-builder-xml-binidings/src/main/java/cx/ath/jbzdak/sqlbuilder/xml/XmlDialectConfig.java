@@ -19,7 +19,6 @@
 
 package cx.ath.jbzdak.sqlbuilder.xml;
 
-import cx.ath.jbzdak.sqlbuilder.Dialect;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 
 import javax.xml.bind.annotation.XmlElement;

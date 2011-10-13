@@ -20,16 +20,19 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.*;
+import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.literal.DatePeer;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.literal.IntegerPeer;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.literal.ParameterLiteralPeer;
 import cx.ath.jbzdak.sqlbuilder.dialect.peer.literal.StringPeer;
 import cx.ath.jbzdak.sqlbuilder.expression.*;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
-import cx.ath.jbzdak.sqlbuilder.dialect.peer.*;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import cx.ath.jbzdak.sqlbuilder.literal.*;
-import cx.ath.jbzdak.sqlbuilder.parameter.*;
+import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.DefaultBoundParameterFactory;
+import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameterFactory;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundDefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundUnquotedParameter;

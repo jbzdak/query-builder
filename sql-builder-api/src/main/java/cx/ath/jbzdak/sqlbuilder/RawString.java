@@ -22,9 +22,6 @@ package cx.ath.jbzdak.sqlbuilder;
 import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
 import cx.ath.jbzdak.sqlbuilder.expression.ExpressionMarker;
 
-import java.util.List;
-import java.util.Set;
-
 /**
  * Created by: Jacek Bzdak
  */

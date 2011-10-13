@@ -24,7 +24,9 @@ import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.Table;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * Created by: Jacek Bzdak

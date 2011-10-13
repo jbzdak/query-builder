@@ -20,14 +20,13 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
-import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
-import cx.ath.jbzdak.sqlbuilder.parameter.*;
+import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.ParameterType;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

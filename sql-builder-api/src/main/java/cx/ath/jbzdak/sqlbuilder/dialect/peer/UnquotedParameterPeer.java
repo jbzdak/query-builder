@@ -20,7 +20,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.bound.BoundTableParameter;
 
 /**

@@ -19,12 +19,10 @@
 
 package cx.ath.jbzdak.sqlbuilder.xml.parameter;
 
-import cx.ath.jbzdak.sqlbuilder.parameter.*;
-import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;

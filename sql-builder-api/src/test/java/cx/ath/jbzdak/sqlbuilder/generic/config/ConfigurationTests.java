@@ -1,6 +1,5 @@
 package cx.ath.jbzdak.sqlbuilder.generic.config;
 
-import com.sun.deploy.config.Config;
 import org.junit.Assert;
 import org.junit.Test;
 

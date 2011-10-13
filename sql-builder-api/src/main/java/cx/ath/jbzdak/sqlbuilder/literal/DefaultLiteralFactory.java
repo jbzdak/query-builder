@@ -19,12 +19,10 @@
 
 package cx.ath.jbzdak.sqlbuilder.literal;
 
-import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteralType;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.generic.NewInstanceFactory;
-import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 import java.util.Date;

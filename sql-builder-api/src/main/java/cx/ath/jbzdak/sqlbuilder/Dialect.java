@@ -19,9 +19,9 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.expression.ExpressionFactory;
 import cx.ath.jbzdak.sqlbuilder.dialect.QuotingManager;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
+import cx.ath.jbzdak.sqlbuilder.expression.ExpressionFactory;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;

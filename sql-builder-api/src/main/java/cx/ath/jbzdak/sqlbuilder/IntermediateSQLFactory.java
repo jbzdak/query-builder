@@ -20,7 +20,6 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import java.beans.PropertyChangeListener;
-import java.util.List;
 import java.util.Set;
 
 /**

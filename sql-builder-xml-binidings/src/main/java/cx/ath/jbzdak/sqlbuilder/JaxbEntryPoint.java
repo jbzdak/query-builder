@@ -19,7 +19,6 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 

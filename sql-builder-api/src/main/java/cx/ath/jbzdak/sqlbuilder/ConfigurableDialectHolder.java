@@ -22,7 +22,9 @@ package cx.ath.jbzdak.sqlbuilder;
 import cx.ath.jbzdak.sqlbuilder.dialect.DefaultDialect;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ServiceLoader;
 
 /**
  * Created by: Jacek Bzdak

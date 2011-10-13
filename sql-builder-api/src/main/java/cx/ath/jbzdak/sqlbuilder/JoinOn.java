@@ -19,7 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import cx.ath.jbzdak.sqlbuilder.expression.*;
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
 
 /**
  * Created by: Jacek Bzdak

@@ -20,15 +20,10 @@
 package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
-import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
-import cx.ath.jbzdak.sqlbuilder.dialect.peer.UnaryBooleanExpressionPeer;
 import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
-import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
-import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -102,23 +97,13 @@ public class DefaultExpressionFactory implements ExpressionFactory {
    }
 
    @Override
-   public BinaryExpression expression(String expressionType, ColumnExpression columnExpression, ExpressionArgument argument) {
-      return new BinaryExpression(expressionType, columnExpression, argument);
+   public BinaryExpression expression(String expressionType, ExpressionArgument argument1, ExpressionArgument argument2) {
+      return new BinaryExpression(expressionType, argument1, argument2);
    }
 
    @Override
-   public BinaryExpression expression(String expressionType, ColumnExpression columnExpression, Parameter argument) {
-      return new BinaryExpression(expressionType, columnExpression, new ParameterLiteral(argument));
-   }
-
-   @Override
-   public BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, BooleanExpressionArgument argument) {
-      return new BinaryBooleanExpression(conditionType, columnExpression, argument);
-   }
-
-   @Override
-   public BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, Parameter<?> argument) {
-      return new BinaryBooleanExpression(conditionType, columnExpression, new ParameterLiteral(argument));
+   public BinaryBooleanExpression condition(String conditionType, BooleanExpressionArgument argument1, BooleanExpressionArgument argument2) {
+      return BinaryBooleanExpression(conditionType, argument1, argument2);
    }
 
    @Override

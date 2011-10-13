@@ -27,7 +27,6 @@ package cx.ath.jbzdak.sqlbuilder.xml.boolExp;
 
 import cx.ath.jbzdak.sqlbuilder.Namespace;
 
-import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlNs;
 import javax.xml.bind.annotation.XmlNsForm;
 import javax.xml.bind.annotation.XmlSchema;

@@ -19,10 +19,6 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
-import cx.ath.jbzdak.sqlbuilder.Dialect;
-import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
-import cx.ath.jbzdak.sqlbuilder.RenderingContext;
-
 /**
  * Created by: Jacek Bzdak
  */

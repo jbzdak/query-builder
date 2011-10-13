@@ -19,7 +19,6 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
-import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteralType;
 
 /**

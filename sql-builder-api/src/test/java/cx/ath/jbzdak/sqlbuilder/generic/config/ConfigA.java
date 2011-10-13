@@ -1,7 +1,5 @@
 package cx.ath.jbzdak.sqlbuilder.generic.config;
 
-import java.text.CollationKey;
-
 /**
  * Created by: Jacek Bzdak
  */

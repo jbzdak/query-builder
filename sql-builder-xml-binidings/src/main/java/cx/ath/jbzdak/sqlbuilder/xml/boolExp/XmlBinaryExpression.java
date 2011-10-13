@@ -21,7 +21,6 @@ package cx.ath.jbzdak.sqlbuilder.xml.boolExp;
 
 import cx.ath.jbzdak.sqlbuilder.expression.BinaryBooleanExpression;
 import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
-import cx.ath.jbzdak.sqlbuilder.expression.BinaryExpression;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 
 import javax.xml.bind.annotation.XmlType;

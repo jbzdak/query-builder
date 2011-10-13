@@ -1,7 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
 import cx.ath.jbzdak.sqlbuilder.IdenitfierPart;
-import cx.ath.jbzdak.sqlbuilder.dialect.QuotingManager;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 

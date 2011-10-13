@@ -22,10 +22,8 @@ package cx.ath.jbzdak.sqlbuilder.xml;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlValue;
-import java.util.List;
 
 /**
  * Created by: Jacek Bzdak

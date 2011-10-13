@@ -1,9 +1,5 @@
 package cx.ath.jbzdak.sqlbuilder.xml.expression;
 
-import cx.ath.jbzdak.sqlbuilder.xml.XmlColumnExpression;
-import cx.ath.jbzdak.sqlbuilder.xml.XmlRaw;
-import cx.ath.jbzdak.sqlbuilder.xml.parameter.TypedParameter;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
 

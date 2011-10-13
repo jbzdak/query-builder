@@ -1,20 +1,9 @@
 package cx.ath.jbzdak.sqlbuilder.xml.expression;
 
-import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
-import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.expression.BinaryExpressionType;
-import cx.ath.jbzdak.sqlbuilder.expression.ExpressionArgument;
 import cx.ath.jbzdak.sqlbuilder.expression.ExpressionMarker;
-import cx.ath.jbzdak.sqlbuilder.expression.UnaryExpression;
-import cx.ath.jbzdak.sqlbuilder.generic.Factory;
-import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
-import cx.ath.jbzdak.sqlbuilder.xml.XmlColumnExpression;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlParsingContext;
-import cx.ath.jbzdak.sqlbuilder.xml.parameter.TypedParameter;
-import cx.ath.jbzdak.sqlbuilder.xml.parameter.XmlParameter;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
 
 /**

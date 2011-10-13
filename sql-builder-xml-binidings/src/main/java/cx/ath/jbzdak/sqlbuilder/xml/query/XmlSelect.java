@@ -26,9 +26,12 @@ import cx.ath.jbzdak.sqlbuilder.UnsafeSelect;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.xml.*;
-import cx.ath.jbzdak.sqlbuilder.xml.boolExp.*;
+import cx.ath.jbzdak.sqlbuilder.xml.boolExp.XmlBooleanCondition;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlElements;
+import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 

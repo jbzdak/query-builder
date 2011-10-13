@@ -20,10 +20,8 @@
 package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
-import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
 
-import java.security.InvalidParameterException;
-import java.util.*;
+import java.util.Collection;
 
 /**
  * Created by: Jacek Bzdak

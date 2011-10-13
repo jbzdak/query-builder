@@ -19,10 +19,8 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
-import cx.ath.jbzdak.sqlbuilder.ParameterDescriptor;
 import cx.ath.jbzdak.sqlbuilder.ParameterValueDescriptor;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
