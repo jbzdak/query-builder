@@ -44,9 +44,11 @@ public class XmlSelect extends AbstractQuery{
 
    XmlBooleanCondition where;
 
-   public Select createQuery(XmlQueryCollection queryCollection) {
+   public Select createQuery() {
 
-      ExpressionConfig config = xmlExpressionConfig.createConfig(queryCollection.getDefaultExpressionConfig());
+      XmlQueryCollection queryCollection = XmlParsingContext.getCollection();
+
+      ExpressionConfig config = xmlExpressionConfig.createConfig();
       ExpressionContext expressionContext = new ExpressionContext(config);
       UnsafeSelect select = new UnsafeSelect(expressionContext);
       for (Object o: this.select) {
@@ -58,7 +60,7 @@ public class XmlSelect extends AbstractQuery{
          select.addFrom(f.create());
       }
       select.setWhere(where.create());
-      select.addParameters(parameters.getParameters(queryCollection));
+      select.addParameters(parameters.getParameters());
       return select;
    }
 

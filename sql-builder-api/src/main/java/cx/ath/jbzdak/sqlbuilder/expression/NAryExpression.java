@@ -28,7 +28,7 @@ import java.util.*;
 /**
  * Created by: Jacek Bzdak
  */
-public class NAryExpression extends AbstractNaryExpression<IntermediateSQLFactory>{
+public class NAryExpression extends AbstractNaryExpression<IntermediateSQLFactory> implements ExpressionMarker{
 
    public NAryExpression(String type) {
       super(type);

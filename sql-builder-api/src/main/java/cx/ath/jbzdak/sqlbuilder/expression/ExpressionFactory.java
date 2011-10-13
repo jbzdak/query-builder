@@ -62,13 +62,11 @@ public interface ExpressionFactory {
 
 
 
-   BinaryExpression expression(String expressionType, ColumnExpression columnExpression, ExpressionArgument argument);
+   BinaryExpression expression(String expressionType, ExpressionArgument argument1, ExpressionArgument argument2);
 
-   BinaryExpression expression(String expressionType, ColumnExpression columnExpression, Parameter<Number> argument);
+   BinaryBooleanExpression condition(String conditionType, BooleanExpressionArgument argument1, BooleanExpressionArgument argument2);
 
-   BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, BooleanExpressionArgument argument);
 
-   BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, Parameter<?> argument);
 
 
 

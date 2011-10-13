@@ -43,7 +43,8 @@ public class XmlExpressionConfig {
       this.expressionConfigItems = expressionConfigItems;
    }
 
-   public ExpressionConfig createConfig(ExpressionConfig parent){
+   public ExpressionConfig createConfig(){
+      ExpressionConfig parent = XmlParsingContext.getCollection().getDefaultExpressionConfig();
       ExpressionConfig config;
       if(parent!=null){
          config = new ExpressionConfig(parent);

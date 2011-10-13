@@ -44,7 +44,7 @@ public class XmlTableParameter extends XmlParameter{
    }
 
    @Override
-   public Parameter<?> createParameter(XmlQueryCollection collection) {
+   public Parameter<?> createParameter() {
       return new TableParameter(name, new Alias(alias));
    }
 }

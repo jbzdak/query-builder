@@ -28,5 +28,5 @@ public interface QueryTag {
 
    String getName();
 
-   SQLFactory createQuery(XmlQueryCollection queryCollection);
+   SQLFactory createQuery();
 }

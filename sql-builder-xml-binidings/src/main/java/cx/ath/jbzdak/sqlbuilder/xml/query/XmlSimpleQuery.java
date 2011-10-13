@@ -52,14 +52,14 @@ public class XmlSimpleQuery extends AbstractQuery{
       this.query = query;
    }
 
-   public SQLFactory createQuery(XmlQueryCollection queryCollection) {
+   public SQLFactory createQuery() {
       SimpleQuery simpleQuery = new SimpleQuery(query);
       ExpressionContext expressionContext = new ExpressionContext(
-         xmlExpressionConfig.createConfig(queryCollection.getDefaultExpressionConfig())
+         xmlExpressionConfig.createConfig()
       );
       simpleQuery.setContext(expressionContext);
 
-      simpleQuery.addParameters(parameters.getParameters(queryCollection));
+      simpleQuery.addParameters(parameters.getParameters());
       simpleQuery.setName(name);
       simpleQuery.setDescription(description);
       return simpleQuery;

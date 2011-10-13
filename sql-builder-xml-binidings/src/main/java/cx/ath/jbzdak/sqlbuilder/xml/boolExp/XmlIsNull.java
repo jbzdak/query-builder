@@ -20,17 +20,15 @@
 package cx.ath.jbzdak.sqlbuilder.xml.boolExp;
 
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.UnaryBooleanExpressionType;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.UnaryBooleanExpresson;
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
+import cx.ath.jbzdak.sqlbuilder.expression.UnaryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.expression.UnaryExpressionType;
+import cx.ath.jbzdak.sqlbuilder.expression.UnaryExpression;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlColumnExpression;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlRaw;
-import cx.ath.jbzdak.sqlbuilder.xml.XmlTable;
 
-import javax.xml.bind.Element;
 import javax.xml.bind.annotation.*;
-import java.util.List;
 
 /**
  * Created by: Jacek Bzdak
@@ -52,11 +50,11 @@ public class XmlIsNull implements Factory<BooleanExpressionMarker>{
 
    public BooleanExpressionMarker create() {
       Factory<IntermediateSQLFactory> factory  = (Factory<IntermediateSQLFactory>) object;
-      String type = UnaryBooleanExpressionType.IS_NULL;
+      String type = UnaryExpressionType.IS_NULL;
       if(not){
-         type = UnaryBooleanExpressionType.IS_NON_NULL;
+         type = UnaryExpressionType.IS_NON_NULL;
       }
-      return new UnaryBooleanExpresson(type, factory.create());
+      return new UnaryBooleanExpression(type, factory.create());
    }
 
    @XmlAttribute

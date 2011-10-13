@@ -2,6 +2,7 @@ package cx.ath.jbzdak.sqlbuilder.xml.parameter;
 
 import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.ParameterType;
+import cx.ath.jbzdak.sqlbuilder.xml.XmlParsingContext;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryCollection;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -25,7 +26,8 @@ public class TypedParameter extends XmlParameter{
    }
 
    @Override
-   public Parameter<?> createParameter(XmlQueryCollection collection) {
+   public Parameter<?> createParameter() {
+      XmlQueryCollection collection = XmlParsingContext.getCollection();
       return collection.getDialect().createParameter(name, type);
    }
 }

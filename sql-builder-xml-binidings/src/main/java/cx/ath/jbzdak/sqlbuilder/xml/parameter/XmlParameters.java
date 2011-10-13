@@ -38,10 +38,10 @@ public class XmlParameters {
    List<XmlParameter> xmlParameters = new ArrayList<XmlParameter>();
 
 //   @XmlTransient
-   public List<Parameter<?>> getParameters(XmlQueryCollection collection){
+   public List<Parameter<?>> getParameters(){
       List<Parameter<?>> params = new ArrayList<Parameter<?>>();
       for (XmlParameter parameter : xmlParameters) {
-         params.add(parameter.createParameter(collection));
+         params.add(parameter.createParameter());
       }
       return params;
    }

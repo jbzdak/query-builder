@@ -41,9 +41,9 @@ public class XmlJoin implements Factory<IntermediateSQLFactory>{
 
    private Object joinCondition;
 
-   public AbstractJoin create() {
+   public Join create() {
 
-      AbstractJoin join;
+      Join join;
 
       if (joinCondition instanceof XmlJoinUsing) {
          join = createJoinUsing();

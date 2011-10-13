@@ -19,10 +19,11 @@
 
 package cx.ath.jbzdak.sqlbuilder.xml.boolExp;
 
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpression;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpressionType;
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
+import cx.ath.jbzdak.sqlbuilder.expression.NAryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.expression.NAryExpression;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
+import cx.ath.jbzdak.sqlbuilder.xml.expression.XmlExpression;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElements;
@@ -41,7 +42,8 @@ public class XmlNargBooleanExpression {
            @XmlElement(name = "or", type = XmlOr.class),
            @XmlElement(name = "and", type = XmlAnd.class),
            @XmlElement(name = "cond", type = XmlBinaryExpression.class),
-           @XmlElement(name = "is-null", type = XmlIsNull.class)
+           @XmlElement(name = "is-null", type = XmlIsNull.class),
+           @XmlElement(name = "expression", type = XmlExpression.class)
    })
    public List<Object> getOperands() {
       return operands;

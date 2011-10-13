@@ -39,7 +39,7 @@ public class XmlDefaultParameter extends XmlParameter{
    }
 
    @Override
-   public Parameter<?> createParameter(XmlQueryCollection collection) {
+   public Parameter<?> createParameter() {
       DefaultParameter defaultParameter = new DefaultParameter(getName());
       defaultParameter.setDefaultValue(getDefaultValue());
       return defaultParameter;

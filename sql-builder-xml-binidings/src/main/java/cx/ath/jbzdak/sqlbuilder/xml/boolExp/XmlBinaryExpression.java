@@ -19,8 +19,9 @@
 
 package cx.ath.jbzdak.sqlbuilder.xml.boolExp;
 
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.Condition;
+import cx.ath.jbzdak.sqlbuilder.expression.BinaryBooleanExpression;
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
+import cx.ath.jbzdak.sqlbuilder.expression.BinaryExpression;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 
 import javax.xml.bind.annotation.XmlType;
@@ -53,7 +54,7 @@ public class XmlBinaryExpression implements Factory<BooleanExpressionMarker>{
    }
 
    public BooleanExpressionMarker create() {
-      Condition condition = new Condition();
+      BinaryBooleanExpression condition = new BinaryBooleanExpression();
       condition.parseString(value);
       return condition;
    }

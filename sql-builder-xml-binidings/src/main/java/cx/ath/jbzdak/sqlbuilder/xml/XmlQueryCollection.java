@@ -27,7 +27,10 @@ import cx.ath.jbzdak.sqlbuilder.xml.query.AbstractQuery;
 import cx.ath.jbzdak.sqlbuilder.xml.query.XmlSelect;
 import cx.ath.jbzdak.sqlbuilder.xml.query.XmlSimpleQuery;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.*;
+import java.io.InputStream;
 import java.util.*;
 
 /**
@@ -39,12 +42,18 @@ import java.util.*;
 public class XmlQueryCollection implements QueryCollection{
 
 
-   String xmlDialect;
 
+  public static XmlQueryCollection create(InputStream inputStream) throws JAXBException {
+     Unmarshaller unmarshaller = JaxbEntryPoint.DEFAULT_CONTEXT.createUnmarshaller();
+     XmlQueryCollection unmarshal = (XmlQueryCollection) unmarshaller.unmarshal(inputStream);
+     unmarshal.parsingFinished();
+     return unmarshal;
+  }
+
+   String xmlDialect;
 
    @XmlTransient
    private Dialect dialect;
-
 
    XmlDialectConfig xmlDialectConfig;
 
@@ -60,20 +69,15 @@ public class XmlQueryCollection implements QueryCollection{
 
    Map<String, QueryTag> queries;
 
+   public XmlQueryCollection() {
+      XmlParsingContext.setXmlQueryCollection(this);
+   }
+
+   public void parsingFinished(){
+      XmlParsingContext.remove();
+   }
+
    public void prepare(){
-      dialectConfig = xmlDialectConfig.createDialectConfig();
-      if(xmlDefaultExpressionConfig!=null){
-         defaultExpressionConfig = xmlDefaultExpressionConfig.createConfig(null);
-      }else{
-         defaultExpressionConfig = new ExpressionConfig();
-      }
-      ConfigurableDialectHolder configurableDialectHolder = new ConfigurableDialectHolder();
-      dialect = configurableDialectHolder.getDialect(xmlDialect, dialectConfig);
-      queries = new HashMap<String, QueryTag>();
-      defaultExpressionConfig.put(ExpressionConfigKey.DIALECT, dialect);
-      for (QueryTag queryTag : queryTags) {
-         queries.put(queryTag.getName(), queryTag);
-      }
    }
 
    @XmlAttribute(required = true, name = "dialect")
@@ -108,6 +112,12 @@ public class XmlQueryCollection implements QueryCollection{
 
    @XmlTransient
    public Map<String, QueryTag> getQueries() {
+      if (queries == null) {
+         queries = new HashMap<String, QueryTag>();
+         for (QueryTag queryTag : queryTags) {
+            queries.put(queryTag.getName(), queryTag);
+         }
+      }
       return queries;
    }
 
@@ -116,19 +126,34 @@ public class XmlQueryCollection implements QueryCollection{
    }
 
    public SQLFactory getQuery(String name){
-      return queries.get(name).createQuery(this);
+      return queries.get(name).createQuery();
    }
 
    public Dialect getDialect() {
+      if (dialect == null) {
+         ConfigurableDialectHolder configurableDialectHolder = new ConfigurableDialectHolder();
+         dialect = configurableDialectHolder.getDialect(xmlDialect, dialectConfig);
+      }
       return dialect;
    }
 
    @XmlTransient
    public ExpressionConfig getDefaultExpressionConfig() {
+      if (defaultExpressionConfig == null) {
+         if(xmlDefaultExpressionConfig!=null){
+            defaultExpressionConfig = xmlDefaultExpressionConfig.createConfig();
+         }else{
+            defaultExpressionConfig = new ExpressionConfig();
+         }
+         defaultExpressionConfig.put(ExpressionConfigKey.DIALECT, getDialect());
+      }
       return defaultExpressionConfig;
    }
 
    public DialectConfig getDialectConfig() {
+      if (dialectConfig == null) {
+         dialectConfig = xmlDialectConfig.createDialectConfig();
+      }
       return dialectConfig;
    }
 
@@ -144,6 +169,9 @@ public class XmlQueryCollection implements QueryCollection{
    public Set<String> getQueryNames() {
       return queries.keySet();
    }
+
+
+
 
    public void setJdbcUrl(String jdbc) {
       //To change body of implemented methods use File | Settings | File Templates.

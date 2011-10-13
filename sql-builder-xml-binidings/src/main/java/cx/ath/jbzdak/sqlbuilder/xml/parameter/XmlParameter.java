@@ -63,5 +63,5 @@ public abstract class XmlParameter {
       this.defaultValue = defaultValue;
    }
 
-   public abstract Parameter<?> createParameter(XmlQueryCollection collection);
+   public abstract Parameter<?> createParameter();
 }

@@ -18,15 +18,11 @@
  */
 
 package cx.ath.jbzdak.sqlbuilder.xml.boolExp;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.BooleanExpressionMarker;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpression;
-import cx.ath.jbzdak.sqlbuilder.booleanExpression.NAryBooleanExpressionType;
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
+import cx.ath.jbzdak.sqlbuilder.expression.NAryExpressionType;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlType;
-import java.util.List;
 
 /**
  * Created by: Jacek Bzdak
@@ -35,6 +31,6 @@ import java.util.List;
 public class XmlAnd extends XmlNargBooleanExpression implements Factory<BooleanExpressionMarker>{
 
    public BooleanExpressionMarker create() {
-      return create(NAryBooleanExpressionType.AND);
+      return create(NAryExpressionType.AND);
    }
 }

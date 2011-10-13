@@ -39,7 +39,7 @@ public class XmlIntegerParameter extends XmlParameter{
    }
 
    @Override
-   public Parameter<?> createParameter(XmlQueryCollection collection) {
+   public Parameter<?> createParameter() {
       return new IntegerParameter(name);
    }
 }
