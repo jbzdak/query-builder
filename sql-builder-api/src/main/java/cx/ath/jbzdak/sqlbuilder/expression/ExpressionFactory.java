@@ -63,6 +63,9 @@ public interface ExpressionFactory {
 
    BinaryBooleanExpression condition(String conditionType, BooleanExpressionArgument argument1, BooleanExpressionArgument argument2);
 
+   BinaryExpression expression(String expressionType, ExpressionArgument argument1, Parameter<?> argument2);
+
+   BinaryBooleanExpression condition(String conditionType, BooleanExpressionArgument argument1, Parameter<?>  argument2);
 
 
 

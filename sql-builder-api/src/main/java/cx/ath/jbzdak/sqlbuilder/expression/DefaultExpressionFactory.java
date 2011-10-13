@@ -107,6 +107,17 @@ public class DefaultExpressionFactory implements ExpressionFactory {
    }
 
    @Override
+    public BinaryExpression expression(String expressionType, ExpressionArgument argument1, Parameter<?> argument2) {
+       return new BinaryExpression(expressionType, argument1, new ParameterLiteral(argument2));
+    }
+
+    @Override
+    public BinaryBooleanExpression condition(String conditionType, BooleanExpressionArgument argument1, Parameter<?>  argument2) {
+       return new BinaryBooleanExpression(conditionType, argument1, new ParameterLiteral(argument2));
+    }
+
+
+   @Override
    public BinaryBooleanExpression like(ColumnExpression columnExpression, String pattern) {
       return new BinaryBooleanExpression(BinaryExpressionType.LIKE,columnExpression,  new StringLiteral(pattern));
    }

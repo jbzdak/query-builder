@@ -44,7 +44,7 @@ public interface Dialect {
 
    LiteralFactory getLiteralFactory();
 
-   ExpressionFactory getBooleanFactory();
+   ExpressionFactory getExpressionFactory();
 
    /**
     * @return

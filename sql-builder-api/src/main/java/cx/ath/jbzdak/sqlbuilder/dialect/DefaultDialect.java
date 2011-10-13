@@ -104,7 +104,7 @@ public class DefaultDialect extends AbstractDialect{
       return defaultLiteralFactory;
    }
 
-   public DefaultExpressionFactory getBooleanFactory() {
+   public DefaultExpressionFactory getExpressionFactory() {
       return defaultBooleanFactory;
    }
 

@@ -19,8 +19,11 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionArgument;
+import cx.ath.jbzdak.sqlbuilder.expression.ExpressionArgument;
+
 /**
  * Created by: Jacek Bzdak
  */
-public interface Identifier extends IntermediateSQLFactory {
+public interface Identifier extends IntermediateSQLFactory, ExpressionArgument, BooleanExpressionArgument {
 }
