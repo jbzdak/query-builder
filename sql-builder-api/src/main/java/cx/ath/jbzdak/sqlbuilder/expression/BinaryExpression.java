@@ -24,7 +24,7 @@ import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 /**
  * Created by: Jacek Bzdak
  */
-public class BinaryExpression extends AbstractBinaryExpression {
+public class BinaryExpression extends AbstractBinaryExpression  {
    public BinaryExpression() {
    }
 

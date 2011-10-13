@@ -14,7 +14,7 @@ public class BinaryBooleanExpression extends AbstractBinaryExpression implements
       super(type);
    }
 
-   public BinaryBooleanExpression(String type, IntermediateSQLFactory rhs, IntermediateSQLFactory lhs) {
+   public BinaryBooleanExpression(String type, IntermediateSQLFactory lhs, IntermediateSQLFactory rhs) {
       super(type, rhs, lhs);
    }
 

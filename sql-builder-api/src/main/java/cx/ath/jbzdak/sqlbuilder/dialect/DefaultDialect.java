@@ -73,7 +73,7 @@ public class DefaultDialect extends AbstractDialect{
       putPeer(transformerMap, Select.class, SelectPeer.class);
       putPeer(transformerMap, AbstractBinaryExpression.class, BooleanExpressionPeer.class);
       putPeer(transformerMap, RawString.class, RawStringPeer.class);
-      putPeer(transformerMap, NAryExpression.class, NAryBooleanExpressionPeer.class);
+      putPeer(transformerMap, AbstractNaryExpression.class, NAryBooleanExpressionPeer.class);
       putPeer(transformerMap, BetweenCondition.class, BetweenConditionPeer.class);
       putPeer(transformerMap, UnaryExpression.class, UnaryBooleanExpressionPeer.class);
       putPeer(transformerMap, Not.class, NotPeer.class);

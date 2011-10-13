@@ -20,9 +20,11 @@
 package cx.ath.jbzdak.sqlbuilder;
 
 import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
+import cx.ath.jbzdak.sqlbuilder.expression.ExpressionMarker;
 import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
 import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
 
+import java.beans.Expression;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +38,8 @@ public class Select extends SQLObject{
    List<IntermediateSQLFactory> columnExpressions = new ArrayList<IntermediateSQLFactory>();
 
    List<IntermediateSQLFactory> from = new ArrayList<IntermediateSQLFactory>();
+
+   List<Join> joins = new ArrayList<Join>();
 
    BooleanExpressionMarker where;
 
@@ -57,7 +61,19 @@ public class Select extends SQLObject{
       return context.getParameters();
    }
 
+   public List<Join> getJoins() {
+      return joins;
+   }
+
+   public void addJoin(Join... joins){
+      this.joins.addAll(Arrays.asList(joins));
+   }
+
    public void addColumnExpression(ColumnExpression... columnExpression){
+      columnExpressions.addAll(Arrays.asList(columnExpression));
+   }
+
+    public void addColumnExpression(ExpressionMarker... columnExpression){
       columnExpressions.addAll(Arrays.asList(columnExpression));
    }
 

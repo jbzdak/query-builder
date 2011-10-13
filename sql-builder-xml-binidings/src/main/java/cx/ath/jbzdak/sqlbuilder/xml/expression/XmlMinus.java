@@ -22,12 +22,12 @@ public class XmlMinus extends XmlBinaryExpression{
    }
 
    public ExpressionMarker createSingleParam(){
-      return XmlParsingContext.getDialect().getBooleanFactory().minus(toFactory(lhs));
+      return XmlParsingContext.getDialect().getExpressionFactory().minus(toFactory(lhs));
    }
 
 
    public ExpressionMarker createBinary(){
-      return XmlParsingContext.getDialect().getBooleanFactory().expression(BinaryExpressionType.MINUS,
+      return XmlParsingContext.getDialect().getExpressionFactory().expression(BinaryExpressionType.MINUS,
               toFactory(lhs), toFactory(rhs));
    }
 }

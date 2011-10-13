@@ -12,7 +12,7 @@ public class XmlDivide extends XmlBinaryExpression{
    @Override
    public ExpressionMarker create() {
 
-      return XmlParsingContext.getDialect().getBooleanFactory().expression(BinaryExpressionType.DIVIDE, toFactory(lhs), toFactory(rhs));
+      return XmlParsingContext.getDialect().getExpressionFactory().expression(BinaryExpressionType.DIVIDE, toFactory(lhs), toFactory(rhs));
 
    }
 }

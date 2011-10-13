@@ -51,7 +51,7 @@ public enum ExpressionConfigKey {
    PARAMETER_REGEXP_PATTERN(){
       @Override
       public Object getDefault(ExpressionConfig config) {
-         return Pattern.compile(":([\\w\\d\\-_]+)");
+         return Pattern.compile(":([a-zA-Z][\\w\\d\\-_]*)");
       }
    },
    ;

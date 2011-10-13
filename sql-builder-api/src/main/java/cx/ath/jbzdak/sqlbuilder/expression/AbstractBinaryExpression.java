@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class AbstractBinaryExpression extends PeerIntermediateSQLObject implements ExpressionMarker {
+public abstract class AbstractBinaryExpression extends PeerIntermediateSQLObject implements ExpressionMarker, BooleanExpressionArgument {
 
    public static final Pattern CONDITION_PATTERN = prepareConditionPattern();
 

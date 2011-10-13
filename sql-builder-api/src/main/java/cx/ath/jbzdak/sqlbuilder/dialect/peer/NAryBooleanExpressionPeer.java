@@ -19,27 +19,32 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
+import cx.ath.jbzdak.sqlbuilder.expression.AbstractNaryExpression;
 import cx.ath.jbzdak.sqlbuilder.expression.NAryExpression;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
+
+import java.util.List;
 
 /**
  * Created by: Jacek Bzdak
  */
-public class NAryBooleanExpressionPeer extends AbstractPeer<NAryExpression> {
+public class NAryBooleanExpressionPeer extends AbstractPeer<AbstractNaryExpression<?>> {
 
    public NAryBooleanExpressionPeer() {
    }
 
-
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       stringBuilder.append("(");
+      List<? extends IntermediateSQLFactory> expressions;
       if(!(Boolean) renderingContext.getExpressionContext().getExpressionConfig().get(ExpressionConfigKey.IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS)){
-         PeerUtils.joinSqls(renderingContext, stringBuilder, " " + parent.getType() + " ", parent.getExpressions());
+         expressions = parent.getExpressions();
       }else{
-         PeerUtils.joinSqls(renderingContext, stringBuilder, " " + parent.getType() + " ", parent.getExpressionsWithoutUnboundParams());
+         expressions = parent.getExpressionsWithoutUnboundParams();
       }
+      PeerUtils.joinSqls(renderingContext, stringBuilder, " " + parent.getType() + " ", expressions);
       stringBuilder.append(")");
    }
 

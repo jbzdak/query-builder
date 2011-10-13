@@ -39,4 +39,9 @@ public class Alias extends PeerIntermediateSQLObject implements Identifier{
       return columnExpression;
    }
 
+   public ColumnExpression column(String column, String columnAlias){
+      ColumnExpression columnExpression = new ColumnExpression(alias, column);
+      return columnExpression;
+   }
+
 }

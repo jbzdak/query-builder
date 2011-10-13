@@ -63,6 +63,7 @@ public class MiscUtils {
          case MULTILINE:
             sqlString = sqlString.replaceAll("WHERE", "\n\tWHERE");
             sqlString = sqlString.replaceAll("JOIN", "\n\tJOIN");
+            sqlString = sqlString.replaceAll("((?:INNER)|(?:OUTER)|(?:LEFT)|(?:RIGHT))\\s*JOIN", "\n\t$1 JOIN");
             sqlString = sqlString.replaceAll("LIMIT", "\n\tLIMIT");
          case PRETTY:
             sqlString = sqlString.replaceAll("\\([ ]+", "(");

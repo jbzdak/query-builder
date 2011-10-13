@@ -36,6 +36,11 @@ public class ColumnExpression extends PeerIntermediateSQLObject implements Ident
 
    private Alias alias;
 
+   public ColumnExpression(String column, Alias alias) {
+      this.column = column;
+      this.alias = alias;
+   }
+
    public ColumnExpression(String column) {
       this.column = column;
    }

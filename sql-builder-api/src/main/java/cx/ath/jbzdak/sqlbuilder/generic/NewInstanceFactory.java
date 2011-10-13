@@ -36,7 +36,7 @@ public class NewInstanceFactory<T> implements Factory<T>{
       try {
          return clazz.newInstance();
       } catch (InstantiationException e) {
-         throw new RejectedExecutionException(e);
+         throw new RuntimeException(e);
       } catch (IllegalAccessException e) {
          throw new RuntimeException(e);
       }

@@ -39,7 +39,7 @@ public class DatePeer extends AbstractPeer<DateLiteral> {
    @Override
    protected void appendToInternal(RenderingContext renderingContext, StringBuilder stringBuilder) {
       stringBuilder.append(" ");
-      stringBuilder.append(renderingContext.getDialect().getQuotingManager().quoteDate(parent.getLiteralValue()));
+      stringBuilder.append(renderingContext.quoteDate(parent.getLiteralValue()));
       stringBuilder.append(" ");
    }
 

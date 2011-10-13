@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class AbstractNaryExpression<EM extends IntermediateSQLFactory> extends PeerIntermediateSQLObject {
+public abstract class AbstractNaryExpression<EM extends IntermediateSQLFactory> extends PeerIntermediateSQLObject implements BooleanExpressionArgument{
 
 
    protected List<EM> expressions = new ArrayList<EM>();

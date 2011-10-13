@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
+import cx.ath.jbzdak.sqlbuilder.Join;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.Select;
 
@@ -33,10 +34,16 @@ public class SelectPeer extends AbstractPeer<Select>{
       PeerUtils.joinSqls(renderingContext, stringBuilder, ", ", parent.getColumnExpressions());
       stringBuilder.append(" FROM ");
       PeerUtils.joinSqls(renderingContext, stringBuilder, ", ", parent.getFrom());
+      for (Join join : parent.getJoins()) {
+         join.appendTo(renderingContext, stringBuilder);
+      }
+
       if(parent.getWhere() != null){
          stringBuilder.append(" WHERE ");
          parent.getWhere().appendTo(renderingContext, stringBuilder);
       }
+
+
       if(parent.getLimit() != null){
          stringBuilder.append(" LIMIT ");
          stringBuilder.append(parent.getLimit());
