@@ -103,7 +103,7 @@ public class DefaultExpressionFactory implements ExpressionFactory {
 
    @Override
    public BinaryBooleanExpression condition(String conditionType, BooleanExpressionArgument argument1, BooleanExpressionArgument argument2) {
-      return BinaryBooleanExpression(conditionType, argument1, argument2);
+      return new BinaryBooleanExpression(conditionType, argument1, argument2);
    }
 
    @Override
