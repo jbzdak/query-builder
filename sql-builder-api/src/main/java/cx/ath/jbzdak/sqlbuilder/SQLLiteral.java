@@ -19,13 +19,13 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
-import java.util.Collections;
-import java.util.Set;
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionArgument;
+import cx.ath.jbzdak.sqlbuilder.expression.ExpressionArgument;
 
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class SQLLiteral<T> extends PeerIntermediateSQLObject{
+public abstract class SQLLiteral<T> extends PeerIntermediateSQLObject implements ExpressionArgument, BooleanExpressionArgument{
 
    protected String literalType;
 

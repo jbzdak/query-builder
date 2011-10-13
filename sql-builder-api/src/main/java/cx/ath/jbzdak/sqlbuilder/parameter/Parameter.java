@@ -24,7 +24,7 @@ import cx.ath.jbzdak.sqlbuilder.ParameterDescriptor;
 /**
  * Created by: Jacek Bzdak
  */
-public interface Parameter<T>  extends ParameterDescriptor{
+public interface Parameter<T>  extends ParameterDescriptor {
 
    String getName();
 

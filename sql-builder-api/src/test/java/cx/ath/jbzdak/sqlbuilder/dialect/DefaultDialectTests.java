@@ -19,11 +19,14 @@
 
 package cx.ath.jbzdak.sqlbuilder.dialect;
 
-import cx.ath.jbzdak.sqlbuilder.*;
-import cx.ath.jbzdak.sqlbuilder.expression.BinaryExpressionType;
+import cx.ath.jbzdak.sqlbuilder.Alias;
+import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
+import cx.ath.jbzdak.sqlbuilder.Select;
+import cx.ath.jbzdak.sqlbuilder.Table;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
+import cx.ath.jbzdak.sqlbuilder.expression.BinaryExpressionType;
 import cx.ath.jbzdak.sqlbuilder.literal.LiteralFactory;
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.TableParameter;
@@ -130,7 +133,7 @@ public class DefaultDialectTests {
 
       select.setWhere(
               BOOLEAN_FACTORY.and(
-                      BOOLEAN_FACTORY.condition(BinaryExpressionType.EQUALS, dp.column("POINT_TYPE"), ":point_type"),
+                      BOOLEAN_FACTORY.condition(BinaryExpressionType.EQUALS, dp.column("POINT_TYPE"), new DefaultParameter(":point_type")),
                       BOOLEAN_FACTORY.condition(BinaryExpressionType.EQUALS, dp.column("DATA_SOURCE"), new DefaultParameter("data_source")),
                       BOOLEAN_FACTORY.isNotNull(dp.column("VALUE"))
                       ));
