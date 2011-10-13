@@ -43,7 +43,7 @@ public class FakeEnum<E> {
 
    List<Field> findConstants(){
       List<Field> fields = new ArrayList<Field>();
-      for (Field field : clazz.getDeclaredFields()){
+      for (Field field : clazz.getFields()){
          final int mod = field.getModifiers();
          if (
             Modifier.isStatic(mod) &&

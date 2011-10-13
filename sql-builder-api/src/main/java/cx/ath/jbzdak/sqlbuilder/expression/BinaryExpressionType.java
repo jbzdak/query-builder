@@ -44,11 +44,13 @@ public class BinaryExpressionType {
 
    public static final String IN = "IN";
 
+   public static final String MINUS = "-";
+
    public static final String DIVIDE = "/";
 
-   public static final String MINUS = "/";
 
-   private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(BinaryExpressionType.class, String.class);
+
+   public static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(BinaryExpressionType.class, String.class);
 
    public static String nameOf(String value) {
       return FAKE_ENUM.nameOf(value);

@@ -26,20 +26,20 @@ import java.security.InvalidParameterException;
 /**
  * Created by: Jacek Bzdak
  */
-public class UnaryExpresson extends PeerIntermediateSQLObject implements ExpressionMarker {
+public class UnaryExpression extends PeerIntermediateSQLObject implements ExpressionMarker {
 
    protected IntermediateSQLFactory expression;
 
    protected String expressionType;
 
-   protected UnaryExpresson() {
+   protected UnaryExpression() {
    }
 
-   public UnaryExpresson(String expressionType) {
+   public UnaryExpression(String expressionType) {
       this(expressionType, null);
    }
 
-   public UnaryExpresson(String expressionType, IntermediateSQLFactory expression) {
+   public UnaryExpression(String expressionType, IntermediateSQLFactory expression) {
       if(!UnaryExpressionType.values().contains(expressionType)){
          throw new InvalidParameterException("Unknown expression type '" + expression + "'");
       }

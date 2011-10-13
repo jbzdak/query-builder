@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.expression;
 
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
 
 import java.security.InvalidParameterException;
@@ -8,7 +9,7 @@ import java.util.*;
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class AbstractNaryExpression<EM extends ExpressionMarker> extends PeerIntermediateSQLObject {
+public abstract class AbstractNaryExpression<EM extends IntermediateSQLFactory> extends PeerIntermediateSQLObject {
 
 
    protected List<EM> expressions = new ArrayList<EM>();
@@ -23,7 +24,7 @@ public abstract class AbstractNaryExpression<EM extends ExpressionMarker> extend
       this(type, Arrays.asList(markers));
    }
 
-   public AbstractNaryExpression(String type, Collection<EM> expressions) {
+   public AbstractNaryExpression(String type, Collection<? extends EM> expressions) {
       if(!NAryExpressionType.FAKE_ENUM.values().contains(type)){
          throw new InvalidParameterException("Unknown boolean expression type");
       }
@@ -50,7 +51,7 @@ public abstract class AbstractNaryExpression<EM extends ExpressionMarker> extend
    }
 
    public void setExpressions(List<EM> expressions) {
-      this.expressions = new ArrayList<ExpressionMarker>(expressions);
+      this.expressions = new ArrayList<EM>(expressions);
    }
 
    public boolean addExpression(EM booleanExpressionMarker) {

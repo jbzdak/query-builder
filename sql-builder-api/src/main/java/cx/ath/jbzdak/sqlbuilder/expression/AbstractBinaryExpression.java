@@ -51,9 +51,9 @@ public abstract class AbstractBinaryExpression extends PeerIntermediateSQLObject
 
    protected String type;
 
-   protected IntermediateSQLObject rhs;
+   protected IntermediateSQLFactory rhs;
 
-   protected IntermediateSQLObject lhs;
+   protected IntermediateSQLFactory lhs;
 
    protected AbstractBinaryExpression() {}
 
@@ -62,7 +62,7 @@ public abstract class AbstractBinaryExpression extends PeerIntermediateSQLObject
       this.type = type;
    }
 
-   protected AbstractBinaryExpression(String type, IntermediateSQLObject rhs, IntermediateSQLObject lhs) {
+   protected AbstractBinaryExpression(String type, IntermediateSQLFactory rhs, IntermediateSQLFactory lhs) {
       this.type = type;
       this.rhs = rhs;
       this.lhs = lhs;
@@ -76,19 +76,19 @@ public abstract class AbstractBinaryExpression extends PeerIntermediateSQLObject
       this.type = type;
    }
 
-   public IntermediateSQLObject getRhs() {
+   public IntermediateSQLFactory getRhs() {
       return rhs;
    }
 
-   public IntermediateSQLObject getLhs() {
+   public IntermediateSQLFactory getLhs() {
       return lhs;
    }
 
-   protected void setRhs(IntermediateSQLObject rhs) {
+   protected void setRhs(IntermediateSQLFactory rhs) {
       this.rhs = rhs;
    }
 
-   protected void setLhs(IntermediateSQLObject lhs) {
+   protected void setLhs(IntermediateSQLFactory lhs) {
       this.lhs = lhs;
    }
 
@@ -110,38 +110,38 @@ public abstract class AbstractBinaryExpression extends PeerIntermediateSQLObject
    }
 
    public void setRhs(ColumnExpression rhs) {
-      IntermediateSQLObject oldRhs = this.rhs;
+      IntermediateSQLFactory oldRhs = this.rhs;
       this.rhs = rhs;
       propertyChangeSupport.firePropertyChange("rhs", oldRhs, this.rhs);
    }
 
 
    public void setRhs(SQLLiteral rhs) {
-      IntermediateSQLObject oldRhs = this.rhs;
+      IntermediateSQLFactory oldRhs = this.rhs;
       this.rhs = rhs;
       propertyChangeSupport.firePropertyChange("rhs", oldRhs, this.rhs);
    }
 
    public void setRhs(Select rhs) {
-      IntermediateSQLObject oldRhs = this.rhs;
+      IntermediateSQLFactory oldRhs = this.rhs;
       this.rhs = rhs;
       propertyChangeSupport.firePropertyChange("rhs", oldRhs, this.rhs);
    }
 
    public void setLhs(ColumnExpression lhs) {
-      IntermediateSQLObject oldLhs = this.lhs;
+      IntermediateSQLFactory oldLhs = this.lhs;
       this.lhs = lhs;
       propertyChangeSupport.firePropertyChange("lhs", oldLhs, this.lhs);
    }
 
    public void setLhs(SQLLiteral lhs) {
-      IntermediateSQLObject oldLhs = this.lhs;
+      IntermediateSQLFactory oldLhs = this.lhs;
       this.lhs = lhs;
       propertyChangeSupport.firePropertyChange("lhs", oldLhs, this.lhs);
    }
 
    public void setLhs(Select lhs) {
-      IntermediateSQLObject oldLhs = this.lhs;
+      IntermediateSQLFactory oldLhs = this.lhs;
       this.lhs = lhs;
       propertyChangeSupport.firePropertyChange("lhs", oldLhs, this.lhs);
    }

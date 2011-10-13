@@ -31,9 +31,12 @@ public class UnaryExpressionType {
    public static final String IS_NULL = "IS NULL";
    public static final String IS_NON_NULL = "IS NOT NULL";
 
-//   public static final String NOT = "NOT";
+   public static final String NOT = "NOT";
 
-   private static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(UnaryExpressionType.class, String.class);
+   public static final String MINUS = "-";
+
+
+   public static final FakeEnum<String> FAKE_ENUM = new FakeEnum<String>(UnaryExpressionType.class, String.class);
 
    public static String nameOf(String value) {
       return FAKE_ENUM.nameOf(value);

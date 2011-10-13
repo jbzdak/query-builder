@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.expression;
 
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
 
 import java.security.InvalidParameterException;
@@ -27,17 +28,17 @@ import java.util.*;
 /**
  * Created by: Jacek Bzdak
  */
-public class NAryExpression extends AbstractNaryExpression<ExpressionMarker>{
+public class NAryExpression extends AbstractNaryExpression<IntermediateSQLFactory>{
 
    public NAryExpression(String type) {
       super(type);
    }
 
-   public NAryExpression(String type, ExpressionMarker... markers) {
+   public NAryExpression(String type, ExpressionArgument... markers) {
       super(type, markers);
    }
 
-   public NAryExpression(String type, Collection<ExpressionMarker> expressions) {
+   public NAryExpression(String type, Collection<? extends ExpressionArgument> expressions) {
       super(type, expressions);
    }
 }

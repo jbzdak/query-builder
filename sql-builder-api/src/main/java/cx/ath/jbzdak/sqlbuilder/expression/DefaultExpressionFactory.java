@@ -26,54 +26,113 @@ import cx.ath.jbzdak.sqlbuilder.literal.ParameterLiteral;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
 import cx.ath.jbzdak.sqlbuilder.parameter.AbstractParameter;
 import cx.ath.jbzdak.sqlbuilder.parameter.DefaultParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Created by: Jacek Bzdak
  */
 public class DefaultExpressionFactory implements ExpressionFactory {
 
-
-   public NAryBooleanExpression and(BooleanExpressionMarker... childExpressions){
-      return new NAryBooleanExpression(NAryExpressionType.AND, Arrays.asList(childExpressions));
-   }
-
-   public NAryBooleanExpression or(BooleanExpressionMarker... childExpressios){
-      return new NAryBooleanExpression(NAryExpressionType.OR, Arrays.asList(childExpressios));
+   @Override
+   public NAryBooleanExpression and(BooleanExpressionArgument... childExpressions) {
+      return new NAryBooleanExpression(NAryExpressionType.AND, childExpressions);
    }
 
    @Override
-   public BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, ColumnExpression columnExpression1) {
-      return new BinaryBooleanExpression(conditionType, columnExpression, columnExpression1);
+   public NAryBooleanExpression or(BooleanExpressionArgument... childExpressions) {
+      return new NAryBooleanExpression(NAryExpressionType.OR, childExpressions);
    }
 
-   public BooleanUnaryExpression not(BooleanExpressionMarker child){
-      return new Not(child);
+   @Override
+   public NAryExpression plus(ExpressionArgument... childExpressions) {
+      return new NAryExpression(NAryExpressionType.PLUS, childExpressions);
    }
 
-   public BooleanUnaryExpression isNull(ColumnExpression columnExpression){
-      return new BooleanUnaryExpression(UnaryExpressionType.IS_NULL, columnExpression);
+   @Override
+   public NAryExpression times(ExpressionArgument... childExpressions) {
+      return new NAryExpression(NAryExpressionType.TIMES, childExpressions);
    }
 
-   public BooleanUnaryExpression isNotNull(ColumnExpression columnExpression){
-      return new BooleanUnaryExpression(UnaryExpressionType.IS_NON_NULL, columnExpression);
+   @Override
+   public NAryBooleanExpression and(Collection<? extends BooleanExpressionArgument> childExpressions) {
+      return new NAryBooleanExpression(NAryExpressionType.AND, childExpressions);
    }
 
-   public BinaryBooleanExpression like(ColumnExpression columnExpression, StringLiteral stringLiteral){
-      return new BinaryBooleanExpression(BinaryExpressionType.LIKE, columnExpression, stringLiteral);
+   @Override
+   public NAryBooleanExpression or(Collection<? extends BooleanExpressionArgument> childExpressions) {
+      return new NAryBooleanExpression(NAryExpressionType.OR, childExpressions);
    }
 
-   public BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, SQLLiteral<?> stringLiteral){
-      return new BinaryBooleanExpression(conditionType, columnExpression, stringLiteral);
+   @Override
+   public NAryExpression plus(Collection<? extends ExpressionArgument> childExpressions) {
+      return new NAryExpression(NAryExpressionType.PLUS, childExpressions);
    }
 
-   public BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, AbstractParameter parameterLiteral){
-      return new BinaryBooleanExpression(conditionType, columnExpression, new ParameterLiteral(parameterLiteral));
+   @Override
+   public NAryExpression times(Collection<? extends ExpressionArgument> childExpressions) {
+      return new NAryExpression(NAryExpressionType.TIMES, childExpressions);
    }
 
-   public BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, String parameterLiteral){
-      return new BinaryBooleanExpression(conditionType, columnExpression, new ParameterLiteral(new DefaultParameter(parameterLiteral)));
+   @Override
+   public UnaryBooleanExpression not(BooleanExpressionArgument child) {
+      return new UnaryBooleanExpression(UnaryExpressionType.NOT, child);
    }
 
+   @Override
+   public UnaryBooleanExpression isNull(ColumnExpression columnExpression) {
+      return new UnaryBooleanExpression(UnaryExpressionType.IS_NULL, columnExpression);
+   }
+
+   @Override
+   public UnaryBooleanExpression isNotNull(ColumnExpression columnExpression) {
+      return new UnaryBooleanExpression(UnaryExpressionType.IS_NON_NULL, columnExpression);
+   }
+
+   @Override
+   public UnaryExpression minus(ExpressionArgument argument) {
+      return new UnaryBooleanExpression(UnaryExpressionType.IS_NON_NULL, argument);
+   }
+
+   @Override
+   public UnaryExpression minus(Parameter<Number> argument) {
+      return new UnaryBooleanExpression(UnaryExpressionType.IS_NON_NULL, new ParameterLiteral(argument));
+   }
+
+   @Override
+   public BinaryExpression expression(String expressionType, ColumnExpression columnExpression, ExpressionArgument argument) {
+      return new BinaryExpression(expressionType, columnExpression, argument);
+   }
+
+   @Override
+   public BinaryExpression expression(String expressionType, ColumnExpression columnExpression, Parameter argument) {
+      return new BinaryExpression(expressionType, columnExpression, new ParameterLiteral(argument));
+   }
+
+   @Override
+   public BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, BooleanExpressionArgument argument) {
+      return new BinaryBooleanExpression(conditionType, columnExpression, argument);
+   }
+
+   @Override
+   public BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, Parameter<?> argument) {
+      return new BinaryBooleanExpression(conditionType, columnExpression, new ParameterLiteral(argument));
+   }
+
+   @Override
+   public BinaryBooleanExpression like(ColumnExpression columnExpression, String pattern) {
+      return new BinaryBooleanExpression(BinaryExpressionType.LIKE,columnExpression,  new StringLiteral(pattern));
+   }
+
+   @Override
+   public BinaryBooleanExpression like(ColumnExpression columnExpression, Parameter<String> stringParameter) {
+      return new BinaryBooleanExpression(BinaryExpressionType.LIKE,columnExpression,  new ParameterLiteral(stringParameter));
+   }
+
+   @Override
+   public BinaryBooleanExpression like(ColumnExpression columnExpression, ExpressionArgument argument) {
+      return new BinaryBooleanExpression(BinaryExpressionType.LIKE,columnExpression,  argument);
+   }
 }

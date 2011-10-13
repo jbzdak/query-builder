@@ -21,8 +21,11 @@ package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.ColumnExpression;
 import cx.ath.jbzdak.sqlbuilder.SQLLiteral;
-import cx.ath.jbzdak.sqlbuilder.dialect.peer.UnaryBooleanExpressionPeer;
 import cx.ath.jbzdak.sqlbuilder.literal.StringLiteral;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
+import org.apache.commons.lang.ObjectUtils;
+
+import java.util.Collection;
 
 /**
  * Created by: Jacek Bzdak
@@ -31,19 +34,51 @@ public interface ExpressionFactory {
 
    public static final DefaultExpressionFactory BOOLEAN_FACTORY = new DefaultExpressionFactory();
 
-   NAryBooleanExpression and(BooleanExpressionMarker... childExpressions);
+   NAryBooleanExpression and(BooleanExpressionArgument... childExpressions);
 
-   NAryBooleanExpression or(BooleanExpressionMarker... childExpressios);
+   NAryBooleanExpression or(BooleanExpressionArgument... childExpressions);
 
-   BooleanUnaryExpression not(BooleanExpressionMarker child);
+   NAryExpression plus(ExpressionArgument... childExpressions);
 
-   BooleanUnaryExpression isNull(ColumnExpression columnExpression);
+   NAryExpression times(ExpressionArgument... childExpressions);
 
-   BooleanUnaryExpression isNotNull(ColumnExpression columnExpression);
+   NAryBooleanExpression and(Collection<? extends BooleanExpressionArgument> childExpressions);
 
-   BinaryBooleanExpression like(ColumnExpression columnExpression, StringLiteral stringLiteral);
+   NAryBooleanExpression or(Collection<? extends BooleanExpressionArgument> childExpressions);
 
-   BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, SQLLiteral<?> stringLiteral);
+   NAryExpression plus(Collection<? extends ExpressionArgument> childExpressions);
 
-   BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression1, ColumnExpression columnExpression2);
+   NAryExpression times(Collection<? extends ExpressionArgument> childExpressions);
+
+   UnaryBooleanExpression not(BooleanExpressionArgument child);
+
+   UnaryBooleanExpression isNull(ColumnExpression columnExpression);
+
+   UnaryBooleanExpression isNotNull(ColumnExpression columnExpression);
+
+   UnaryExpression minus(ExpressionArgument argument);
+
+   UnaryExpression minus(Parameter<Number> argument);
+
+
+
+   BinaryExpression expression(String expressionType, ColumnExpression columnExpression, ExpressionArgument argument);
+
+   BinaryExpression expression(String expressionType, ColumnExpression columnExpression, Parameter<Number> argument);
+
+   BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, BooleanExpressionArgument argument);
+
+   BinaryBooleanExpression condition(String conditionType, ColumnExpression columnExpression, Parameter<?> argument);
+
+
+
+   BinaryBooleanExpression like(ColumnExpression columnExpression, String pattern);
+
+   BinaryBooleanExpression like(ColumnExpression columnExpression, Parameter<String> stringParameter);
+
+   BinaryBooleanExpression like(ColumnExpression columnExpression, ExpressionArgument argument);
+
+
+
+
 }

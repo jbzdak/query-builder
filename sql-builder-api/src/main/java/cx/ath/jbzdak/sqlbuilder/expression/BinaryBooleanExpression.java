@@ -1,5 +1,6 @@
 package cx.ath.jbzdak.sqlbuilder.expression;
 
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
 
 /**
@@ -14,7 +15,7 @@ public class BinaryBooleanExpression extends AbstractBinaryExpression implements
       super(type);
    }
 
-   public BinaryBooleanExpression(String type, IntermediateSQLObject rhs, IntermediateSQLObject lhs) {
+   public BinaryBooleanExpression(String type, IntermediateSQLFactory rhs, IntermediateSQLFactory lhs) {
       super(type, rhs, lhs);
    }
 

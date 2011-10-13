@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.expression;
 
+import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLObject;
 
 /**
@@ -32,7 +33,7 @@ public class BinaryExpression extends AbstractBinaryExpression {
       super(type);
    }
 
-   public BinaryExpression(String type, IntermediateSQLObject rhs, IntermediateSQLObject lhs) {
+   public BinaryExpression(String type, IntermediateSQLFactory rhs, IntermediateSQLFactory lhs) {
       super(type, rhs, lhs);
    }
 }

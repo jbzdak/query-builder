@@ -32,13 +32,13 @@ import java.util.Set;
 /**
  * Created by: Jacek Bzdak
  */
-public class ParameterLiteral extends SQLLiteral<AbstractParameter>{
+public class ParameterLiteral extends SQLLiteral<Parameter>{
 
 
    public ParameterLiteral() {
    }
 
-   public ParameterLiteral(AbstractParameter literalValue) {
+   public ParameterLiteral(Parameter literalValue) {
       super(SQLLiteralType.PARAMETER, literalValue);
    }
 
