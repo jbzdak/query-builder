@@ -36,19 +36,9 @@
                 <groupId>com.sun.tools.jxc.maven2</groupId>
                 <artifactId>maven-jaxb-schemagen-plugin</artifactId>
                 <version>1.2</version>
-                <!--<executions>-->
-                <!--<execution>-->
-                <!--<phase>generate-resources</phase>-->
-                <!--<goals>-->
-                <!--<goal>generate</goal>-->
-                <!--</goals>-->
-                <!--</execution>-->
-                <!--</executions>-->
+
                 <configuration>
                     <project>${project}</project>
-                    <!--<destdir>${project.build.directory}/schemas</destdir>-->
-                    <!--<srcdir>${project.build.sourceDirectory}/cx/ath/jbzdak/hajmon/db/xml/query</srcdir>-->
-                    <!--<verbose>true</verbose>-->
                     <srcdir>${project.build.sourceDirectory}</srcdir>
                     <destdir>${basedir}/schemas</destdir>
                     <includes>
