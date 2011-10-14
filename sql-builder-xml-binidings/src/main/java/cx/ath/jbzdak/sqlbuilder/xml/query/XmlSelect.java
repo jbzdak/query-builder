@@ -49,7 +49,7 @@ public class XmlSelect extends AbstractQuery{
 
    public Select createQuery() {
 
-      XmlQueryCollection queryCollection = XmlParsingContext.getCollection();
+      AbstractXmlQueryCollection queryCollection = XmlParsingContext.getCollection();
 
       ExpressionConfig config = xmlExpressionConfig.createConfig();
       ExpressionContext expressionContext = new ExpressionContext(config);

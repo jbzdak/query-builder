@@ -24,10 +24,12 @@ import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfigKey;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.PrettifySQLLevel;
 import cx.ath.jbzdak.sqlbuilder.generic.EnumTransformer;
 import cx.ath.jbzdak.sqlbuilder.generic.NewInstanceTransformer;
+import cx.ath.jbzdak.sqlbuilder.generic.NoopTransformer;
 import cx.ath.jbzdak.sqlbuilder.generic.Transformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,11 +51,19 @@ public class DialectConfigTransformer implements Transformer<Object, DialectConf
       transformers.put(DialectConfigKey.TABLE_EXPRESSION_QUOTING_STRATEGY, EnumTransformer.create(IdentifierQuotingStrategy.class));
       transformers.put(DialectConfigKey.PRETTIFY_SQL, EnumTransformer.create(PrettifySQLLevel.class));
       transformers.put(DialectConfigKey.PARAMETER_FACTORY, new NewInstanceTransformer());
+      transformers.put(DialectConfigKey.OUTPUT_DATE_FORMAT, new NoopTransformer<String>());
+      transformers.put(DialectConfigKey.DEFAULT_INPUT_DATE_FORMATS, new Transformer<Object, String>() {
+         @Override
+         public Object transform(String source) {
+            return Arrays.asList(source.split("[,;]]"));
+         }
+      });
       transformers.put(DialectConfigKey.ADDITIONAL_PEERS, new Transformer<Object, String>() {
          public Object transform(String source) {
           throw new UnsupportedOperationException("Customizing of ADDITIONAL_PEERS is not possible for DIALECT_CONFIG");
          }
       });
+
    }
 
    public Object transform(DialectConfigItem source) {

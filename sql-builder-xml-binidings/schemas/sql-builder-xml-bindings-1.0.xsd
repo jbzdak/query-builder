@@ -162,6 +162,7 @@
         <xs:element name="and" type="tns:and"/>
         <xs:element name="cond" type="tns:expr"/>
         <xs:element name="is-null" type="tns:is-null"/>
+        <xs:element name="expression" type="tns:xmlExpression"/>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -181,6 +182,7 @@
         <xs:element name="and" type="tns:and"/>
         <xs:element name="cond" type="tns:expr"/>
         <xs:element name="is-null" type="tns:is-null"/>
+        <xs:element name="expression" type="tns:xmlExpression"/>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -207,15 +209,93 @@
     <xs:attribute name="not" type="xs:boolean" use="required"/>
   </xs:complexType>
 
+  <xs:complexType name="xmlExpression">
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element name="plus" type="tns:plus"/>
+        <xs:element name="times" type="tns:times"/>
+        <xs:element name="minus" type="tns:minus"/>
+        <xs:element name="divide" type="tns:xmlDivide"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="plus">
+    <xs:complexContent>
+      <xs:extension base="tns:xmlNargExpression">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="xmlNargExpression">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="or" type="tns:or"/>
+        <xs:element name="and" type="tns:and"/>
+        <xs:element name="cond" type="tns:expr"/>
+        <xs:element name="is-null" type="tns:is-null"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="times">
+    <xs:complexContent>
+      <xs:extension base="tns:xmlNargExpression">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="minus">
+    <xs:complexContent>
+      <xs:extension base="tns:xmlBinaryExpression">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="xmlBinaryExpression" abstract="true">
+    <xs:sequence>
+      <xs:choice minOccurs="0">
+        <xs:element name="plus" type="tns:plus"/>
+        <xs:element name="times" type="tns:times"/>
+        <xs:element name="parameter" type="tns:typedParameter"/>
+        <xs:element name="column" type="tns:col"/>
+        <xs:element name="minus" type="tns:minus"/>
+        <xs:element name="plus" type="tns:plus"/>
+        <xs:element name="raw" type="tns:raw"/>
+      </xs:choice>
+      <xs:choice minOccurs="0">
+        <xs:element name="plus" type="tns:plus"/>
+        <xs:element name="times" type="tns:times"/>
+        <xs:element name="parameter" type="tns:typedParameter"/>
+        <xs:element name="column" type="tns:col"/>
+        <xs:element name="minus" type="tns:minus"/>
+        <xs:element name="plus" type="tns:plus"/>
+        <xs:element name="raw" type="tns:raw"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="xmlDivide">
+    <xs:complexContent>
+      <xs:extension base="tns:xmlBinaryExpression">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:simpleType name="dialectConfigKey">
     <xs:restriction base="xs:string">
-      <xs:enumeration value="IDENTIFIER_QUOTING_STRATEGY"/>
-      <xs:enumeration value="ALIAS_QUOTING_STRATEGY"/>
-      <xs:enumeration value="TABLE_EXPRESSION_QUOTING_STRATEGY"/>
-      <xs:enumeration value="PRETTIFY_SQL"/>
+      <xs:enumeration value="identifier-quoting-strategy"/>
+      <xs:enumeration value="alias-quoting-strategy"/>
+      <xs:enumeration value="table-quoting-strategy"/>
+      <xs:enumeration value="prettify-sql"/>
       <xs:enumeration value="ADDITIONAL_PEERS"/>
-      <xs:enumeration value="PARAMETER_FACTORY"/>
-      <xs:enumeration value="DEFAULT_INPUT_DATE_FORMATS"/>
+      <xs:enumeration value="parameter-factory"/>
+      <xs:enumeration value="default-input-date-formats"/>
+      <xs:enumeration value="output-date-format"/>
     </xs:restriction>
   </xs:simpleType>
 

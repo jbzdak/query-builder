@@ -17,17 +17,16 @@
  * along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package cx.ath.jbzdak.sqlbuilder.xml;
+@XmlSchema(
+        namespace = Namespace.NAMESPACE,
+        xmlns = {@XmlNs(prefix = "sql", namespaceURI = Namespace.NAMESPACE)},
+        elementFormDefault = XmlNsForm.QUALIFIED,
+        attributeFormDefault = XmlNsForm.UNQUALIFIED
+)
+package cx.ath.jbzdak.sqlbuilder.xml.expression;
 
-import cx.ath.jbzdak.sqlbuilder.BasicSQLFactory;
-import cx.ath.jbzdak.sqlbuilder.SQLFactory;
+import cx.ath.jbzdak.sqlbuilder.Namespace;
 
-/**
- * Created by: Jacek Bzdak
- */
-public interface QueryTag {
-
-   String getName();
-
-   BasicSQLFactory createQuery();
-}
+import javax.xml.bind.annotation.XmlNs;
+import javax.xml.bind.annotation.XmlNsForm;
+import javax.xml.bind.annotation.XmlSchema;

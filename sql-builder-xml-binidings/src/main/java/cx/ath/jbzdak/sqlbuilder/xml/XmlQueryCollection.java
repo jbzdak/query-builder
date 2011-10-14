@@ -37,65 +37,19 @@ import java.util.*;
  * Created by: Jacek Bzdak
  */
 
-@XmlType(propOrder = {"xmlDialectConfig", "xmlDefaultExpressionConfig", "queryTags"})
 @XmlRootElement(name = "queryCollection")
-public class XmlQueryCollection implements QueryCollection{
+public class XmlQueryCollection extends AbstractXmlQueryCollection {
 
 
-
-  public static XmlQueryCollection create(InputStream inputStream) throws JAXBException {
-     Unmarshaller unmarshaller = JaxbEntryPoint.DEFAULT_CONTEXT.createUnmarshaller();
-     XmlQueryCollection unmarshal = (XmlQueryCollection) unmarshaller.unmarshal(inputStream);
-     unmarshal.parsingFinished();
-     return unmarshal;
-  }
-
-   String xmlDialect;
-
-   @XmlTransient
-   private Dialect dialect;
-
-   XmlDialectConfig xmlDialectConfig;
-
-   @XmlTransient
-   private DialectConfig dialectConfig;
-
-
-   XmlExpressionConfig xmlDefaultExpressionConfig;
-
-   ExpressionConfig defaultExpressionConfig;
-
-   List<AbstractQuery> queryTags = new ArrayList<AbstractQuery>();
-
-   Map<String, QueryTag> queries;
+   public static XmlQueryCollection create(InputStream inputStream) throws JAXBException {
+      Unmarshaller unmarshaller = JaxbEntryPoint.DEFAULT_CONTEXT.createUnmarshaller();
+      XmlQueryCollection unmarshal = (XmlQueryCollection) unmarshaller.unmarshal(inputStream);
+      unmarshal.parsingFinished();
+      return unmarshal;
+   }
 
    public XmlQueryCollection() {
       XmlParsingContext.setXmlQueryCollection(this);
-   }
-
-   public void parsingFinished(){
-      XmlParsingContext.remove();
-   }
-
-   public void prepare(){
-   }
-
-   @XmlAttribute(required = true, name = "dialect")
-   public String getXmlDialect() {
-      return xmlDialect;
-   }
-
-   public void setXmlDialect(String xmlDialect) {
-      this.xmlDialect = xmlDialect;
-   }
-
-   @XmlElement(nillable = true, required = false, name = "dialectConfig")
-   public XmlDialectConfig getXmlDialectConfig() {
-      return xmlDialectConfig;
-   }
-
-   public void setXmlDialectConfig(XmlDialectConfig xmlDialectConfig) {
-      this.xmlDialectConfig = xmlDialectConfig;
    }
 
    @XmlElements({
@@ -110,74 +64,5 @@ public class XmlQueryCollection implements QueryCollection{
       this.queryTags = queryTags;
    }
 
-   @XmlTransient
-   public Map<String, QueryTag> getQueries() {
-      if (queries == null) {
-         queries = new HashMap<String, QueryTag>();
-         for (QueryTag queryTag : queryTags) {
-            queries.put(queryTag.getName(), queryTag);
-         }
-      }
-      return queries;
-   }
 
-   public void setQueries(Map<String, QueryTag> queries) {
-      this.queries = queries;
-   }
-
-   public SQLFactory getQuery(String name){
-      return queries.get(name).createQuery();
-   }
-
-   public Dialect getDialect() {
-      if (dialect == null) {
-         ConfigurableDialectHolder configurableDialectHolder = new ConfigurableDialectHolder();
-         dialect = configurableDialectHolder.getDialect(xmlDialect, dialectConfig);
-      }
-      return dialect;
-   }
-
-   @XmlTransient
-   public ExpressionConfig getDefaultExpressionConfig() {
-      if (defaultExpressionConfig == null) {
-         if(xmlDefaultExpressionConfig!=null){
-            defaultExpressionConfig = xmlDefaultExpressionConfig.createConfig();
-         }else{
-            defaultExpressionConfig = new ExpressionConfig();
-         }
-         defaultExpressionConfig.put(ExpressionConfigKey.DIALECT, getDialect());
-      }
-      return defaultExpressionConfig;
-   }
-
-   public DialectConfig getDialectConfig() {
-      if (dialectConfig == null) {
-         dialectConfig = xmlDialectConfig.createDialectConfig();
-      }
-      return dialectConfig;
-   }
-
-   @XmlElement(nillable = true, required = false, name = "defaultExpressionConfig")
-   public XmlExpressionConfig getXmlDefaultExpressionConfig() {
-      return xmlDefaultExpressionConfig;
-   }
-
-   public void setXmlDefaultExpressionConfig(XmlExpressionConfig xmlDefaultExpressionConfig) {
-      this.xmlDefaultExpressionConfig = xmlDefaultExpressionConfig;
-   }
-
-   public Set<String> getQueryNames() {
-      return queries.keySet();
-   }
-
-
-
-
-   public void setJdbcUrl(String jdbc) {
-      //To change body of implemented methods use File | Settings | File Templates.
-   }
-
-   public void setCredentials(String username, String password) {
-      //To change body of implemented methods use File | Settings | File Templates.
-   }
 }

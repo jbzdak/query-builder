@@ -7,17 +7,17 @@ import cx.ath.jbzdak.sqlbuilder.Dialect;
  */
 public class XmlParsingContext {
 
-   private static final ThreadLocal<XmlQueryCollection> COLLECTION = new ThreadLocal<XmlQueryCollection>();
+   private static final ThreadLocal<AbstractXmlQueryCollection> COLLECTION = new ThreadLocal<AbstractXmlQueryCollection>();
 
    public static Dialect getDialect(){
       return getCollection().getDialect();
    }
 
-   public static XmlQueryCollection getCollection() {
+   public static AbstractXmlQueryCollection getCollection() {
       return COLLECTION.get();
    }
 
-   public static void setXmlQueryCollection(XmlQueryCollection collection){
+   public static void setXmlQueryCollection(AbstractXmlQueryCollection collection){
       COLLECTION.set(collection);
    }
 

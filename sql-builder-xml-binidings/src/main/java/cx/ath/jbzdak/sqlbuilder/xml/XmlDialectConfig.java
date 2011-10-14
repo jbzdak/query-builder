@@ -45,7 +45,7 @@ public class XmlDialectConfig {
    }
 
 
-   DialectConfig createDialectConfig(){
+   public DialectConfig createDialectConfig(){
       DialectConfig dialectConfig = new DialectConfig();
       for (DialectConfigItem configItem : configItems) {
          dialectConfig.setConfig(configItem.key, DialectConfigTransformer.DIALECT_CONFIG_TRANSFORMER.transform(configItem));
