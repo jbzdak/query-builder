@@ -24,31 +24,38 @@ import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SQLPeer;
 import cx.ath.jbzdak.sqlbuilder.dialect.IdentifierQuotingStrategy;
 
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
 import java.util.Arrays;
 import java.util.HashMap;
 
 /**
  * Created by: Jacek Bzdak
  */
+@XmlEnum
 public enum DialectConfigKey {
+   @XmlEnumValue("identifier-quoting-strategy")
    IDENTIFIER_QUOTING_STRATEGY{
       @Override
       public Object getDefault(Dialect d) {
          return IdentifierQuotingStrategy.DEFAULT;
       }
    },
+   @XmlEnumValue("alias-quoting-strategy")
    ALIAS_QUOTING_STRATEGY{
       @Override
       public Object getDefault(Dialect d) {
          return d.getDialectConfig().getConfig(IDENTIFIER_QUOTING_STRATEGY);
       }
    },
+   @XmlEnumValue("table-quoting-strategy")
    TABLE_EXPRESSION_QUOTING_STRATEGY{
       @Override
       public Object getDefault(Dialect d) {
          return d.getDialectConfig().getConfig(IDENTIFIER_QUOTING_STRATEGY);
       }
    },
+   @XmlEnumValue("prettify-sql")
    PRETTIFY_SQL{
       @Override
       public Object getDefault(Dialect d) {
@@ -64,18 +71,21 @@ public enum DialectConfigKey {
          return new HashMap<Class<? extends IntermediateSQLFactory>, Class<? extends SQLPeer>>();
       }
    },
+   @XmlEnumValue("parameter-factory")
    PARAMETER_FACTORY{
       @Override
       public Object getDefault(Dialect d) {
          return null;
       }
    },
+   @XmlEnumValue("default-input-date-formats")
    DEFAULT_INPUT_DATE_FORMATS{
       @Override
       public Object getDefault(Dialect d) {
          return Arrays.asList("yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy");
       }
    },
+   @XmlEnumValue("output-date-format")
    OUTPUT_DATE_FORMAT{
       @Override
       public Object getDefault(Dialect d) {
@@ -85,5 +95,6 @@ public enum DialectConfigKey {
 
 
    public abstract Object getDefault(Dialect d);
+
 
 }

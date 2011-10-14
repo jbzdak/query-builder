@@ -15,12 +15,14 @@ public class ParametrizedValue<T> {
       this.parameterType = parameterType;
    }
 
+   Boolean valueSet = Boolean.TRUE; //
+
    Parameter<? extends T> parameterValue;
 
    T value;
 
    public T getValue(ExpressionContext context){
-      if(value != null){
+      if(valueSet){
          return value;
       }
       return context.resolveParameter(parameterValue);
@@ -29,10 +31,12 @@ public class ParametrizedValue<T> {
 
 
    public void setValue(ExpressionContext context, T value){
+      valueSet = true;
       this.value = value;
    }
 
    public void setParameter(ExpressionContext context, Parameter<T> parameter){
+      valueSet = false;
       parameterValue = parameter;
       context.addParameter(parameter);
    }
@@ -47,7 +51,10 @@ public class ParametrizedValue<T> {
    }
 
    public T convert(ExpressionContext context, String value){
-      Parameter<T> parameter = context.getDialect().createParameter("", value);
+      if(value==null){
+         return null;
+      }
+      Parameter<T> parameter = context.getDialect().createParameter(value, parameterType);
       return parameter.fromString(value);
    }
 }

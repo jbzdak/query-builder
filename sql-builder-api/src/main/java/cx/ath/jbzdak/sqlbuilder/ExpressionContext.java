@@ -87,9 +87,11 @@ public class ExpressionContext {
     * @return
     */
    public boolean isParameter(String possibleParam){
+      if(possibleParam==null){
+         return false;
+      }
       Pattern paramPattern = (Pattern) getExpressionConfig().get(ExpressionConfigKey.PARAMETER_REGEXP_PATTERN);
       return paramPattern.matcher(possibleParam).matches();
-
    }
 
    public boolean containsUnboundParams(IntermediateSQLFactory factory){
