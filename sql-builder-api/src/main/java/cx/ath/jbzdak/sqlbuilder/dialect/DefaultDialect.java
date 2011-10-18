@@ -50,7 +50,7 @@ public class DefaultDialect extends AbstractDialect{
 
    public DefaultDialect(DialectConfig dialectConfig) {
       super(dialectConfig);
-      parameterFactory = new DefaultParameterFactory();
+      parameterFactory = new DefaultParameterFactory(this);
    }
 
    protected DefaultLiteralFactory defaultLiteralFactory = new DefaultLiteralFactory();
