@@ -38,10 +38,6 @@ public class ParameterType {
 
    public static final String DOUBLE_PARAMETER = SQLLiteralType.DOUBLE;
 
-
-
-   public static final String NUMERIC_PARAMETER = SQLLiteralType.DOUBLE;
-
    public static final String QUOTED_STRING = SQLLiteralType.STRING;
 
    public static final String DATE = SQLLiteralType.DATE;

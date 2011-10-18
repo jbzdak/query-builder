@@ -24,7 +24,7 @@ import cx.ath.jbzdak.sqlbuilder.ParameterDescriptor;
 /**
  * Created by: Jacek Bzdak
  */
-public interface Parameter<T>  extends ParameterDescriptor {
+public interface Parameter<T>  extends ParameterDescriptor{
 
    String getName();
 
@@ -39,4 +39,26 @@ public interface Parameter<T>  extends ParameterDescriptor {
    T fromObject(Object o);
 
    T fromString(String string);
+
+   boolean isRequired();
+
+   void setRequired(boolean required);
+
+   /**
+    * Default implementation:
+    * <code>
+    *       @Override
+   public int compareTo(Parameter o) {
+      int result = index - o.getIndex();
+      if(result != 0){
+      return result;
+      }
+      return name.compareTo(o.getName());
+   }
+
+    * </code>
+    * @param o
+    * @return
+    */
+   int compareTo(ParameterDescriptor o);
 }

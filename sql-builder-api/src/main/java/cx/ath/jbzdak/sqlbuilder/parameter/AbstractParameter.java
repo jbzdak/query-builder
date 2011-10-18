@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
+import cx.ath.jbzdak.sqlbuilder.ParameterDescriptor;
 import cx.ath.jbzdak.sqlbuilder.ParameterValueDescriptor;
 
 import java.util.Collections;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * Created by: Jacek Bzdak
  */
-public abstract class AbstractParameter<T> implements Parameter<T> {
+public abstract class AbstractParameter<T> implements Parameter<T>{
 
    String name;
 
@@ -35,12 +36,34 @@ public abstract class AbstractParameter<T> implements Parameter<T> {
 
    T defaultValue;
 
+   boolean required;
+
+   int index;
+
    protected AbstractParameter(String type, String name) {
       if(name.startsWith(":")){
          name = name.substring(1);
       }
       this.name = name;
       this.type = type;
+   }
+
+   @Override
+   public void setIndex(int index) {
+      this.index = index;
+   }
+
+   @Override
+   public int getIndex() {
+      return index;
+   }
+
+   public boolean isRequired() {
+      return required;
+   }
+
+   public void setRequired(boolean required) {
+      this.required = required;
    }
 
    public String getName() {
@@ -65,6 +88,15 @@ public abstract class AbstractParameter<T> implements Parameter<T> {
 
    public List<ParameterValueDescriptor> getValues() {
       return Collections.emptyList();
+   }
+
+   @Override
+   public int compareTo(ParameterDescriptor o) {
+      int result = index - o.getIndex();
+      if(result != 0){
+         return result;
+      }
+      return name.compareTo(o.getName());
    }
 
    @Override
