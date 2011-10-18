@@ -1,46 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" targetNamespace="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd" xmlns:sql="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd" xmlns:tns="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+  <xs:element name="abstractXmlQueryCollection" type="tns:abstractXmlQueryCollection"/>
+
   <xs:element name="queryCollection" type="tns:xmlQueryCollection"/>
 
   <xs:complexType name="xmlQueryCollection">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractXmlQueryCollection">
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="simpleQuery" type="tns:simpleQuery"/>
+            <xs:element name="select" type="tns:xml-select"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="abstractXmlQueryCollection">
     <xs:sequence>
-      <xs:element name="dialectConfig" type="tns:dialectConfig" nillable="true" minOccurs="0"/>
+      <xs:element name="dialectConfig" type="tns:dialectConfig" minOccurs="0"/>
       <xs:element name="defaultExpressionConfig" type="tns:expressionConfig" nillable="true" minOccurs="0"/>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="simpleQuery" type="tns:simpleQuery"/>
-        <xs:element name="select" type="tns:xml-select"/>
-      </xs:choice>
     </xs:sequence>
     <xs:attribute name="dialect" type="xs:string" use="required"/>
-  </xs:complexType>
-
-  <xs:complexType name="dialectConfig">
-    <xs:sequence>
-      <xs:element name="item" type="tns:dialectConfigItem" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="dialectConfigItem">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute name="key" type="tns:dialectConfigKey"/>
-      </xs:extension>
-    </xs:simpleContent>
-  </xs:complexType>
-
-  <xs:complexType name="expressionConfig">
-    <xs:sequence>
-      <xs:element name="item" type="tns:expressionConfigItem" minOccurs="0" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="expressionConfigItem">
-    <xs:simpleContent>
-      <xs:extension base="xs:string">
-        <xs:attribute name="key" type="tns:expressionConfigKey"/>
-      </xs:extension>
-    </xs:simpleContent>
   </xs:complexType>
 
   <xs:complexType name="simpleQuery">
@@ -98,6 +81,20 @@
     <xs:simpleContent>
       <xs:extension base="tns:xmlParameter">
         <xs:attribute name="type" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="expressionConfig">
+    <xs:sequence>
+      <xs:element name="item" type="tns:expressionConfigItem" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="expressionConfigItem">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="tns:expressionConfigKey"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
@@ -286,6 +283,28 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="dialectConfig">
+    <xs:sequence>
+      <xs:element name="item" type="tns:dialectConfigItem" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dialectConfigItem">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="tns:dialectConfigKey"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="expressionConfigKey">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DIALECT"/>
+      <xs:enumeration value="IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS"/>
+      <xs:enumeration value="PARAMETER_REGEXP_PATTERN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <xs:simpleType name="dialectConfigKey">
     <xs:restriction base="xs:string">
       <xs:enumeration value="identifier-quoting-strategy"/>
@@ -296,14 +315,6 @@
       <xs:enumeration value="parameter-factory"/>
       <xs:enumeration value="default-input-date-formats"/>
       <xs:enumeration value="output-date-format"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="expressionConfigKey">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="DIALECT"/>
-      <xs:enumeration value="IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS"/>
-      <xs:enumeration value="PARAMETER_REGEXP_PATTERN"/>
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
