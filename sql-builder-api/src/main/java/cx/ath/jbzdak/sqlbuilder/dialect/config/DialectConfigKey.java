@@ -82,7 +82,7 @@ public enum DialectConfigKey {
    DEFAULT_INPUT_DATE_FORMATS{
       @Override
       public Object getDefault(Dialect d) {
-         return Arrays.asList("yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy");
+         return Arrays.asList("yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy", "dd-MM-yyyy");
       }
    },
    @XmlEnumValue("output-date-format")
