@@ -24,11 +24,22 @@ import java.util.List;
 /**
  * Created by: Jacek Bzdak
  */
-public interface ParameterDescriptor {
+public interface ParameterDescriptor extends Comparable<ParameterDescriptor>{
 
    String getName();
 
    String getType();
+
+   boolean isRequired();
+
+   /**
+    * Used to sort parameters in gui context
+    * @return
+    */
+   int getIndex();
+
+   void setIndex(int index);
+
 
    List<ParameterValueDescriptor> getValues();
 }

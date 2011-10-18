@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -36,5 +37,5 @@ public interface BasicSQLFactory {
 
    Object setParameterValue(String parameterName, Object value);
 
-   Set<? extends ParameterDescriptor> getParameters();
+   Collection<? extends ParameterDescriptor> getParameters();
 }
