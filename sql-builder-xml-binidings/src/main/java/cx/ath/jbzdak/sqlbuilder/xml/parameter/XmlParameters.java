@@ -37,9 +37,12 @@ public class XmlParameters {
 
 //   @XmlTransient
    public List<Parameter<?>> getParameters(){
+      int idx = 0;
       List<Parameter<?>> params = new ArrayList<Parameter<?>>();
       for (XmlParameter parameter : xmlParameters) {
-         params.add(parameter.createParameter());
+         Parameter<?> p = parameter.createParameter();
+         p.setIndex(idx++);
+         params.add(p);
       }
       return params;
    }
