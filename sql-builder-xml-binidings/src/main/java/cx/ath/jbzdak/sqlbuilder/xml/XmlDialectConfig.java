@@ -32,7 +32,6 @@ import java.util.List;
 @XmlType(name = "dialectConfig")
 public class XmlDialectConfig {
 
-
    private List<DialectConfigItem> configItems = new ArrayList<DialectConfigItem>();
 
    @XmlElement(name = "item")

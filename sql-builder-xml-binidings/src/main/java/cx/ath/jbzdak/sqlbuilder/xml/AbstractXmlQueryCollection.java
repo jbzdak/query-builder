@@ -8,15 +8,15 @@ import cx.ath.jbzdak.sqlbuilder.xml.query.AbstractQuery;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.*;
 import java.io.InputStream;
 import java.util.*;
 
 /**
  * Created by: Jacek Bzdak
  */
+@XmlRootElement
+@XmlType(propOrder = {"xmlDialectConfig", "xmlDefaultExpressionConfig"})
 public class AbstractXmlQueryCollection implements QueryCollection {
 
    protected String xmlDialect;
@@ -50,7 +50,7 @@ public class AbstractXmlQueryCollection implements QueryCollection {
       this.xmlDialect = xmlDialect;
    }
 
-   @XmlElement(nillable = true, required = false, name = "dialectConfig")
+   @XmlElement(required = false, name = "dialectConfig")
    public XmlDialectConfig getXmlDialectConfig() {
       return xmlDialectConfig;
    }
@@ -99,6 +99,7 @@ public class AbstractXmlQueryCollection implements QueryCollection {
       return defaultExpressionConfig;
    }
 
+   @XmlTransient
    public DialectConfig getDialectConfig() {
       if (dialectConfig == null) {
          if(xmlDialectConfig==null){
@@ -120,7 +121,7 @@ public class AbstractXmlQueryCollection implements QueryCollection {
    }
 
    public Set<String> getQueryNames() {
-      return queries.keySet();
+      return getQueries().keySet();
    }
 
    public void setJdbcUrl(String jdbc) {
