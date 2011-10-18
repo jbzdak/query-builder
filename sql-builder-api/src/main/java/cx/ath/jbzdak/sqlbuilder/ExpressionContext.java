@@ -167,10 +167,11 @@ public class ExpressionContext {
 
    public Object setParameterValue(String parameterName, Object value) {
       try {
-         if(!parameters.containsKey(parameterName)){
+         Parameter parameter = parameters.get(parameterName);
+         if(parameter==null){
             throw new InvalidParameterException("Unknown parameter name '" + parameterName + "'");
          }
-         return parameterValues.put(parameterName, value);
+         return parameterValues.put(parameterName, parameter.fromObject(value));
       } finally {
          boundParameters = null;
       }
@@ -187,7 +188,14 @@ public class ExpressionContext {
    }
 
    public void addParameter(Parameter p){
+      addParameter(p, true);
+   }
+
+   public void addParameter(Parameter p, boolean override){
       Parameter oldParam = parameters.get(p.getName());
+      if(oldParam != null && !override){
+         return;
+      }
       if(oldParam != null &&
               ! ParameterType.DEFAULTT_PARAMETER.equals(oldParam.getType()) &&
               ! oldParam.getType().equals(p.getType())){
