@@ -22,6 +22,8 @@ package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 import cx.ath.jbzdak.sqlbuilder.Join;
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.Select;
+import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
+import cx.ath.jbzdak.sqlbuilder.expression.NAryBooleanExpression;
 
 /**
  * Created by: Jacek Bzdak
@@ -38,9 +40,20 @@ public class SelectPeer extends AbstractPeer<Select>{
          join.appendTo(renderingContext, stringBuilder);
       }
 
-      if(parent.getWhere() != null){
+      BooleanExpressionMarker where = parent.getWhere();
+      boolean renderWhere = where != null;
+      if(renderWhere){
+         if (where instanceof NAryBooleanExpression) {
+            NAryBooleanExpression expression = (NAryBooleanExpression) where;
+            if(!expression.hasExpressions()){
+               renderWhere = false;
+            }
+         }
+      }
+
+      if(renderWhere){
          stringBuilder.append(" WHERE ");
-         parent.getWhere().appendTo(renderingContext, stringBuilder);
+         where.appendTo(renderingContext, stringBuilder);
       }
 
 

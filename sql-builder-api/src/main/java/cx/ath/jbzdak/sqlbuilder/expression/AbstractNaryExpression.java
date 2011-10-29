@@ -2,6 +2,7 @@ package cx.ath.jbzdak.sqlbuilder.expression;
 
 import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
 import cx.ath.jbzdak.sqlbuilder.PeerIntermediateSQLObject;
+import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 
 import java.security.InvalidParameterException;
 import java.util.*;
@@ -34,6 +35,17 @@ public abstract class AbstractNaryExpression<EM extends IntermediateSQLFactory> 
 
    public String getType() {
       return type;
+   }
+
+   /**
+    *
+    */
+   public boolean hasExpressions(){
+      Boolean ignoreExpressions = (Boolean) getContext().getExpressionConfig().get(ExpressionConfigKey.IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS);
+      if(ignoreExpressions){
+         return getExpressionsWithoutUnboundParams().size() != 0;
+      }
+      return getExpressions().size() != 0;
    }
 
    public List<EM> getExpressions() {

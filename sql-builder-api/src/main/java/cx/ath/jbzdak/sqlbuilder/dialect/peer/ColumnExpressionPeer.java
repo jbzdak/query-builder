@@ -44,7 +44,6 @@ public class ColumnExpressionPeer extends AbstractPeer<ColumnExpression>{
       }
 
       PeerUtils.appendIdentifier(stringBuilder, renderingContext, quotingStrategy, parent.getSchema(), parent.getTable(), parent.getColumn(), parent.getAlias());
-
    }
 
 

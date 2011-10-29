@@ -46,6 +46,7 @@ public class MiscUtils {
    }
 
    static String toSQL(IntermediateSQLObject sqlFactory){
+      sqlFactory.updateContext();
       RenderingContext renderingContext = sqlFactory.getContext().renderingContext();
       StringBuilder stringBuilder = new StringBuilder();
       sqlFactory.appendTo(renderingContext, stringBuilder);

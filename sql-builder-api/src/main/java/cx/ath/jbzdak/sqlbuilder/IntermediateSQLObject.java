@@ -47,13 +47,22 @@ public abstract class IntermediateSQLObject implements IntermediateSQLFactory {
       propertyChangeSupport.addPropertyChangeListener(new PropagateContextPCL());
    }
 
-   public void collectChildren() {
-      children.clear();
-      sqlParts.clear();
-      for (Field field : getClass().getDeclaredFields()) {
+
+   private void collectChildernFromClass(Class clazz){
+      for (Field field : clazz.getDeclaredFields()) {
          if(!Modifier.isStatic(field.getModifiers())){
             collectSingleField(field);
          }
+      }
+   }
+
+   public void collectChildren() {
+      children.clear();
+      sqlParts.clear();
+      Class clazz = getClass();
+      while (clazz != Object.class){
+         collectChildernFromClass(clazz);
+         clazz = clazz.getSuperclass();
       }
    }
 
