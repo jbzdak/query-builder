@@ -14,5 +14,6 @@ public class DefaultParameterFactory extends AbstractParameterFactory{
       addBinding(ParameterType.DEFAULTT_PARAMETER, DefaultParameter.class);
       addBinding(ParameterType.TABLE_PARAMETER, TableParameter.class);
       addBinding(ParameterType.DATE, DateParameter.class);
+      addBinding(ParameterType.DOUBLE_PARAMETER, DoubleParameter.class);
    }
 }
