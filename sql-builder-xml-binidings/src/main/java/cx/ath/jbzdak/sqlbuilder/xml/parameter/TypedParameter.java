@@ -28,6 +28,10 @@ public class TypedParameter extends XmlParameter{
    @Override
    public Parameter<?> createParameter() {
       AbstractXmlQueryCollection collection = XmlParsingContext.getCollection();
-      return collection.getDialect().createParameter(name, type);
+      Parameter p = collection.getDialect().createParameter(name, type);
+      if (getDefaultValue() != null && getDefaultValue().trim().length() !=0){
+         p.setDefaultValue(p.fromString(getDefaultValue()));
+      }
+      return p;
    }
 }

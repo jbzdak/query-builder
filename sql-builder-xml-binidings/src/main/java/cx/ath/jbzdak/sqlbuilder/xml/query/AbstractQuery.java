@@ -21,12 +21,17 @@ package cx.ath.jbzdak.sqlbuilder.xml.query;
 
 import cx.ath.jbzdak.sqlbuilder.Namespace;
 import cx.ath.jbzdak.sqlbuilder.xml.QueryTag;
+import cx.ath.jbzdak.sqlbuilder.xml.SingleQuery;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.xml.parameter.XmlParameters;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.StringWriter;
 
 /**
  * Created by: Jacek Bzdak

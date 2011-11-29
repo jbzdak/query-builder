@@ -103,7 +103,7 @@ public class ExpressionContext {
    }
 
    public <T> T resolveParameter(Parameter<T> parameter){
-      addParameter(parameter);
+      addParameter(parameter, false);
       return (T) resolveParameter(parameter.getName());
    }
 
@@ -113,6 +113,10 @@ public class ExpressionContext {
       }
       BoundParameter boundParameter = getBoundParameters().get(parameterName);
       if(boundParameter == null){
+         Parameter parameter = getParameterMap().get(parameterName);
+         if (parameter != null){
+            return parameter.getDefaultValue();
+         }
          return null;
       }
       return boundParameter.getValue();
@@ -150,6 +154,11 @@ public class ExpressionContext {
 
    public Set<Parameter> getParameters(){
       return Collections.unmodifiableSet(new HashSet<Parameter>(parameters.values()));
+   }
+
+   Map<String, Parameter> getParameterMap(){
+      return Collections.unmodifiableMap(parameters);
+
    }
 
    public Set<Parameter> getParametersForItem(IntermediateSQLFactory intermediateSQLFactory){

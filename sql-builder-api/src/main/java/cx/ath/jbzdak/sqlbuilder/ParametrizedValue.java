@@ -29,8 +29,7 @@ public class ParametrizedValue<T> {
 
    T value;
 
-
-   public T getValue(ExpressionContext context){
+   private T resolveValue(ExpressionContext context){
       if(valueSet){
          return value;
       }
@@ -38,6 +37,21 @@ public class ParametrizedValue<T> {
          return null;
       }
       return context.resolveParameter(parameterValue);
+   }
+
+   public T getValue(ExpressionContext context){
+      T result = resolveValue(context);
+      if (result == null && required){
+         if (parameterValue != null){
+            throw new UnvaluedParameter("Parametrized value is unset while it should be set. Parameter name is '"
+               + parameterValue.getName() + "'");
+         }else {
+            throw new UnvaluedParameter("Parametrized value is unset while it should be set.");
+         }
+
+      }
+      return result;
+
    }
 
 

@@ -27,8 +27,6 @@ import java.util.Set;
  */
 public interface BasicSQLFactory {
 
-
-
    String getName();
 
    String getDescription();
