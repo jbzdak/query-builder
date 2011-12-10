@@ -31,10 +31,6 @@ public class SimpleQuery extends IntermediateSQLObject implements SQLFactory{
 
    String sql;
 
-   String name;
-
-   String description;
-
    public SimpleQuery() {
    }
 
@@ -47,28 +43,17 @@ public class SimpleQuery extends IntermediateSQLObject implements SQLFactory{
       return getContext().getParameters();
    }
 
+   @Override
+   public ExpressionContext getContext() {
+      return super.getContext();
+   }
+
    public String getSql() {
       return sql;
    }
 
    public void setSql(String sql) {
       this.sql = sql;
-   }
-
-   public String getName() {
-      return name;
-   }
-
-   public void setName(String name) {
-      this.name = name;
-   }
-
-   public String getDescription() {
-      return description;
-   }
-
-   public void setDescription(String description) {
-      this.description = description;
    }
 
    public void appendTo(RenderingContext renderingContext, StringBuilder stringBuilder) {

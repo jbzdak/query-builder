@@ -34,10 +34,13 @@ public class IntegerParameter extends AbstractParameter<Integer> {
    }
 
    public Integer fromObject(Object o) {
+      if (o == null){
+         return null;
+      }
       if(o instanceof Number){
          Number n = (Number) o;
          return n.intValue();
       }
-      throw new UnsupportedOperationException("Cant covert '" +o +"' to integer parameter");
+      throw new UnsupportedOperationException("Cant covert '" + o +"' to integer parameter");
    }
 }

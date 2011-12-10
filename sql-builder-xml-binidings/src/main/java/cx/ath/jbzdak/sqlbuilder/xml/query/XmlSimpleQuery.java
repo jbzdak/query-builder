@@ -22,6 +22,7 @@ package cx.ath.jbzdak.sqlbuilder.xml.query;
 import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
 import cx.ath.jbzdak.sqlbuilder.SQLFactory;
 import cx.ath.jbzdak.sqlbuilder.SimpleQuery;
+import cx.ath.jbzdak.sqlbuilder.xml.BasicQueryImpl;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
@@ -51,7 +52,7 @@ public class XmlSimpleQuery extends AbstractQuery{
       this.query = query;
    }
 
-   public SQLFactory createQuery() {
+   public BasicQueryImpl createQuery() {
       SimpleQuery simpleQuery = new SimpleQuery(query);
       ExpressionContext expressionContext = new ExpressionContext(
          xmlExpressionConfig.createConfig()
@@ -59,8 +60,7 @@ public class XmlSimpleQuery extends AbstractQuery{
       simpleQuery.setContext(expressionContext);
 
       simpleQuery.addParameters(parameters.getParameters());
-      simpleQuery.setName(name);
-      simpleQuery.setDescription(description);
-      return simpleQuery;
+      BasicQueryImpl basicQuery = new BasicQueryImpl(simpleQuery, this.descriptor.getMetadata(name, description));
+      return basicQuery;
    }
 }

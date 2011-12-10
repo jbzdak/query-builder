@@ -5,44 +5,36 @@
 
   <xs:element name="queryCollection" type="tns:xmlQueryCollection"/>
 
-  <xs:complexType name="xmlQueryCollection">
-    <xs:complexContent>
-      <xs:extension base="tns:abstractXmlQueryCollection">
-        <xs:sequence>
-          <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element name="simpleQuery" type="tns:simpleQuery"/>
-            <xs:element name="select" type="tns:xml-select"/>
-          </xs:choice>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
+  <xs:element name="singleQuery" type="tns:singleQuery"/>
 
-  <xs:complexType name="abstractXmlQueryCollection">
+  <xs:complexType name="singleQuery">
     <xs:sequence>
-      <xs:element name="dialectConfig" type="tns:dialectConfig" minOccurs="0"/>
-      <xs:element name="defaultExpressionConfig" type="tns:expressionConfig" nillable="true" minOccurs="0"/>
+      <xs:element name="abstractQuery" type="tns:abstractQuery" minOccurs="0"/>
     </xs:sequence>
-    <xs:attribute name="dialect" type="xs:string" use="required"/>
-  </xs:complexType>
-
-  <xs:complexType name="simpleQuery">
-    <xs:complexContent>
-      <xs:extension base="tns:abstractQuery">
-        <xs:sequence>
-          <xs:element name="query" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="abstractQuery" abstract="true">
     <xs:sequence>
       <xs:element name="description" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="metadata" type="tns:xmlQueryDescriptor" minOccurs="0"/>
       <xs:element name="parameters" type="tns:xmlParameters" nillable="true" minOccurs="0"/>
       <xs:element name="expressionConfig" type="tns:expressionConfig" nillable="true" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="xmlQueryDescriptor">
+    <xs:sequence>
+      <xs:element name="key" type="tns:queryDescriptorKey" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="queryDescriptorKey">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="key" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
   </xs:complexType>
 
   <xs:complexType name="xmlParameters">
@@ -80,6 +72,7 @@
   <xs:complexType name="typedParameter">
     <xs:simpleContent>
       <xs:extension base="tns:xmlParameter">
+        <xs:attribute name="description" type="xs:string"/>
         <xs:attribute name="type" type="xs:string"/>
       </xs:extension>
     </xs:simpleContent>
@@ -97,6 +90,37 @@
         <xs:attribute name="key" type="tns:expressionConfigKey"/>
       </xs:extension>
     </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="xmlQueryCollection">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractXmlQueryCollection">
+        <xs:sequence>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="simpleQuery" type="tns:simpleQuery"/>
+            <xs:element name="select" type="tns:xml-select"/>
+          </xs:choice>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="abstractXmlQueryCollection">
+    <xs:sequence>
+      <xs:element name="dialectConfig" type="tns:dialectConfig" minOccurs="0"/>
+      <xs:element name="defaultExpressionConfig" type="tns:expressionConfig" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="dialect" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="simpleQuery">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractQuery">
+        <xs:sequence>
+          <xs:element name="query" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="xml-select">

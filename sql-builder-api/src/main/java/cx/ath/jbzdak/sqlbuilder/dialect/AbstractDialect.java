@@ -62,7 +62,7 @@ public abstract class AbstractDialect implements Dialect{
    }
 
    public void setDialectConfig(DialectConfig dialectConfig){
-      if(dialectConfigLocked){
+      if(dialectConfigLocked  && dialectConfig != this.dialectConfig){
          throw new UnsupportedOperationException("DialectConfig can be set only once!");
       }
       if(dialectConfig == null){

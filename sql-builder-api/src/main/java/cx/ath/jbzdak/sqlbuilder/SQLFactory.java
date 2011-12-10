@@ -22,5 +22,9 @@ package cx.ath.jbzdak.sqlbuilder;
 /**
  * Created by: Jacek Bzdak
  */
-public interface SQLFactory extends IntermediateSQLFactory, BasicSQLFactory {
+public interface SQLFactory extends IntermediateSQLFactory {
+
+   ExpressionContext getContext();
+
+   String toSQL();
 }

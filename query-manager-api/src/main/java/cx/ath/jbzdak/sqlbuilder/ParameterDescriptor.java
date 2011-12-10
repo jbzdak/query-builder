@@ -32,6 +32,8 @@ public interface ParameterDescriptor extends Comparable<ParameterDescriptor>{
 
    boolean isRequired();
 
+   String getDescription();
+
    /**
     * Used to sort parameters in gui context
     * @return
@@ -39,7 +41,6 @@ public interface ParameterDescriptor extends Comparable<ParameterDescriptor>{
    int getIndex();
 
    void setIndex(int index);
-
 
    List<ParameterValueDescriptor> getValues();
 }

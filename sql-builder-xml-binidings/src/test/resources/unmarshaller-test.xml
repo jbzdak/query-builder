@@ -17,7 +17,7 @@
   ~ You should have received a copy of the GNU Lesser General Public License
   ~ along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<queryCollection xmlns="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings=1.0.xsd" dialect="default">
+<queryCollection xmlns="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd" dialect="default">
     <dialectConfig>
         <item key="PRETTIFY_SQL">PRETTY</item>
     </dialectConfig>
@@ -50,7 +50,7 @@
                 <and>
                     <cond>foo = 2</cond>
                     <is-null not="false">
-                        <col as="as" schema="FOO_SCHEMA">foo</col>
+                        <col as="as" schema="FOO_SCHEMA" table="BAZ">foo</col>
                     </is-null>
                 </and>
                 <cond>baz &lt;&gt; 32</cond>

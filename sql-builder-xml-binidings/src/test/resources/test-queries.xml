@@ -17,7 +17,7 @@
   ~ along with Query builder.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<queryCollection xmlns="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings=1.0.xsd" dialect="default">
+<queryCollection xmlns="http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd" dialect="default">
 
     <dialectConfig>
         <item key="IDENTIFIER_QUOTING_STRATEGY">ALWAYS</item>
@@ -46,6 +46,33 @@
         <parameters>
             <integerParameter name="data_source" />
         </parameters>
+    </select>
+
+    <select name="test-metadata">
+        <expressionConfig>
+            <item key="IGNORE_EXPRESSIONS_WITH_UNBOUND_PARAMS">TRUE</item>
+        </expressionConfig>
+
+
+        <sel>
+            <col table="dp">value</col>
+        </sel>
+        <from>
+            <table as="dp">DATA_POINT_DAILY</table>
+        </from>
+        <where>
+            <and>
+                <cond>dp.data_source = :data_source</cond>
+                <is-null not="true">
+                    <col table="dp" >value</col>
+                </is-null>
+            </and>
+        </where>
+        <parameters>
+            <integerParameter name="data_source" />
+            <parameter type="integer" description="foo" name="point-type">4</parameter>
+        </parameters>
+
     </select>
 
 </queryCollection>

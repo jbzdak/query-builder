@@ -19,10 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.xml.query;
 
-import cx.ath.jbzdak.sqlbuilder.ExpressionContext;
-import cx.ath.jbzdak.sqlbuilder.IntermediateSQLFactory;
-import cx.ath.jbzdak.sqlbuilder.Select;
-import cx.ath.jbzdak.sqlbuilder.UnsafeSelect;
+import cx.ath.jbzdak.sqlbuilder.*;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfig;
 import cx.ath.jbzdak.sqlbuilder.generic.Factory;
 import cx.ath.jbzdak.sqlbuilder.xml.*;
@@ -47,7 +44,7 @@ public class XmlSelect extends AbstractQuery{
 
    XmlBooleanCondition where;
 
-   public Select createQuery() {
+   public BasicSQLFactory createQuery() {
 
       AbstractXmlQueryCollection queryCollection = XmlParsingContext.getCollection();
 
@@ -64,7 +61,12 @@ public class XmlSelect extends AbstractQuery{
       }
       select.setWhere(where.create());
       select.addParameters(parameters.getParameters());
-      return select;
+      BasicQueryImpl basicQuery = new BasicQueryImpl(
+              select,
+              descriptor.getMetadata(name, description)
+      );
+
+      return basicQuery;
    }
 
    @XmlElementWrapper(name = "sel")

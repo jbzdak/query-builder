@@ -19,6 +19,7 @@
 
 package cx.ath.jbzdak.sqlbuilder.parameter;
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.YearDV;
 import cx.ath.jbzdak.sqlbuilder.ParameterDescriptor;
 
 /**
@@ -39,6 +40,8 @@ public interface Parameter<T>  extends ParameterDescriptor{
    T fromObject(Object o);
 
    T fromString(String string);
+   
+   String humanReadableForm(T value);
 
    boolean isRequired();
 

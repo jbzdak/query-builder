@@ -156,7 +156,7 @@ public class ExpressionContext {
       return Collections.unmodifiableSet(new HashSet<Parameter>(parameters.values()));
    }
 
-   Map<String, Parameter> getParameterMap(){
+   public Map<String, Parameter> getParameterMap(){
       return Collections.unmodifiableMap(parameters);
 
    }

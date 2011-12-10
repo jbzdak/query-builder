@@ -38,6 +38,8 @@ public abstract class AbstractParameter<T> implements Parameter<T>{
 
    boolean required;
 
+   String description;
+
    int index;
 
    protected AbstractParameter(String type, String name) {
@@ -46,6 +48,11 @@ public abstract class AbstractParameter<T> implements Parameter<T>{
       }
       this.name = name;
       this.type = type;
+   }
+
+   @Override
+   public String humanReadableForm(T value) {
+      return String.valueOf(value);
    }
 
    @Override
@@ -84,6 +91,14 @@ public abstract class AbstractParameter<T> implements Parameter<T>{
 
    public String getType() {
       return type;
+   }
+
+   public String getDescription() {
+      return description;
+   }
+
+   public void setDescription(String description) {
+      this.description = description;
    }
 
    public List<ParameterValueDescriptor> getValues() {

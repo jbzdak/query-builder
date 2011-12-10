@@ -43,6 +43,7 @@
                     <destdir>${basedir}/schemas</destdir>
                     <includes>
                        <include>cx/ath/jbzdak/sqlbuilder/xml/XmlQueryCollection.java</include>
+                       <include>cx/ath/jbzdak/sqlbuilder/xml/SingleQuery.java</include>
                     </includes>
                     <schemas>
                         <schema>

@@ -40,7 +40,6 @@ import java.util.*;
 @XmlRootElement(name = "queryCollection")
 public class XmlQueryCollection extends AbstractXmlQueryCollection {
 
-
    public static XmlQueryCollection create(InputStream inputStream) throws JAXBException {
       Unmarshaller unmarshaller = JaxbEntryPoint.DEFAULT_CONTEXT.createUnmarshaller();
       XmlQueryCollection unmarshal = (XmlQueryCollection) unmarshaller.unmarshal(inputStream);
@@ -51,6 +50,7 @@ public class XmlQueryCollection extends AbstractXmlQueryCollection {
    public XmlQueryCollection() {
       XmlParsingContext.setXmlQueryCollection(this);
    }
+
 
    @XmlElements({
            @XmlElement(name = "simpleQuery", type = XmlSimpleQuery.class),

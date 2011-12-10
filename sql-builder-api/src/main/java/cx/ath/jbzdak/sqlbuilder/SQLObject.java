@@ -45,6 +45,11 @@ public abstract class SQLObject extends PeerIntermediateSQLObject implements SQL
       return description;
    }
 
+   @Override
+   public ExpressionContext getContext() {
+      return super.getContext();
+   }
+
    public void setDescription(String description) {
       this.description = description;
    }

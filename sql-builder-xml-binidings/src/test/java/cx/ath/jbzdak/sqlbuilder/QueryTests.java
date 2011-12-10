@@ -42,7 +42,7 @@ public class QueryTests {
 
    @Test
    public void testSimpleQuery() throws Exception {
-      Select select = (Select) xmlQueryCollection.getQuery("simple-select");
+      BasicSQLFactory select = xmlQueryCollection.getQuery("simple-select");
 
      // select.setParameterValue("data_source", 1);
 

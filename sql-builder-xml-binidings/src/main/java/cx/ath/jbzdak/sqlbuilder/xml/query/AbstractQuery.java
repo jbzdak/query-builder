@@ -23,6 +23,7 @@ import cx.ath.jbzdak.sqlbuilder.Namespace;
 import cx.ath.jbzdak.sqlbuilder.xml.QueryTag;
 import cx.ath.jbzdak.sqlbuilder.xml.SingleQuery;
 import cx.ath.jbzdak.sqlbuilder.xml.XmlExpressionConfig;
+import cx.ath.jbzdak.sqlbuilder.xml.XmlQueryDescriptor;
 import cx.ath.jbzdak.sqlbuilder.xml.parameter.XmlParameters;
 
 import javax.xml.bind.JAXBContext;
@@ -39,9 +40,11 @@ import java.io.StringWriter;
 @XmlType
 public abstract class AbstractQuery implements QueryTag{
 
-   String name;
+   protected String name;
 
-   String description;
+   protected String description;
+
+   protected XmlQueryDescriptor descriptor = new XmlQueryDescriptor();
 
    XmlParameters parameters = new XmlParameters();
 
@@ -62,6 +65,16 @@ public abstract class AbstractQuery implements QueryTag{
 
    public void setName(String name) {
       this.name = name;
+   }
+
+
+   @XmlElement(name = "metadata", namespace = Namespace.NAMESPACE)
+   public XmlQueryDescriptor getDescriptor() {
+      return descriptor;
+   }
+
+   public void setDescriptor(XmlQueryDescriptor descriptor) {
+      this.descriptor = descriptor;
    }
 
    @XmlElement(required = false, nillable = true, namespace = Namespace.NAMESPACE)

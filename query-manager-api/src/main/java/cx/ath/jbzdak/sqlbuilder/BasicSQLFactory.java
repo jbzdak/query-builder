@@ -29,11 +29,13 @@ public interface BasicSQLFactory {
 
    String getName();
 
-   String getDescription();
+   QueryDescriptor getDescriptor();
 
    String toSQL();
 
    Object setParameterValue(String parameterName, Object value);
 
-   Collection<? extends ParameterDescriptor> getParameters();
+
+
+
 }
