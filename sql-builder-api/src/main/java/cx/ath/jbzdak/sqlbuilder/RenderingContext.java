@@ -24,6 +24,7 @@ import cx.ath.jbzdak.sqlbuilder.dialect.QuotingManager;
 import cx.ath.jbzdak.sqlbuilder.dialect.config.DialectConfig;
 import cx.ath.jbzdak.sqlbuilder.expressionConfig.ExpressionConfigKey;
 import cx.ath.jbzdak.sqlbuilder.parameter.BoundParameter;
+import cx.ath.jbzdak.sqlbuilder.parameter.Parameter;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -142,9 +143,18 @@ public class RenderingContext{
       StringBuffer stringBuffer = new StringBuffer();
       while (matcher.find()){
          Map<String, BoundParameter> boundParameters = expressionContext.getBoundParameters();
-         BoundParameter boundParameter = boundParameters.get(matcher.group(1));
+         String paramName = matcher.group(1);
+         BoundParameter boundParameter = boundParameters.get(paramName);
          if(boundParameter == null){
-            throw new UnvaluedParameter("No value set for parameter '" + matcher.group(1) + "'");
+            Parameter param = expressionContext.getParameterMap().get(paramName);
+            if(param != null && param.getDefaultValue() != null){
+               boundParameter = new BoundParameter();
+               boundParameter.setParent(param);
+               boundParameter.setValue(param.getDefaultValue());
+               boundParameter.setContext(expressionContext);
+            }else{
+               throw new UnvaluedParameter("No value set for parameter '" + paramName + "'");
+            }
          }
          matcher.appendReplacement(stringBuffer, MiscUtils.toSQL(this, boundParameter));
       }
