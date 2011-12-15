@@ -75,7 +75,11 @@ public class AbstractXmlQueryCollection implements QueryCollection {
    }
 
    public BasicSQLFactory getQuery(String name){
-      return getQueries().get(name).createQuery();
+      QueryTag queryTag = getQueries().get(name);
+      if (queryTag == null){
+         throw new NoSuchElementException("Can't find query '" + name + "'");
+      }
+      return queryTag.createQuery();
    }
 
    public Dialect getDialect() {
