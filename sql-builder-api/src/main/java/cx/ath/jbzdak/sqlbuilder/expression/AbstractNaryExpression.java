@@ -27,7 +27,7 @@ public abstract class AbstractNaryExpression<EM extends IntermediateSQLFactory> 
 
    public AbstractNaryExpression(String type, Collection<? extends EM> expressions) {
       if(!NAryExpressionType.FAKE_ENUM.values().contains(type)){
-         throw new InvalidParameterException("Unknown boolean expression type");
+         throw new InvalidParameterException("Unknown expression type");
       }
       this.expressions.addAll(expressions);
       this.type = type;

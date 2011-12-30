@@ -88,12 +88,17 @@ public class DefaultExpressionFactory implements ExpressionFactory {
 
    @Override
    public UnaryExpression minus(ExpressionArgument argument) {
-      return new UnaryBooleanExpression(UnaryExpressionType.IS_NON_NULL, argument);
+      return new UnaryBooleanExpression(UnaryExpressionType.MINUS, argument);
+   }
+
+   @Override
+   public BinaryExpression minus(ExpressionArgument argument1, ExpressionArgument argument2) {
+      return new BinaryExpression(UnaryExpressionType.MINUS, argument2, argument1);
    }
 
    @Override
    public UnaryExpression minus(Parameter<Number> argument) {
-      return new UnaryBooleanExpression(UnaryExpressionType.IS_NON_NULL, new ParameterLiteral(argument));
+      return new UnaryExpression(UnaryExpressionType.IS_NON_NULL, new ParameterLiteral(argument));
    }
 
    @Override

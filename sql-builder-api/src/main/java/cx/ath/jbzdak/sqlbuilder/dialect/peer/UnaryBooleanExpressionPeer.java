@@ -21,6 +21,7 @@ package cx.ath.jbzdak.sqlbuilder.dialect.peer;
 
 import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.expression.UnaryExpression;
+import cx.ath.jbzdak.sqlbuilder.expression.UnaryExpressionType;
 
 /**
  * Created by: Jacek Bzdak
@@ -31,9 +32,16 @@ public class UnaryBooleanExpressionPeer extends AbstractPeer<UnaryExpression>{
    protected void appendToInternal(final RenderingContext renderingContext, StringBuilder stringBuilder) {
       PeerUtils.appendInBrackets(stringBuilder, new PeerUtils.Appender() {
          public void appendTo(StringBuilder stringBuilder) {
-            parent.getExpression().appendTo(renderingContext, stringBuilder);
-            stringBuilder.append(" ");
-            stringBuilder.append(parent.getExpressionType());
+            if(UnaryExpressionType.MINUS.equals(parent.getExpressionType())){
+               stringBuilder.append(parent.getExpressionType());
+               stringBuilder.append(" ");
+               parent.getExpression().appendTo(renderingContext, stringBuilder);
+            }  else{
+               parent.getExpression().appendTo(renderingContext, stringBuilder);
+               stringBuilder.append(" ");
+               stringBuilder.append(parent.getExpressionType());
+            }
+
          }
       });
    }

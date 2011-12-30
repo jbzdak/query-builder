@@ -55,6 +55,8 @@ public interface ExpressionFactory {
 
    UnaryExpression minus(ExpressionArgument argument);
 
+   BinaryExpression minus(ExpressionArgument argument1, ExpressionArgument argument2);
+
    UnaryExpression minus(Parameter<Number> argument);
 
 
