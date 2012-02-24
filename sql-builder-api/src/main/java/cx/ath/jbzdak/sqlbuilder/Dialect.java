@@ -59,4 +59,6 @@ public interface Dialect {
 
    Parameter createParameter(String name, String type);
 
+   void dispose();
+
 }

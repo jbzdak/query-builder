@@ -21,5 +21,7 @@ public interface QueryCollection {
 
    void setCredentials(String username, String password);
 
+   void dispose();
+
 
 }

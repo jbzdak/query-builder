@@ -61,4 +61,11 @@ public class CompositeQueryCollection implements QueryCollection{
          queryCollection.setCredentials(username, password);
       }
    }
+
+   @Override
+   public void dispose() {
+      for (QueryCollection collection : internal) {
+         collection.dispose();
+      }
+   }
 }

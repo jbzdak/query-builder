@@ -173,4 +173,9 @@ public abstract class AbstractDialect implements Dialect{
    public QuotingManager getQuotingManager() {
       return quotingManager;
    }
+
+   @Override
+   public void dispose() {
+
+   }
 }

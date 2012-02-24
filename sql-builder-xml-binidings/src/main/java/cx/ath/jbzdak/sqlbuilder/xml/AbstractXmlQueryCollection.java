@@ -135,4 +135,9 @@ public class AbstractXmlQueryCollection implements QueryCollection {
    public void setCredentials(String username, String password) {
       //To change body of implemented methods use File | Settings | File Templates.
    }
+
+   @Override
+   public void dispose() {
+
+   }
 }
