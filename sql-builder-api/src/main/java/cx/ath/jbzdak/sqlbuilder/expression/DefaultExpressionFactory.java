@@ -87,6 +87,12 @@ public class DefaultExpressionFactory implements ExpressionFactory {
    }
 
    @Override
+   public UnaryBooleanExpression noopExpression(ColumnExpression columnExpression) {
+      return new UnaryBooleanExpression(UnaryExpressionType.NOOP, columnExpression);
+   }
+
+
+   @Override
    public UnaryExpression minus(ExpressionArgument argument) {
       return new UnaryBooleanExpression(UnaryExpressionType.MINUS, argument);
    }

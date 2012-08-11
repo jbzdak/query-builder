@@ -79,6 +79,5 @@ public interface ExpressionFactory {
    BinaryBooleanExpression like(ColumnExpression columnExpression, ExpressionArgument argument);
 
 
-
-
+   UnaryBooleanExpression noopExpression(ColumnExpression columnExpression);
 }

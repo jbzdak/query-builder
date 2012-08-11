@@ -28,7 +28,16 @@ import java.util.Collection;
  */
 public class UnaryExpressionType {
 
+   /**
+    * Noop expression. For example if foo and baz are boolean columns ... WHERE foo and baz.
+    *
+    *
+    */
+   public static final String NOOP = "";
+
+
    public static final String IS_NULL = "IS NULL";
+
    public static final String IS_NON_NULL = "IS NOT NULL";
 
    public static final String NOT = "NOT";

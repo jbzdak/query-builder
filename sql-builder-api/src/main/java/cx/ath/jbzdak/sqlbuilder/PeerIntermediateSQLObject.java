@@ -58,7 +58,7 @@ public abstract class PeerIntermediateSQLObject extends IntermediateSQLObject {
 
    protected void maybeRefreshPeer(ExpressionContext expressionContext){
       if(sqlPeer == null || !expressionContext.getDialect().equals(lastPeerGenerationDialect)){
-         sqlPeer = expressionContext.getDialect().getPeer(this);
+         setSqlPeer(expressionContext.getDialect().getPeer(this));
          lastPeerGenerationDialect = expressionContext.getDialect();
       }
    }
