@@ -86,6 +86,7 @@ public class DefaultDialect extends AbstractDialect{
       putPeer(transformerMap, IntegerLiteral.class, IntegerPeer.class);
       putPeer(transformerMap, AliasedValue.class, AliasedValuePeer.class);
       putPeer(transformerMap, GenericFunction.class, FunctionPeer.class);
+      putPeer(transformerMap, OrderByExpression.class, OrderByExpressionPeer.class);
 
       return transformerMap;
    }
