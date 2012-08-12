@@ -89,7 +89,7 @@ public class DefaultLiteralFactory implements LiteralFactory {
    }
 
    public SQLLiteral<String> create(String value){
-      return create(SQLLiteralType.DATE, value);
+      return create(SQLLiteralType.STRING, value);
    }
 
    public SQLLiteral<Parameter> create(Parameter parameter){

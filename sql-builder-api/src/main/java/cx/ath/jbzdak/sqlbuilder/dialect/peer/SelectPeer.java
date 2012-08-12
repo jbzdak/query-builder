@@ -24,6 +24,7 @@ import cx.ath.jbzdak.sqlbuilder.RenderingContext;
 import cx.ath.jbzdak.sqlbuilder.Select;
 import cx.ath.jbzdak.sqlbuilder.expression.BooleanExpressionMarker;
 import cx.ath.jbzdak.sqlbuilder.expression.NAryBooleanExpression;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * Created by: Jacek Bzdak
@@ -56,11 +57,17 @@ public class SelectPeer extends AbstractPeer<Select>{
          where.appendTo(renderingContext, stringBuilder);
       }
 
+      if(CollectionUtils.isNotEmpty(parent.getOrderByExpressions())){
+         stringBuilder.append(" ORDER BY ");
+         PeerUtils.joinSqls(renderingContext, stringBuilder, ", ", parent.getOrderByExpressions());
+      }
 
       if(parent.getLimit() != null){
          stringBuilder.append(" LIMIT ");
          stringBuilder.append(parent.getLimit());
       }
+
+
    }
 
 }

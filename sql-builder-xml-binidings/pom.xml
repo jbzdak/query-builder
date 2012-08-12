@@ -47,7 +47,7 @@
                     </includes>
                     <schemas>
                         <schema>
-                            <namespace>http://skimbleshanks.ath.cx/ns/sql-builder-xml-bindings-1.0.xsd</namespace>
+                            <namespace>http://lfitj.if.pw.edu.pl/schema/sql-builder-xml-bindings-1.0.xsd</namespace>
                             <file>sql-builder-xml-bindings-1.0.xsd</file>
                         </schema>
                     </schemas>

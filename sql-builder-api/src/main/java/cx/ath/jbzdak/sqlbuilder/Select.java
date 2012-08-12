@@ -41,6 +41,8 @@ public class Select extends SQLObject{
 
    List<Join> joins = new ArrayList<Join>();
 
+   List<OrderByExpression> orderByExpressions = new ArrayList<OrderByExpression>();
+
    BooleanExpressionMarker where;
 
    Integer limit;
@@ -81,6 +83,14 @@ public class Select extends SQLObject{
       columnExpressions.addAll(Arrays.asList(columnExpression));
    }
 
+   public void addOrderByExpression(OrderByExpression... orderByExpressions){
+      this.orderByExpressions.addAll(Arrays.asList(orderByExpressions));
+   }
+
+   public void addOrderByExpression(OrderByDirection direction, IntermediateSQLFactory expression){
+      orderByExpressions.add(new OrderByExpression(expression, direction));
+   }
+
    public void addFrom(Table table){
       from.add(table);
    }
@@ -111,6 +121,13 @@ public class Select extends SQLObject{
       propertyChangeSupport.firePropertyChange("where", oldWhere, this.where);
    }
 
+   public List<OrderByExpression> getOrderByExpressions() {
+      return orderByExpressions;
+   }
+
+   public void setOrderByExpressions(List<OrderByExpression> orderByExpressions) {
+      this.orderByExpressions = orderByExpressions;
+   }
 
    public List<IntermediateSQLFactory> getColumnExpressions() {
       return columnExpressions;
@@ -123,5 +140,7 @@ public class Select extends SQLObject{
    public BooleanExpressionMarker getWhere() {
       return where;
    }
+
+
 
 }
